@@ -107,11 +107,11 @@ export default function StoriesGrid() {
   const onEnd = useCallback(() => setDragging(false), []);
 
   return (
-    <section className="py-16 md:py-24 bg-[hsl(var(--background))]">
+    <section className="py-10 md:py-24 bg-[hsl(var(--background))]">
       <div className="container">
         {/* Heading */}
-        <div className="k5-reveal mb-10 md:mb-14 max-w-3xl">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-[hsl(var(--foreground))] tracking-tight leading-[1.05]">
+        <div className="k5-reveal mb-6 md:mb-14 max-w-3xl">
+          <h2 className="text-xl md:text-5xl font-extrabold text-[hsl(var(--foreground))] tracking-tight leading-[1.1]">
             Bilim insanları, yenilikçiler ve senin gibi üyelerden hikayeler.
           </h2>
         </div>
@@ -119,7 +119,7 @@ export default function StoriesGrid() {
         {/* Mobile: horizontal scroll */}
         <div
           ref={trackRef}
-          className={`md:hidden flex gap-3 overflow-x-auto hide-scrollbar pb-4 snap-x snap-mandatory grab-cursor ${
+          className={`md:hidden flex gap-2.5 overflow-x-auto hide-scrollbar pb-3 snap-x snap-mandatory grab-cursor ${
             dragging ? "dragging" : ""
           }`}
           onMouseDown={onMouseDown}
@@ -128,7 +128,7 @@ export default function StoriesGrid() {
           onMouseLeave={onEnd}
         >
           {tiles.map((tile, i) => (
-            <div key={i} className="flex-none w-[240px] snap-start">
+            <div key={i} className="flex-none w-[160px] snap-start">
               <Tile tile={tile} />
             </div>
           ))}
