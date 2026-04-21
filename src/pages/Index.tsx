@@ -80,10 +80,12 @@ const Index = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
+                  <path d="M3 7h11v10H3z" />
+                  <path d="M14 10h4l3 3v4h-7" />
+                  <circle cx="7" cy="18" r="2" />
+                  <circle cx="17" cy="18" r="2" />
                 </svg>
-                Stokta sadece 12 adet kaldı
+                Bugün 14:00'a kadar sipariş ver, yarın kapında
               </div>
 
               <PricingSection onAddToCart={handleAddToCart} />
@@ -121,7 +123,8 @@ const Index = () => {
 };
 
 function FAQSection() {
-  const [open, setOpen] = useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(0);
+  const [expanded, setExpanded] = useState(false);
 
   const faqs = [
     {
@@ -146,6 +149,9 @@ function FAQSection() {
     },
   ];
 
+  const visibleFaqs = expanded ? faqs : faqs.slice(0, 1);
+  const remaining = faqs.length - 1;
+
   return (
     <section className="py-16 bg-background">
       <div className="container max-w-3xl">
@@ -158,7 +164,7 @@ function FAQSection() {
           </h2>
         </div>
         <div className="space-y-3">
-          {faqs.map((faq, i) => (
+          {visibleFaqs.map((faq, i) => (
             <div key={i} className="k5-reveal border border-border rounded-2xl overflow-hidden bg-card">
               <button
                 onClick={() => setOpen(open === i ? null : i)}
@@ -180,6 +186,16 @@ function FAQSection() {
               )}
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-5">
+          <button
+            onClick={() => setExpanded((e) => !e)}
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-medium transition-colors"
+          >
+            {expanded ? "Azını gör" : `Devamını gör (${remaining})`}
+            <span className={`transition-transform ${expanded ? "rotate-180" : ""}`}>↓</span>
+          </button>
         </div>
       </div>
     </section>
