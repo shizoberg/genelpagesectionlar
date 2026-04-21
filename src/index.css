@@ -19,19 +19,19 @@
     --popover-foreground: 24 27% 9%;
 
     /* Brand */
-    --primary: 258 57% 26%;              /* deep plum */
+    --primary: 251 53% 44%;              /* brand purple */
     --primary-foreground: 0 0% 100%;
-    --primary-medium: 258 47% 38%;
-    --primary-light: 258 40% 94%;
+    --primary-medium: 251 47% 54%;
+    --primary-light: 251 50% 95%;
 
     /* Accents */
-    --secondary: 258 40% 94%;
-    --secondary-foreground: 258 57% 26%;
+    --secondary: 251 50% 95%;
+    --secondary-foreground: 251 53% 44%;
     --muted-bg: 33 20% 91%;
     --muted: 24 7% 44%;
     --muted-foreground: 24 7% 44%;
-    --accent: 258 40% 94%;
-    --accent-foreground: 258 57% 26%;
+    --accent: 251 50% 95%;
+    --accent-foreground: 251 53% 44%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
@@ -48,12 +48,12 @@
     --star: 44 90% 62%;
     --cream-2: 33 20% 93%;
     --cream-3: 33 15% 87%;
-    --plum-pale: 258 60% 97%;
+    --plum-pale: 251 60% 97%;
 
     /* Form / structure */
-    --border: 258 20% 92%;
-    --input: 258 20% 92%;
-    --ring: 258 57% 26%;
+    --border: 251 25% 92%;
+    --input: 251 25% 92%;
+    --ring: 251 53% 44%;
     --radius: 0.5rem;
 
     --shadow-sm: 0 1px 4px hsla(24, 27%, 9%, 0.06);
