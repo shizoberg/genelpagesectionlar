@@ -56,7 +56,7 @@ export default function CategoriesSection() {
           </a>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto">
           {categories.map((c, i) => (
             <a
               key={i}
