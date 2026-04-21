@@ -50,7 +50,7 @@ export default function ProductGallery() {
           <ChevronRight size={18} className="text-primary" />
         </button>
 
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 md:hidden">
           {slides.map((_, i) => (
             <button
               key={i}
@@ -64,6 +64,27 @@ export default function ProductGallery() {
         </div>
       </div>
 
+      {/* Thumbnail strip — desktop only */}
+      <div className="hidden md:grid grid-cols-4 gap-2">
+        {slides.map((slide, i) => (
+          <button
+            key={slide.id}
+            onClick={() => setActive(i)}
+            aria-label={`Slayt ${i + 1}`}
+            className={`relative aspect-square rounded-xl overflow-hidden bg-secondary transition-all duration-200 ${
+              i === active
+                ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                : "opacity-70 hover:opacity-100"
+            }`}
+          >
+            <div className="absolute inset-0 bg-primary flex items-center justify-center">
+              <div className="w-8 h-10 bg-primary-foreground/15 backdrop-blur-sm rounded-md border border-primary-foreground/20 flex items-center justify-center">
+                <span className="text-primary-foreground font-extrabold text-[10px] tracking-tight">.ki</span>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
