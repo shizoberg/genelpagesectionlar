@@ -21,6 +21,7 @@ import ShopBestsellers from "@/components/ShopBestsellers";
 import TrustBar from "@/components/TrustBar";
 import RitualCategories from "@/components/RitualCategories";
 import StoryStrip from "@/components/StoryStrip";
+import GreenCapsuleStory from "@/components/GreenCapsuleStory";
 
 const Index = () => {
   useReveal();
@@ -116,6 +117,9 @@ const Index = () => {
       <TrustBar />
       <RitualCategories />
       <StoryStrip />
+
+      {/* .ki Night — Yeşil kapsül scroll-driven hikaye */}
+      <GreenCapsuleStory />
 
       <SocialProofToast />
     </div>
