@@ -280,39 +280,12 @@ function Visual({ active, progress }: { active: number; progress: number }) {
         </div>
       </div>
 
-      {/* Stage 3: Balance / sparkle */}
+      {/* Stage 3: PMS takvimi — regl öncesi 5 gün + regl 5 gün, kaydırınca onaylandı hissi */}
       <div
         className="absolute inset-0 flex items-center justify-center transition-all duration-700"
         style={{ opacity: active === 3 ? 1 : 0 }}
       >
-        <div className="relative">
-          <div
-            className="w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-br from-primary via-primary-medium to-rose flex items-center justify-center shadow-2xl"
-            style={{
-              transform: `scale(${active === 3 ? 1 : 0.7}) rotate(${local * 360}deg)`,
-              transition: "transform 1s ease-out",
-            }}
-          >
-            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-card flex items-center justify-center">
-              <Sparkles className="w-12 h-12 sm:w-14 sm:h-14 text-primary" strokeWidth={1.5} />
-            </div>
-          </div>
-          {[...Array(8)].map((_, i) => {
-            const angle = (i / 8) * Math.PI * 2;
-            const r = 110;
-            return (
-              <div
-                key={i}
-                className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full bg-primary"
-                style={{
-                  transform: `translate(calc(-50% + ${Math.cos(angle) * r}px), calc(-50% + ${Math.sin(angle) * r}px)) scale(${active === 3 ? 1 : 0})`,
-                  opacity: active === 3 ? 0.6 : 0,
-                  transition: `all 0.6s ease-out ${i * 50}ms`,
-                }}
-              />
-            );
-          })}
-        </div>
+        <PMSCalendar active={active === 3} progress={local} />
       </div>
 
       <style>{`
