@@ -13,6 +13,9 @@ import IngredientsSection from "@/components/IngredientsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import StickyCartBar from "@/components/StickyCartBar";
 import ProductStory from "@/components/ProductStory";
+import ManifestoSection from "@/components/ManifestoSection";
+import CategoriesSection from "@/components/CategoriesSection";
+import NewsletterSection from "@/components/NewsletterSection";
 import SocialProofToast from "@/components/SocialProofToast";
 
 const Index = () => {
@@ -106,6 +109,9 @@ const Index = () => {
       <FAQSection />
 
       <ProductStory />
+      <ManifestoSection />
+      <CategoriesSection />
+      <NewsletterSection />
 
       {/* Sayfa sonu — Takviye Edici Gıda onay metni */}
       <div className="border-t border-border bg-secondary/30">
