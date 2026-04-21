@@ -369,6 +369,13 @@ function SachetPack({ small = false, rotate = 0 }: { small?: boolean; rotate?: n
         <div className="absolute top-0 left-0 right-0 h-2 bg-[hsl(255_30%_18%)]/70" />
         <div className="absolute top-2 left-0 right-0 h-[3px] bg-white/15" />
 
+        {/* Ortada .ki yazısı */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-white font-extrabold text-3xl sm:text-4xl tracking-tight">
+            .ki
+          </span>
+        </div>
+
         {/* Parlak yansıma */}
         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/8 to-transparent pointer-events-none" />
       </div>
