@@ -20,13 +20,7 @@ const packages: Pkg[] = [
     originalPrice: null,
     badge: null,
     perUnit: null,
-    features: [
-      "FDA ve GMP Standartlarına Uygun Üretildi.",
-      "%100 Vegan Formülasyon.",
-      "Hayıt & Bitkisel Ekstreler.",
-      "Magnezyum + B6 + B12.",
-      "13+ Aktif İçerik.",
-    ],
+    features: ["13+ Aktif İçerik", "%100 Vegan", "FDA & GMP"],
     subscription: false,
   },
   {
@@ -36,12 +30,7 @@ const packages: Pkg[] = [
     originalPrice: 4200,
     badge: "EN POPÜLER",
     perUnit: 1167,
-    features: [
-      "13+ Aktif İçerik & Hayıt & Bitkisel Ekstreler.",
-      "Magnezyum + B6 + B12.",
-      "Matara ve Ayna Hediye.",
-      "3 Adet Balance Your Cycle Gönderilir.",
-    ],
+    features: ["3 Aylık Kür", "Matara & Ayna Hediye", "Eczacı Görüşmesi"],
     subscription: true,
   },
 ];
