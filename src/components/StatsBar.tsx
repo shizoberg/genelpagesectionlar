@@ -43,28 +43,29 @@ interface StatItemProps {
   suffix: string;
   label: string;
   decimal?: boolean;
+  delay?: string;
 }
 
-function StatItem({ value, suffix, label, decimal }: StatItemProps) {
+function StatItem({ value, suffix, label, decimal, delay }: StatItemProps) {
   const { count, ref } = useAnimatedCounter(value, 1800, decimal);
   return (
-    <div ref={ref} className="flex flex-col items-center gap-1 py-4">
-      <span className="text-3xl font-black text-[hsl(var(--primary))]">
+    <div ref={ref} className={`k5-reveal ${delay ?? ""}`}>
+      <div className="text-[40px] font-extrabold text-primary-foreground leading-tight tracking-tight">
         {decimal ? count.toFixed(1) : count.toLocaleString("tr-TR")}
         {suffix}
-      </span>
-      <span className="text-xs text-[hsl(var(--muted))] font-medium">{label}</span>
+      </div>
+      <div className="text-[13px] text-primary-foreground/70 font-medium mt-1">{label}</div>
     </div>
   );
 }
 
 export default function StatsBar() {
   return (
-    <section className="bg-white border-y border-gray-100">
+    <section className="bg-gradient-to-br from-primary to-primary-medium py-12 mt-12">
       <div className="container">
-        <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
-          {stats.map((s) => (
-            <StatItem key={s.label} {...s} />
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-5 text-center">
+          {stats.map((s, i) => (
+            <StatItem key={s.label} {...s} delay={i > 0 ? `d${i}` : ""} />
           ))}
         </div>
       </div>

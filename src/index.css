@@ -1,52 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* .ki Balance design system — all colors HSL */
+/* .ki Balance design system — aligned with pms page repo */
 
 @layer base {
   :root {
+    --font-primary: 'Raleway', 'Helvetica Neue', system-ui, sans-serif;
+
     /* Surfaces */
-    --background: 40 33% 97%;            /* #faf9f6 */
-    --foreground: 258 40% 12%;
+    --background: 0 0% 100%;
+    --foreground: 24 27% 9%;
     --card: 0 0% 100%;
-    --card-foreground: 258 40% 12%;
+    --card-foreground: 24 27% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 258 40% 12%;
+    --popover-foreground: 24 27% 9%;
 
     /* Brand */
-    --primary: 258 57% 19%;              /* deep navy/purple — #1E1348 */
+    --primary: 258 57% 26%;              /* deep plum */
     --primary-foreground: 0 0% 100%;
-    --primary-medium: 258 38% 40%;       /* #4B3F8F */
-    --primary-light: 246 41% 93%;        /* #EAE8F5 */
+    --primary-medium: 258 47% 38%;
+    --primary-light: 258 40% 94%;
 
     /* Accents */
-    --secondary: 246 41% 93%;
-    --secondary-foreground: 258 57% 19%;
-    --muted-bg: 246 41% 96%;
-    --muted: 258 15% 55%;
-    --muted-foreground: 258 15% 45%;
-    --accent: 246 41% 93%;
-    --accent-foreground: 258 57% 19%;
+    --secondary: 258 40% 94%;
+    --secondary-foreground: 258 57% 26%;
+    --muted-bg: 33 20% 91%;
+    --muted: 24 7% 44%;
+    --muted-foreground: 24 7% 44%;
+    --accent: 258 40% 94%;
+    --accent-foreground: 258 57% 26%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
     /* Auxiliary brand */
-    --sage: 150 20% 60%;
-    --sage-light: 150 25% 94%;
-    --rose: 350 60% 60%;
-    --amber: 38 95% 56%;
+    --rose: 349 42% 48%;
+    --rose-light: 349 82% 95%;
+    --sage: 155 42% 30%;
+    --sage-light: 155 42% 92%;
+    --amber: 38 68% 41%;
+    --amber-light: 38 68% 93%;
     --gold: 36 91% 55%;
     --green: 150 39% 49%;
     --violet: 250 41% 60%;
+    --star: 44 90% 62%;
+    --cream-2: 33 20% 93%;
+    --cream-3: 33 15% 87%;
+    --plum-pale: 258 60% 97%;
 
     /* Form / structure */
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 258 57% 19%;
-    --radius: 1rem;
+    --border: 258 20% 92%;
+    --input: 258 20% 92%;
+    --ring: 258 57% 26%;
+    --radius: 0.5rem;
+
+    --shadow-sm: 0 1px 4px hsla(24, 27%, 9%, 0.06);
+    --shadow-md: 0 4px 20px hsla(24, 27%, 9%, 0.09);
+    --shadow-lg: 0 8px 40px hsla(24, 27%, 9%, 0.12);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -61,33 +73,36 @@
   * { @apply border-border; box-sizing: border-box; }
 
   body {
-    font-family: 'Raleway', 'Helvetica Neue', system-ui, sans-serif;
-    @apply bg-background text-foreground;
-    -webkit-font-smoothing: antialiased;
+    font-family: var(--font-primary);
+    @apply bg-background text-foreground antialiased;
+    overflow-x: hidden;
   }
 }
 
 @layer components {
   .container {
-    @apply max-w-5xl mx-auto px-4 sm:px-6;
+    @apply max-w-[1080px] mx-auto px-5;
   }
 
   .btn-primary {
-    @apply bg-[hsl(var(--primary))] text-white font-bold py-4 px-8 rounded-2xl w-full
-           transition-all duration-200 hover:opacity-90 active:scale-[.98]
+    @apply bg-[hsl(var(--primary))] text-white font-bold py-4 px-8 rounded-full w-full
+           min-h-[52px] transition-all duration-200
+           hover:bg-[hsl(var(--primary-medium))] hover:-translate-y-0.5
+           hover:shadow-[0_8px_32px_rgba(45,27,105,0.3)]
+           active:scale-[.98]
            focus:outline-none focus:ring-2 focus:ring-[hsl(var(--primary))] focus:ring-offset-2;
   }
 
   .package-card {
-    @apply border-2 rounded-2xl p-5 cursor-pointer transition-all duration-200 text-left w-full;
+    @apply rounded-2xl border-2 px-4 py-3.5 cursor-pointer transition-all duration-200 text-left w-full;
   }
 
   .package-card-selected {
-    @apply border-[hsl(var(--primary))] bg-[hsl(var(--primary-light))];
+    @apply border-[hsl(var(--primary))] bg-[hsl(var(--secondary))]/60 shadow-[0_4px_16px_rgba(45,27,105,0.12)];
   }
 
   .package-card-unselected {
-    @apply border-gray-200 bg-white hover:border-[hsl(var(--primary-medium))];
+    @apply border-[hsl(var(--border))] bg-card hover:border-[hsl(var(--primary))]/40;
   }
 
   .nav-link {
@@ -95,7 +110,7 @@
   }
 
   .badge-popular {
-    @apply bg-[hsl(var(--gold))] text-white font-bold px-2 py-0.5 rounded-full uppercase tracking-wider;
+    @apply bg-[hsl(var(--primary))] text-white font-bold px-2 py-0.5 rounded-full uppercase tracking-wider;
   }
 }
 
@@ -104,34 +119,36 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary-medium)));
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary-medium)), hsl(var(--rose)));
   z-index: 9999;
-  transition: width 0.1s linear;
+  transition: width 0.08s linear;
+  border-radius: 0 2px 2px 0;
 }
 
 /* ── Reveal animations ── */
 .k5-reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.55s ease, transform 0.55s ease;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.k5-reveal.revealed {
+.k5-reveal.revealed,
+.k5-reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
-.k5-reveal.d1 { transition-delay: 0.1s; }
-.k5-reveal.d2 { transition-delay: 0.2s; }
-.k5-reveal.d3 { transition-delay: 0.3s; }
-.k5-reveal.d4 { transition-delay: 0.4s; }
-.k5-reveal.d5 { transition-delay: 0.5s; }
-.k5-reveal.d6 { transition-delay: 0.6s; }
+.k5-reveal.d1, .k5-reveal-d1 { transition-delay: 0.1s; }
+.k5-reveal.d2, .k5-reveal-d2 { transition-delay: 0.2s; }
+.k5-reveal.d3, .k5-reveal-d3 { transition-delay: 0.3s; }
+.k5-reveal.d4, .k5-reveal-d4 { transition-delay: 0.4s; }
+.k5-reveal.d5, .k5-reveal-d5 { transition-delay: 0.5s; }
+.k5-reveal.d6, .k5-reveal-d6 { transition-delay: 0.6s; }
 
 /* ── Urgency shimmer ── */
 @keyframes urgShimmer {
-  0%   { transform: translateX(-100%); }
-  40%  { transform: translateX(100%); }
-  100% { transform: translateX(100%); }
+  0%   { left: -100%; }
+  100% { left: 100%; }
 }
 .urg-shimmer {
   position: absolute;
@@ -147,7 +164,8 @@
 
 /* ── Grab cursor ── */
 .grab-cursor  { cursor: grab; }
-.grab-cursor.dragging { cursor: grabbing; user-select: none; }
+.grab-cursor.dragging,
+.grab-cursor:active { cursor: grabbing; user-select: none; }
 
 /* ── Fade up ── */
 @keyframes fadeUp {
