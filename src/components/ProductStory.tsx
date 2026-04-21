@@ -396,3 +396,47 @@ function SachetPack({ small = false, rotate = 0 }: { small?: boolean; rotate?: n
     </div>
   );
 }
+
+function PowderOrbit({ active }: { active: boolean }) {
+  const particles = [
+    { r: 90, size: 6, dur: 8, delay: 0, color: "bg-primary/70" },
+    { r: 110, size: 4, dur: 11, delay: 0.4, color: "bg-primary-medium/80" },
+    { r: 95, size: 5, dur: 9, delay: 0.8, color: "bg-rose/60" },
+    { r: 120, size: 3, dur: 13, delay: 1.2, color: "bg-primary/60" },
+    { r: 85, size: 7, dur: 10, delay: 1.6, color: "bg-primary-medium/70" },
+    { r: 105, size: 4, dur: 12, delay: 2.0, color: "bg-rose/50" },
+    { r: 100, size: 5, dur: 9.5, delay: 0.2, color: "bg-primary/50" },
+    { r: 115, size: 3, dur: 14, delay: 0.6, color: "bg-primary-medium/60" },
+    { r: 92, size: 6, dur: 10.5, delay: 1.0, color: "bg-primary/65" },
+    { r: 108, size: 4, dur: 11.5, delay: 1.4, color: "bg-rose/55" },
+    { r: 88, size: 5, dur: 9.2, delay: 1.8, color: "bg-primary/70" },
+    { r: 118, size: 3, dur: 13.5, delay: 0.3, color: "bg-primary-medium/55" },
+  ];
+  return (
+    <div
+      className="absolute top-1/2 left-1/2 pointer-events-none transition-opacity duration-700"
+      style={{ opacity: active ? 1 : 0 }}
+      aria-hidden
+    >
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className={`absolute rounded-full ${p.color}`}
+          style={
+            {
+              width: p.size,
+              height: p.size,
+              top: 0,
+              left: 0,
+              marginTop: -p.size / 2,
+              marginLeft: -p.size / 2,
+              "--r": `${p.r}px`,
+              animation: `orbit ${p.dur}s linear ${p.delay}s infinite`,
+              boxShadow: "0 0 8px hsl(var(--primary) / 0.5)",
+            } as React.CSSProperties
+          }
+        />
+      ))}
+    </div>
+  );
+}
