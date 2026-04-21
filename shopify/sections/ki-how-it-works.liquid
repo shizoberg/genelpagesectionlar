@@ -1,0 +1,69 @@
+{% render 'ki-styles' %}
+
+<section class="ki-howitworks" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-section-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="ki-steps-grid">
+      {% for block in section.blocks %}
+        <div class="ki-step" {{ block.shopify_attributes }}>
+          <div class="ki-step-num">{{ forloop.index }}</div>
+          <h3 class="ki-step-title">{{ block.settings.title }}</h3>
+          <p class="ki-step-desc">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-howitworks { padding: 4rem 0; }
+  .ki-section-head { text-align: center; margin-bottom: 2.5rem; }
+  .ki-steps-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+  @media (min-width: 768px) { .ki-steps-grid { grid-template-columns: repeat(3, 1fr); } }
+  .ki-step { text-align: center; padding: 1.5rem; }
+  .ki-step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--ki-primary); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.125rem; margin: 0 auto 1rem;
+  }
+  .ki-step-title { font-weight: 700; color: var(--ki-foreground); font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .ki-step-desc { font-size: 0.875rem; color: var(--ki-muted); line-height: 1.6; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki How It Works",
+  "tag": "section",
+  "settings": [
+    { "type": "text",  "id": "eyebrow",  "label": "Üst etiket", "default": "NASIL ÇALIŞIR" },
+    { "type": "text",  "id": "title",    "label": "Başlık",     "default": "3 adımda dengen sende" },
+    { "type": "color", "id": "bg_color", "label": "Arka plan",  "default": "#FAF7FB" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Adım",
+      "settings": [
+        { "type": "text",     "id": "title",       "label": "Başlık" },
+        { "type": "textarea", "id": "description", "label": "Açıklama" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": ".ki How It Works",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Eczacımıza danış", "description": "Ücretsiz online danışmanlıkla sana özel rutinini oluştur." } },
+        { "type": "step", "settings": { "title": "Düzenli al",        "description": "Aboneliğinle her ay zamanında kapında." } },
+        { "type": "step", "settings": { "title": "Dengeyi hisset",    "description": "2–4 hafta içinde döngünde fark yarat." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

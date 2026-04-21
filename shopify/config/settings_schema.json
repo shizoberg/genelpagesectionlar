@@ -1,0 +1,26 @@
+[
+  {
+    "name": ".ki Brand Renkleri",
+    "settings": [
+      { "type": "header",  "content": "Ana renkler" },
+      { "type": "color",   "id": "ki_primary",        "label": "Primary (mor)",   "default": "#6B4E8C" },
+      { "type": "color",   "id": "ki_primary_medium", "label": "Primary medium",  "default": "#8B6BB1" },
+      { "type": "color",   "id": "ki_primary_light",  "label": "Primary light",   "default": "#E8DFF5" },
+      { "type": "color",   "id": "ki_secondary",      "label": "Secondary",       "default": "#F5EFFB" },
+
+      { "type": "header",  "content": "Aksan renkler" },
+      { "type": "color",   "id": "ki_rose",           "label": "Rose (regl)",     "default": "#D88BA0" },
+      { "type": "color",   "id": "ki_amber",          "label": "Amber",           "default": "#E8A87C" },
+      { "type": "color",   "id": "ki_sage",           "label": "Sage",            "default": "#A8C4A2" },
+
+      { "type": "header",  "content": "Yüzeyler" },
+      { "type": "color",   "id": "ki_bg",             "label": "Sayfa arka planı", "default": "#FFFFFF" },
+      { "type": "color",   "id": "ki_card",           "label": "Kart arka planı", "default": "#FAF7FB" },
+      { "type": "color",   "id": "ki_border",         "label": "Border",          "default": "#E8DFF5" },
+
+      { "type": "header",  "content": "Metin" },
+      { "type": "color",   "id": "ki_foreground",     "label": "Ana metin",       "default": "#2A1F3D" },
+      { "type": "color",   "id": "ki_muted",          "label": "İkincil metin",   "default": "#7A6B85" }
+    ]
+  }
+]

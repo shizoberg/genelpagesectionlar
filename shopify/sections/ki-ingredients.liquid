@@ -1,0 +1,68 @@
+{% render 'ki-styles' %}
+
+<section class="ki-ingredients" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-section-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="ki-text" style="margin-top: 0.75rem; max-width: 640px; margin-left: auto; margin-right: auto;">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="ki-ing-grid">
+      {% for block in section.blocks %}
+        <div class="ki-ing-card" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url: width: 200 }}" alt="{{ block.settings.name | escape }}" class="ki-ing-img">
+          {% else %}
+            <div class="ki-ing-icon" style="background: {{ block.settings.color }};">{{ block.settings.name | slice: 0 }}</div>
+          {% endif %}
+          <h3 class="ki-ing-name">{{ block.settings.name }}</h3>
+          <div class="ki-ing-dose">{{ block.settings.dose }}</div>
+          <p class="ki-ing-desc">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-ingredients { padding: 4rem 0; }
+  .ki-section-head { text-align: center; margin-bottom: 2.5rem; }
+  .ki-ing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  @media (min-width: 768px) { .ki-ing-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+  .ki-ing-card { background: var(--ki-card); border: 1px solid var(--ki-border); border-radius: 20px; padding: 1.25rem; text-align: center; }
+  .ki-ing-img, .ki-ing-icon { width: 80px; height: 80px; margin: 0 auto 1rem; border-radius: 50%; object-fit: cover; }
+  .ki-ing-icon { display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1.5rem; }
+  .ki-ing-name { font-weight: 700; color: var(--ki-foreground); font-size: 0.95rem; }
+  .ki-ing-dose { font-size: 0.75rem; color: var(--ki-primary); font-weight: 600; margin-top: 0.25rem; }
+  .ki-ing-desc { font-size: 0.8rem; color: var(--ki-muted); margin-top: 0.5rem; line-height: 1.5; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Ingredients",
+  "tag": "section",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",  "label": "Üst etiket", "default": "İÇİNDEKİLER" },
+    { "type": "text",     "id": "title",    "label": "Başlık",     "default": "Klinik dozlar, şeffaf formül" },
+    { "type": "textarea", "id": "subtitle", "label": "Alt başlık", "default": "Her sachet, etken maddenin bilimsel olarak desteklenen dozunu içerir." },
+    { "type": "color",    "id": "bg_color", "label": "Arka plan",  "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "İçerik",
+      "settings": [
+        { "type": "image_picker", "id": "image",       "label": "Görsel" },
+        { "type": "text",         "id": "name",        "label": "İsim",       "default": "Hayıt" },
+        { "type": "text",         "id": "dose",        "label": "Doz",        "default": "200 mg" },
+        { "type": "textarea",     "id": "description", "label": "Açıklama" },
+        { "type": "color",        "id": "color",       "label": "Renk",       "default": "#6B4E8C" }
+      ]
+    }
+  ],
+  "presets": [{ "name": ".ki Ingredients" }]
+}
+{% endschema %}

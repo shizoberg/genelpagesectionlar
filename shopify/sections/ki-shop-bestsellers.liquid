@@ -1,0 +1,95 @@
+{% render 'ki-styles' %}
+
+{%- assign collection = collections[section.settings.collection] -%}
+
+<section class="ki-bestsellers" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-bs-head">
+      <h2 class="ki-heading" style="color: var(--ki-primary);">{{ section.settings.title }}</h2>
+      {% if section.settings.link_text != blank %}
+        <a href="{{ section.settings.link_url | default: collection.url }}" class="ki-bs-link">{{ section.settings.link_text }}</a>
+      {% endif %}
+    </div>
+
+    <div class="ki-bs-grid">
+      {% if collection != blank %}
+        {% for product in collection.products limit: section.settings.product_limit %}
+          <a href="{{ product.url }}" class="ki-bs-card">
+            <div class="ki-bs-visual">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title | escape }}">
+              {% endif %}
+              <span class="ki-bs-add">Ekle</span>
+            </div>
+            <div class="ki-bs-text">
+              <h3>{{ product.title }}</h3>
+              <p>{{ product.type }}</p>
+              <div class="ki-bs-price">{{ product.price | money }}</div>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        {% for block in section.blocks %}
+          <div class="ki-bs-card" {{ block.shopify_attributes }}>
+            <div class="ki-bs-visual" style="background: {{ block.settings.bg_color }};">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | image_url: width: 400 }}" alt="{{ block.settings.name | escape }}">
+              {% endif %}
+              <span class="ki-bs-add">Ekle</span>
+            </div>
+            <div class="ki-bs-text">
+              <h3>{{ block.settings.name }}</h3>
+              <p>{{ block.settings.category }}</p>
+              <div class="ki-bs-price">{{ block.settings.price }}</div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-bestsellers { padding: 4rem 0; }
+  .ki-bs-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; }
+  .ki-bs-link { font-size: 0.875rem; font-weight: 600; color: var(--ki-primary); text-decoration: underline; text-underline-offset: 4px; }
+  .ki-bs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  @media (min-width: 768px) { .ki-bs-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; } }
+  .ki-bs-card { display: block; text-decoration: none; }
+  .ki-bs-visual { position: relative; aspect-ratio: 1; background: var(--ki-secondary); border-radius: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .ki-bs-visual img { width: 70%; height: 70%; object-fit: contain; }
+  .ki-bs-add { position: absolute; bottom: 0.75rem; left: 0.75rem; background: white; color: var(--ki-primary); font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.875rem; border-radius: 9999px; }
+  .ki-bs-text { padding-top: 0.875rem; }
+  .ki-bs-text h3 { font-size: 0.9rem; font-weight: 800; color: var(--ki-primary); }
+  .ki-bs-text p { font-size: 0.75rem; color: var(--ki-muted); margin-top: 0.125rem; }
+  .ki-bs-price { font-size: 0.95rem; font-weight: 700; color: var(--ki-primary); margin-top: 0.5rem; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Bestsellers",
+  "tag": "section",
+  "settings": [
+    { "type": "text",       "id": "title",         "label": "Başlık",     "default": "En Çok Satanlar" },
+    { "type": "collection", "id": "collection",    "label": "Koleksiyon (opsiyonel — yoksa manuel bloklar gösterilir)" },
+    { "type": "range",      "id": "product_limit", "label": "Ürün sayısı", "min": 2, "max": 12, "step": 1, "default": 4 },
+    { "type": "text",       "id": "link_text",     "label": "Link metni", "default": "Tümünü Gör" },
+    { "type": "url",        "id": "link_url",      "label": "Link URL" },
+    { "type": "color",      "id": "bg_color",      "label": "Arka plan",  "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "manual_product",
+      "name": "Manuel ürün",
+      "settings": [
+        { "type": "image_picker", "id": "image",    "label": "Görsel" },
+        { "type": "text",         "id": "name",     "label": "İsim" },
+        { "type": "text",         "id": "category", "label": "Kategori" },
+        { "type": "text",         "id": "price",    "label": "Fiyat" },
+        { "type": "color",        "id": "bg_color", "label": "Arka plan", "default": "#F5EFFB" }
+      ]
+    }
+  ],
+  "presets": [{ "name": ".ki Bestsellers" }]
+}
+{% endschema %}

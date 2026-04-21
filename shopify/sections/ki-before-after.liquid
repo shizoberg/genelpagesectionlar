@@ -1,0 +1,79 @@
+{% render 'ki-styles' %}
+
+<section class="ki-before-after" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-section-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="ki-ba-grid">
+      <div class="ki-ba-card ki-ba-before">
+        <div class="ki-ba-label">{{ section.settings.before_label }}</div>
+        <ul class="ki-ba-list">
+          {% for block in section.blocks %}
+            {% if block.type == 'before_item' %}
+              <li {{ block.shopify_attributes }}>✕ {{ block.settings.text }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="ki-ba-card ki-ba-after">
+        <div class="ki-ba-label">{{ section.settings.after_label }}</div>
+        <ul class="ki-ba-list">
+          {% for block in section.blocks %}
+            {% if block.type == 'after_item' %}
+              <li {{ block.shopify_attributes }}>✓ {{ block.settings.text }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-before-after { padding: 4rem 0; }
+  .ki-section-head { text-align: center; margin-bottom: 2.5rem; }
+  .ki-ba-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; max-width: 900px; margin: 0 auto; }
+  @media (min-width: 768px) { .ki-ba-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; } }
+  .ki-ba-card { padding: 1.75rem; border-radius: 24px; }
+  .ki-ba-before { background: #FEF1F2; border: 1px solid #F5C7CD; }
+  .ki-ba-after { background: var(--ki-secondary); border: 1px solid var(--ki-border); }
+  .ki-ba-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; }
+  .ki-ba-before .ki-ba-label { color: #B85563; }
+  .ki-ba-after .ki-ba-label { color: var(--ki-primary); }
+  .ki-ba-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.625rem; }
+  .ki-ba-list li { font-size: 0.9rem; color: var(--ki-foreground); line-height: 1.5; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Before & After",
+  "tag": "section",
+  "settings": [
+    { "type": "text",  "id": "eyebrow",      "label": "Üst etiket",  "default": "FARKI HİSSET" },
+    { "type": "text",  "id": "title",        "label": "Başlık",      "default": "Önce vs Sonra" },
+    { "type": "text",  "id": "before_label", "label": "Önce başlığı", "default": "ÖNCESİ" },
+    { "type": "text",  "id": "after_label",  "label": "Sonra başlığı", "default": ".KI İLE" },
+    { "type": "color", "id": "bg_color",     "label": "Arka plan",   "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    { "type": "before_item", "name": "Önce maddesi", "settings": [{ "type": "text", "id": "text", "label": "Metin" }] },
+    { "type": "after_item",  "name": "Sonra maddesi", "settings": [{ "type": "text", "id": "text", "label": "Metin" }] }
+  ],
+  "presets": [
+    {
+      "name": ".ki Before & After",
+      "blocks": [
+        { "type": "before_item", "settings": { "text": "Aylık beklenmedik PMS şikayetleri" } },
+        { "type": "before_item", "settings": { "text": "Düzensiz enerji ve ruh hali" } },
+        { "type": "before_item", "settings": { "text": "Birden fazla farklı takviye" } },
+        { "type": "after_item",  "settings": { "text": "Dengeli ve öngörülebilir döngü" } },
+        { "type": "after_item",  "settings": { "text": "Stabil enerji, daha iyi uyku" } },
+        { "type": "after_item",  "settings": { "text": "Tek sachet, klinik dozajlı formül" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

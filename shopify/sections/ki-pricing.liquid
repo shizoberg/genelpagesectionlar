@@ -1,0 +1,106 @@
+{% render 'ki-styles' %}
+
+<section class="ki-pricing" style="background: {{ section.settings.bg_color }};" id="{{ section.settings.anchor_id | default: 'pricing' }}">
+  <div class="ki-container" style="max-width: 720px;">
+    <div class="ki-section-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+    </div>
+
+    {%- assign product = all_products[section.settings.product] -%}
+
+    <form method="post" action="/cart/add" enctype="multipart/form-data" class="ki-pricing-form">
+      <div class="ki-pricing-options">
+        {% for block in section.blocks %}
+          {%- assign variant = product.variants[forloop.index0] -%}
+          <label class="ki-price-card {% if block.settings.recommended %}ki-recommended{% endif %}" {{ block.shopify_attributes }}>
+            <input type="radio" name="id" value="{{ variant.id | default: '0' }}" {% if forloop.first %}checked{% endif %} style="position: absolute; opacity: 0;">
+            {% if block.settings.recommended %}<span class="ki-recommended-tag">{{ block.settings.recommended_label }}</span>{% endif %}
+            <div class="ki-price-row">
+              <div>
+                <div class="ki-price-title">{{ block.settings.title }}</div>
+                <div class="ki-price-desc">{{ block.settings.description }}</div>
+                {% if block.settings.savings != blank %}
+                  <div class="ki-price-save">{{ block.settings.savings }}</div>
+                {% endif %}
+              </div>
+              <div>
+                <div class="ki-price-amount">{{ block.settings.price }}</div>
+                {% if block.settings.compare_at != blank %}
+                  <div class="ki-price-compare">{{ block.settings.compare_at }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </label>
+        {% endfor %}
+      </div>
+
+      <button type="submit" class="ki-btn ki-btn-primary ki-pricing-cta">
+        {{ section.settings.cta_text | default: 'Sepete ekle' }}
+      </button>
+
+      {% if section.settings.note != blank %}
+        <p class="ki-pricing-note">{{ section.settings.note }}</p>
+      {% endif %}
+    </form>
+  </div>
+</section>
+
+<style>
+  .ki-pricing { padding: 3rem 0 4rem; }
+  .ki-section-head { text-align: center; margin-bottom: 2rem; }
+  .ki-pricing-options { display: flex; flex-direction: column; gap: 0.75rem; }
+  .ki-price-card { display: block; padding: 1rem 1.25rem; border: 2px solid var(--ki-border); border-radius: 16px; cursor: pointer; position: relative; background: var(--ki-card); }
+  .ki-price-card.ki-recommended { border-color: var(--ki-primary); }
+  .ki-price-card:has(input:checked) { border-color: var(--ki-primary); background: var(--ki-secondary); }
+  .ki-recommended-tag { position: absolute; top: -10px; left: 1rem; background: var(--ki-primary); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.625rem; border-radius: 9999px; }
+  .ki-price-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .ki-price-title { font-weight: 700; color: var(--ki-foreground); }
+  .ki-price-desc { font-size: 0.8rem; color: var(--ki-muted); margin-top: 0.125rem; }
+  .ki-price-save { font-size: 0.75rem; color: var(--ki-primary); font-weight: 700; margin-top: 0.25rem; }
+  .ki-price-amount { font-weight: 800; color: var(--ki-primary); font-size: 1.125rem; text-align: right; }
+  .ki-price-compare { font-size: 0.75rem; color: var(--ki-muted); text-decoration: line-through; text-align: right; }
+  .ki-pricing-cta { width: 100%; margin-top: 1.5rem; padding: 1.125rem; font-size: 1.05rem; }
+  .ki-pricing-note { text-align: center; font-size: 0.75rem; color: var(--ki-muted); margin-top: 0.875rem; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Pricing",
+  "tag": "section",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",   "label": "Üst etiket", "default": "FİYATLANDIRMA" },
+    { "type": "text",     "id": "title",     "label": "Başlık",     "default": "Sana en uygun planı seç" },
+    { "type": "product",  "id": "product",   "label": "Ürün (varyantlar bloklarla eşlenir)" },
+    { "type": "text",     "id": "anchor_id", "label": "Anchor ID",  "default": "pricing" },
+    { "type": "text",     "id": "cta_text",  "label": "Buton metni", "default": "Sepete ekle" },
+    { "type": "textarea", "id": "note",      "label": "Buton altı not", "default": "İstediğin zaman, koşulsuz iptal." },
+    { "type": "color",    "id": "bg_color",  "label": "Arka plan",  "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "plan",
+      "name": "Plan",
+      "settings": [
+        { "type": "text",     "id": "title",             "label": "Başlık",       "default": "Tek seferlik" },
+        { "type": "text",     "id": "description",       "label": "Açıklama",     "default": "30 günlük kutu" },
+        { "type": "text",     "id": "price",             "label": "Fiyat",        "default": "₺350" },
+        { "type": "text",     "id": "compare_at",        "label": "Eski fiyat" },
+        { "type": "text",     "id": "savings",           "label": "Tasarruf metni" },
+        { "type": "checkbox", "id": "recommended",       "label": "Önerilen olarak işaretle" },
+        { "type": "text",     "id": "recommended_label", "label": "Önerilen rozeti", "default": "EN POPÜLER" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": ".ki Pricing",
+      "blocks": [
+        { "type": "plan", "settings": { "title": "Tek seferlik", "description": "30 günlük kutu", "price": "₺350" } },
+        { "type": "plan", "settings": { "title": "3 ay abonelik", "description": "Her ay otomatik gönderim", "price": "₺299/ay", "compare_at": "₺350/ay", "savings": "%15 tasarruf", "recommended": true, "recommended_label": "EN POPÜLER" } },
+        { "type": "plan", "settings": { "title": "6 ay abonelik", "description": "Her ay otomatik gönderim", "price": "₺249/ay", "compare_at": "₺350/ay", "savings": "%30 tasarruf" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

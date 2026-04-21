@@ -1,0 +1,86 @@
+{% render 'ki-styles' %}
+
+<section class="ki-categories" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-section-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="ki-cat-grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link }}" class="ki-cat-card" {{ block.shopify_attributes }}>
+          <div class="ki-cat-visual" style="background: {{ block.settings.bg_color }};">
+            {% if block.settings.badge != blank %}
+              <span class="ki-cat-badge">{{ block.settings.badge }}</span>
+            {% endif %}
+            {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url: width: 240 }}" alt="{{ block.settings.label | escape }}">
+            {% else %}
+              <div class="ki-cat-emoji">{{ block.settings.emoji }}</div>
+            {% endif %}
+          </div>
+          <div class="ki-cat-text">
+            <h3>{{ block.settings.label }}</h3>
+            <p>{{ block.settings.description }}</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-categories { padding: 4rem 0; }
+  .ki-section-head { text-align: center; margin-bottom: 2.5rem; }
+  .ki-cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; max-width: 800px; margin: 0 auto; }
+  @media (min-width: 768px) { .ki-cat-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; } }
+  .ki-cat-card { display: block; border-radius: 20px; overflow: hidden; background: var(--ki-card); border: 1px solid var(--ki-border); text-decoration: none; transition: all 0.2s; }
+  .ki-cat-card:hover { border-color: var(--ki-primary); transform: translateY(-2px); }
+  .ki-cat-visual { position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
+  .ki-cat-visual img { width: 60%; height: 60%; object-fit: contain; }
+  .ki-cat-emoji { font-size: 3rem; }
+  .ki-cat-badge { position: absolute; top: 0.5rem; left: 0.5rem; background: white; color: var(--ki-primary); font-size: 0.625rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: 9999px; text-transform: uppercase; }
+  .ki-cat-text { padding: 0.875rem; }
+  .ki-cat-text h3 { font-size: 0.9rem; font-weight: 800; color: var(--ki-foreground); margin-bottom: 0.125rem; }
+  .ki-cat-text p { font-size: 0.75rem; color: var(--ki-muted); }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Categories",
+  "tag": "section",
+  "settings": [
+    { "type": "text",  "id": "eyebrow",  "label": "Üst etiket", "default": "KATEGORİLER" },
+    { "type": "text",  "id": "title",    "label": "Başlık",     "default": "Ritüelini bul" },
+    { "type": "color", "id": "bg_color", "label": "Arka plan",  "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Kategori",
+      "settings": [
+        { "type": "text",         "id": "emoji",       "label": "Emoji (görsel yoksa)" },
+        { "type": "image_picker", "id": "image",       "label": "Görsel" },
+        { "type": "text",         "id": "label",       "label": "Etiket" },
+        { "type": "text",         "id": "description", "label": "Açıklama" },
+        { "type": "text",         "id": "badge",       "label": "Rozet (opsiyonel)" },
+        { "type": "color",        "id": "bg_color",    "label": "Görsel arka planı", "default": "#F5EFFB" },
+        { "type": "url",          "id": "link",        "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": ".ki Categories",
+      "blocks": [
+        { "type": "category", "settings": { "label": "Döngü Dengesi", "description": "PMS · adet düzeni",       "emoji": "🌙", "bg_color": "#F5EFFB" } },
+        { "type": "category", "settings": { "label": "Hormon Desteği", "description": "Hayıt · B vitaminleri", "emoji": "💜", "badge": "Popüler", "bg_color": "#FBEFF2" } },
+        { "type": "category", "settings": { "label": "Enerji & Uyku",  "description": "Magnezyum · rahatlama", "emoji": "⚡", "bg_color": "#FBF6EF" } },
+        { "type": "category", "settings": { "label": "Cilt & Kalite",  "description": "Çinko · antioksidan",   "emoji": "✨", "badge": "Yeni",    "bg_color": "#EFFBF1" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
