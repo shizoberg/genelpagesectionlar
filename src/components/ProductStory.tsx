@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Leaf, FlaskConical, Droplets, Sparkles } from "lucide-react";
+import ingGinger from "@/assets/ingredient-ginger.png";
+import ingVitex from "@/assets/ingredient-vitex.png";
+import ingDongQuai from "@/assets/ingredient-dongquai.png";
+import ingMagnesium from "@/assets/ingredient-magnesium.png";
+import ingBlackberry from "@/assets/ingredient-blackberry.png";
 
 const stages = [
   {
@@ -141,7 +146,7 @@ function Visual({ active, progress }: { active: number; progress: number }) {
         style={{ opacity: 0.4 + local * 0.2 }}
       />
 
-      {/* Stage 0: Sachet */}
+      {/* Stage 0: Sachet — gerçek paket görünümü */}
       <div
         className="absolute inset-0 flex items-center justify-center transition-all duration-700"
         style={{
@@ -149,40 +154,56 @@ function Visual({ active, progress }: { active: number; progress: number }) {
           transform: `scale(${active === 0 ? 1 : 0.85}) translateY(${active === 0 ? 0 : -20}px)`,
         }}
       >
-        <div className="w-32 h-44 sm:w-40 sm:h-56 bg-gradient-to-br from-primary to-primary-medium rounded-2xl shadow-2xl flex flex-col items-center justify-center text-primary-foreground p-4 relative overflow-hidden">
-          <div className="absolute top-0 left-0 right-0 h-3 bg-primary-foreground/15" />
-          <p className="font-extrabold text-2xl sm:text-3xl tracking-tight">.ki</p>
-          <p className="text-[10px] sm:text-xs opacity-80 mt-1">Balance</p>
-          <div className="mt-4 text-[9px] sm:text-[10px] opacity-60">20g · 1 sachet</div>
-        </div>
+        <SachetPack rotate={-8} />
       </div>
 
-      {/* Stage 1: Ingredients exploding out */}
+      {/* Stage 1: Sachet'ten bitkiler/içerikler süzülüyor */}
       <div
         className="absolute inset-0 flex items-center justify-center transition-all duration-700"
         style={{ opacity: active === 1 ? 1 : 0 }}
       >
-        <div className="relative w-full h-full">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-24 h-32 sm:w-28 sm:h-40 bg-gradient-to-br from-primary/80 to-primary-medium/80 rounded-2xl" />
+        <div className="relative w-full h-full flex items-center justify-center">
+          {/* Hafifçe yana yatmış sachet */}
+          <div
+            className="relative z-10 transition-transform duration-700"
+            style={{
+              transform: active === 1 ? "rotate(-14deg) translateY(-10px)" : "rotate(-8deg)",
+            }}
+          >
+            <SachetPack small />
           </div>
+
+          {/* İçinden çıkan bitkiler — sachet'in ağzından aşağı doğru süzülür */}
           {[
-            { label: "Mg", x: -90, y: -60, color: "bg-primary" },
-            { label: "Vitex", x: 90, y: -50, color: "bg-rose" },
-            { label: "B6", x: -100, y: 40, color: "bg-amber" },
-            { label: "B12", x: 95, y: 60, color: "bg-sage" },
-            { label: "Zn", x: 0, y: -100, color: "bg-primary-medium" },
+            { src: ingGinger, label: "Zencefil", x: -110, y: 30, size: 64, delay: 0, rot: -18 },
+            { src: ingMagnesium, label: "Magnezyum", x: -60, y: 90, size: 56, delay: 120, rot: 12 },
+            { src: ingVitex, label: "Hayıt", x: 70, y: 70, size: 70, delay: 240, rot: -8 },
+            { src: ingDongQuai, label: "Çin Melek Otu", x: 120, y: 0, size: 66, delay: 360, rot: 20 },
+            { src: ingBlackberry, label: "Böğürtlen", x: 20, y: 120, size: 50, delay: 480, rot: -22 },
           ].map((p, i) => (
             <div
               key={i}
-              className={`absolute top-1/2 left-1/2 w-11 h-11 sm:w-12 sm:h-12 rounded-full ${p.color} text-primary-foreground text-[10px] sm:text-xs font-bold flex items-center justify-center shadow-lg transition-all duration-700`}
+              className="absolute top-1/2 left-1/2 transition-all duration-[900ms] ease-out"
               style={{
-                transform: `translate(calc(-50% + ${p.x * (active === 1 ? 1 : 0)}px), calc(-50% + ${p.y * (active === 1 ? 1 : 0)}px)) scale(${active === 1 ? 1 : 0.3})`,
+                width: p.size,
+                height: p.size,
+                transform: `translate(calc(-50% + ${p.x * (active === 1 ? 1 : 0)}px), calc(-50% + ${(active === 1 ? p.y : -40)}px)) scale(${active === 1 ? 1 : 0.4}) rotate(${active === 1 ? p.rot : 0}deg)`,
                 opacity: active === 1 ? 1 : 0,
-                transitionDelay: `${i * 60}ms`,
+                transitionDelay: `${p.delay}ms`,
+                filter: "drop-shadow(0 8px 14px rgba(0,0,0,0.18))",
               }}
             >
-              {p.label}
+              <img
+                src={p.src}
+                alt={p.label}
+                width={128}
+                height={128}
+                loading="lazy"
+                className="w-full h-full object-contain"
+              />
+              <span className="absolute left-1/2 -bottom-5 -translate-x-1/2 whitespace-nowrap text-[9px] sm:text-[10px] font-bold uppercase tracking-wide text-foreground/70 bg-card/80 backdrop-blur-sm px-1.5 py-0.5 rounded">
+                {p.label}
+              </span>
             </div>
           ))}
         </div>
