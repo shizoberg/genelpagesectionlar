@@ -82,10 +82,13 @@ export default function PricingSection({ onAddToCart }: PricingProps) {
                       )}
                     </div>
                     {pkg.perUnit && (
-                      <p className="text-xs text-muted-foreground mt-0.5">
+                      <p className="text-[11px] text-muted-foreground mt-0.5">
                         Adet başına ~{pkg.perUnit.toLocaleString("tr-TR")}₺
                       </p>
                     )}
+                    <p className="text-[11px] text-muted-foreground mt-1 leading-snug">
+                      {pkg.features.join(" · ")}
+                    </p>
                   </div>
                 </div>
 
@@ -100,17 +103,6 @@ export default function PricingSection({ onAddToCart }: PricingProps) {
                   </p>
                 </div>
               </div>
-
-              {selected === pkg.id && (
-                <div className="mt-4 space-y-2 border-t border-primary/10 pt-4">
-                  {pkg.features.map((f, i) => (
-                    <div key={i} className="flex items-start gap-2.5">
-                      <Check size={15} className="text-sage flex-shrink-0 mt-0.5" />
-                      <span className="text-sm text-foreground/80">{f}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
             </button>
 
             {/* 3'lü paket için ayrı vurgulanmış rutin fırsatı */}
