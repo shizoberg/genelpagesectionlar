@@ -3,7 +3,7 @@ import { useReveal } from "@/hooks/useReveal";
 
 import ScrollProgress from "@/components/ScrollProgress";
 import UrgencyBar from "@/components/UrgencyBar";
-import Header from "@/components/Header";
+import HeroSection from "@/components/HeroSection";
 import ProductGallery from "@/components/ProductGallery";
 import PricingSection from "@/components/PricingSection";
 import StatsBar from "@/components/StatsBar";
@@ -14,91 +14,76 @@ import IngredientsSection from "@/components/IngredientsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import StickyCartBar from "@/components/StickyCartBar";
 import SocialProofToast from "@/components/SocialProofToast";
-import FooterSection from "@/components/FooterSection";
 
 const Index = () => {
   useReveal();
 
   const [cartCount, setCartCount] = useState(0);
   const [stickyVisible, setStickyVisible] = useState(false);
-  const pricingRef = useRef<HTMLDivElement | null>(null);
+  const heroRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setStickyVisible(!entry.isIntersecting),
       { threshold: 0 }
     );
-    if (pricingRef.current) observer.observe(pricingRef.current);
+    if (heroRef.current) observer.observe(heroRef.current);
     return () => observer.disconnect();
   }, []);
 
+  // cartCount şu an UI'da gösterilmiyor (header kaldırıldı) ama state korunuyor
+  void cartCount;
   const handleAddToCart = () => setCartCount((c) => c + 1);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-[72px]">
       <ScrollProgress />
       <UrgencyBar />
-      <Header cartCount={cartCount} />
 
-      <section className="py-8 md:py-12">
+      <div ref={heroRef}>
+        <HeroSection />
+      </div>
+
+      <ReviewsSection />
+      <VideoTestimonials />
+      <BeforeAfter />
+      <IngredientsSection />
+      <HowItWorksSection />
+
+      <section className="py-14" id="pricing">
         <div className="container">
-          <p className="text-xs text-[hsl(var(--muted))] mb-6">
-            Anasayfa › Takviye Edici Gıdalar ›{" "}
-            <span className="text-[hsl(var(--foreground))]/70 font-medium">.ki Balance</span>
-          </p>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-            <div className="lg:sticky lg:top-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+            <div className="lg:sticky lg:top-6">
               <ProductGallery />
             </div>
 
-            <div id="pricing" ref={pricingRef} className="space-y-6">
-              <div className="flex flex-wrap gap-2">
-                <span className="text-xs bg-[hsl(var(--primary-light))] text-[hsl(var(--primary))] font-semibold px-3 py-1 rounded-full">
-                  Döngü Takviyesi
-                </span>
-                <span className="text-xs bg-green-100 text-green-700 font-semibold px-3 py-1 rounded-full">
-                  ✓ Stokta — sadece 12 adet kaldı
-                </span>
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-1.5 bg-secondary text-primary text-xs font-bold py-1.5 px-3.5 rounded-full">
+                90+ kişi bu ürünü satın aldı
               </div>
 
               <div>
-                <h1 className="text-3xl md:text-4xl font-black text-[hsl(var(--foreground))] leading-tight">
-                  .ki Balance
-                  <br />
-                  <span className="text-[hsl(var(--primary))]">Döngü Takviyesi</span>
-                </h1>
-                <p className="text-[hsl(var(--muted))] mt-2 text-base">
-                  Eczacı ve doktorlar tarafından geliştirilmiş döngü takviyen.
+                <h2 className="text-2xl md:text-3xl font-extrabold text-foreground leading-tight">
+                  .ki Balance — Döngü Takviyesi
+                </h2>
+                <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
+                  Eczacı ve doktorlar tarafından geliştirilmiş, döngüsel dengen için bilimsel formülasyon.
                 </p>
               </div>
 
               <div className="flex items-center gap-2">
-                <div className="flex">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <span key={s} className="text-amber-400 text-lg">
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <a href="#reviews" className="text-sm font-semibold text-[hsl(var(--primary))] hover:underline">
+                <span className="text-base text-star tracking-wide">★★★★★</span>
+                <a href="#reviews" className="text-[13px] text-muted-foreground font-medium hover:text-primary transition-colors">
                   5.0 · 90+ doğrulanmış değerlendirme
                 </a>
               </div>
 
-              <div className="flex items-center gap-5 py-3 border-y border-gray-100 overflow-x-auto hide-scrollbar">
-                {[
-                  { icon: "🌿", label: "Hayıt" },
-                  { icon: "🫚", label: "Zencefil" },
-                  { icon: "💊", label: "B12" },
-                  { icon: "⚗️", label: "Magnezyum" },
-                  { icon: "⚙️", label: "Demir" },
-                ].map((item) => (
-                  <div key={item.label} className="flex flex-col items-center gap-1.5 flex-shrink-0">
-                    <span className="text-2xl">{item.icon}</span>
-                    <span className="text-xs font-medium text-[hsl(var(--muted))]">{item.label}</span>
-                  </div>
-                ))}
+              <div className="text-[13px] text-amber font-semibold flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                Stokta sadece 12 adet kaldı
               </div>
 
               <PricingSection onAddToCart={handleAddToCart} />
@@ -109,16 +94,9 @@ const Index = () => {
 
       <StatsBar />
 
-      <div id="reviews">
-        <ReviewsSection />
-      </div>
+      <div id="reviews" className="hidden" />
 
-      <VideoTestimonials />
-      <BeforeAfter />
-      <IngredientsSection />
-      <HowItWorksSection />
       <FAQSection />
-      <FooterSection />
 
       <StickyCartBar visible={stickyVisible} price={3500} onAdd={handleAddToCart} />
       <SocialProofToast />
@@ -153,24 +131,24 @@ function FAQSection() {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-background">
       <div className="container max-w-3xl">
         <div className="text-center mb-10">
-          <p className="k5-reveal text-[13px] font-bold uppercase tracking-[1.5px] text-[hsl(var(--primary))] mb-2">
+          <p className="k5-reveal text-[13px] font-bold uppercase tracking-[1.5px] text-primary mb-2">
             SSS
           </p>
-          <h2 className="k5-reveal d1 text-3xl font-black text-[hsl(var(--foreground))]">Sık Sorulan Sorular</h2>
+          <h2 className="k5-reveal d1 text-3xl font-extrabold text-foreground">Sık Sorulan Sorular</h2>
         </div>
         <div className="space-y-3">
           {faqs.map((faq, i) => (
-            <div key={i} className="k5-reveal border border-gray-100 rounded-2xl overflow-hidden">
+            <div key={i} className="k5-reveal border border-border rounded-2xl overflow-hidden bg-card">
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-[hsl(var(--primary-light))] transition-colors"
+                className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-secondary/50 transition-colors"
               >
-                <span className="font-semibold text-[hsl(var(--foreground))] text-sm">{faq.q}</span>
+                <span className="font-semibold text-foreground text-sm">{faq.q}</span>
                 <span
-                  className={`text-[hsl(var(--primary))]/50 text-xl font-light transition-transform duration-200 ${
+                  className={`text-primary/60 text-xl font-light transition-transform duration-200 ${
                     open === i ? "rotate-45" : ""
                   }`}
                 >
@@ -178,7 +156,7 @@ function FAQSection() {
                 </span>
               </button>
               {open === i && (
-                <div className="px-6 pb-4 text-sm text-[hsl(var(--foreground))]/70 leading-relaxed border-t border-gray-100 pt-3">
+                <div className="px-6 pb-4 text-sm text-muted-foreground leading-relaxed border-t border-border pt-3">
                   {faq.a}
                 </div>
               )}

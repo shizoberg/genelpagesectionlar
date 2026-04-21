@@ -7,12 +7,13 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "1rem",
-      screens: { "2xl": "1400px" },
+      padding: "1.25rem",
+      screens: { "2xl": "1080px" },
     },
     extend: {
       fontFamily: {
-        sans: ['Raleway', 'Helvetica Neue', 'system-ui', 'sans-serif'],
+        sans: ["Raleway", "Helvetica Neue", "system-ui", "sans-serif"],
+        primary: ["Raleway", "Helvetica Neue", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -50,12 +51,32 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // .ki brand semantic aliases
+        rose: {
+          DEFAULT: "hsl(var(--rose))",
+          light: "hsl(var(--rose-light))",
+        },
+        sage: {
+          DEFAULT: "hsl(var(--sage))",
+          light: "hsl(var(--sage-light))",
+        },
+        amber: {
+          DEFAULT: "hsl(var(--amber))",
+          light: "hsl(var(--amber-light))",
+        },
+        star: "hsl(var(--star))",
+        cream: {
+          2: "hsl(var(--cream-2))",
+          3: "hsl(var(--cream-3))",
+        },
+        plum: {
+          pale: "hsl(var(--plum-pale))",
+        },
+        // legacy .ki aliases (kept for existing components)
         ki: {
           navy: "hsl(var(--primary))",
           purple: "hsl(var(--primary-medium))",
           violet: "hsl(var(--violet))",
-          light: "hsl(var(--primary-light))",
+          light: "hsl(var(--secondary))",
           cream: "hsl(var(--background))",
           gold: "hsl(var(--gold))",
           green: "hsl(var(--green))",
@@ -77,6 +98,11 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      boxShadow: {
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -86,10 +112,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out both",
       },
     },
   },
