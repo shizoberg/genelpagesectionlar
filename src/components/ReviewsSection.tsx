@@ -50,7 +50,7 @@ export default function ReviewsSection() {
           Soru &amp; Cevap
         </div>
         <div className="k5-reveal d1 mb-8">
-          <h2 className="text-3xl md:text-4xl font-black text-[hsl(var(--foreground))] leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-[hsl(var(--foreground))] leading-tight tracking-tight">
             Eczacımızın Yanıtladığı
             <br className="hidden md:block" /> Sorular
           </h2>
