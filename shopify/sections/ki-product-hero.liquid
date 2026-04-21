@@ -1,0 +1,143 @@
+{% render 'ki-styles' %}
+
+<section class="ki-hero" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-hero-grid">
+      <div class="ki-hero-gallery">
+        {% if section.settings.product != blank %}
+          {%- assign product = all_products[section.settings.product] -%}
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}" class="ki-hero-img" loading="eager" />
+          {% endif %}
+        {% elsif section.settings.image != blank %}
+          <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.title | escape }}" class="ki-hero-img" loading="eager" />
+        {% else %}
+          <div class="ki-hero-placeholder">{{ 'product-1' | placeholder_svg_tag }}</div>
+        {% endif %}
+      </div>
+
+      <div class="ki-hero-info">
+        {% if section.settings.badge != blank %}
+          <div class="ki-hero-badge">{{ section.settings.badge }}</div>
+        {% endif %}
+
+        <h1 class="ki-hero-title">{{ section.settings.title }}</h1>
+        <p class="ki-hero-subtitle">{{ section.settings.subtitle }}</p>
+
+        {% if section.settings.show_rating %}
+          <div class="ki-hero-rating">
+            <span class="ki-stars">★★★★★</span>
+            <a href="#reviews" class="ki-rating-link">{{ section.settings.rating_text }}</a>
+          </div>
+        {% endif %}
+
+        {% if section.settings.shipping_note != blank %}
+          <div class="ki-hero-shipping">🚚 {{ section.settings.shipping_note }}</div>
+        {% endif %}
+
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'price_option' %}
+              <label class="ki-price-card {% if block.settings.recommended %}ki-recommended{% endif %}" {{ block.shopify_attributes }}>
+                {% if block.settings.recommended %}<span class="ki-recommended-tag">{{ block.settings.recommended_label }}</span>{% endif %}
+                <div class="ki-price-row">
+                  <div>
+                    <div class="ki-price-title">{{ block.settings.title }}</div>
+                    <div class="ki-price-desc">{{ block.settings.description }}</div>
+                  </div>
+                  <div class="ki-price-amount">{{ block.settings.price }}</div>
+                </div>
+              </label>
+          {% endcase %}
+        {% endfor %}
+
+        {% if section.settings.product != blank %}
+          {%- assign product = all_products[section.settings.product] -%}
+          <form method="post" action="/cart/add" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <button type="submit" class="ki-btn ki-btn-primary ki-hero-cta">
+              {{ section.settings.cta_text | default: 'Sepete ekle' }}
+            </button>
+          </form>
+        {% else %}
+          <a href="{{ section.settings.cta_link }}" class="ki-btn ki-btn-primary ki-hero-cta">
+            {{ section.settings.cta_text | default: 'Sepete ekle' }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-hero { padding: 2rem 0 3rem; }
+  .ki-hero-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
+  @media (min-width: 768px) {
+    .ki-hero-grid { grid-template-columns: 5fr 7fr; gap: 2.5rem; }
+    .ki-hero-gallery { position: sticky; top: 1.5rem; }
+  }
+  .ki-hero-img { width: 100%; max-width: 420px; border-radius: 24px; display: block; }
+  .ki-hero-badge {
+    display: inline-flex; align-items: center; gap: 0.375rem;
+    background: var(--ki-secondary); color: var(--ki-primary);
+    font-size: 0.75rem; font-weight: 700; padding: 0.375rem 0.875rem;
+    border-radius: 9999px; margin-bottom: 1rem;
+  }
+  .ki-hero-title { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; color: var(--ki-foreground); letter-spacing: -0.02em; line-height: 1.15; }
+  .ki-hero-subtitle { font-size: 0.95rem; color: var(--ki-muted); margin-top: 0.5rem; line-height: 1.6; }
+  .ki-hero-rating { display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; }
+  .ki-stars { color: var(--ki-star); letter-spacing: 0.1em; }
+  .ki-rating-link { color: var(--ki-muted); font-size: 0.85rem; font-weight: 500; text-decoration: none; }
+  .ki-hero-shipping { color: var(--ki-amber); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; }
+  .ki-hero-cta { width: 100%; margin-top: 1rem; padding: 1rem; font-size: 1rem; }
+
+  .ki-price-card {
+    display: block; padding: 1rem 1.25rem; border: 2px solid var(--ki-border);
+    border-radius: 16px; margin-top: 0.75rem; cursor: pointer; position: relative;
+    background: var(--ki-card); transition: all 0.2s;
+  }
+  .ki-price-card.ki-recommended { border-color: var(--ki-primary); }
+  .ki-recommended-tag {
+    position: absolute; top: -10px; left: 1rem;
+    background: var(--ki-primary); color: white;
+    font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.625rem; border-radius: 9999px;
+  }
+  .ki-price-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .ki-price-title { font-weight: 700; color: var(--ki-foreground); }
+  .ki-price-desc { font-size: 0.8rem; color: var(--ki-muted); margin-top: 0.125rem; }
+  .ki-price-amount { font-weight: 800; color: var(--ki-primary); font-size: 1.125rem; white-space: nowrap; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Product Hero",
+  "tag": "section",
+  "settings": [
+    { "type": "product", "id": "product",       "label": "Bağlı ürün (opsiyonel)" },
+    { "type": "image_picker", "id": "image",    "label": "Ürün görseli (ürün yoksa)" },
+    { "type": "text",  "id": "badge",           "label": "Üst rozet metni",  "default": "90+ kişi bu ürünü satın aldı" },
+    { "type": "text",  "id": "title",           "label": "Başlık",           "default": ".ki Balance — Döngü Takviyesi" },
+    { "type": "textarea", "id": "subtitle",     "label": "Alt başlık",       "default": "Eczacı ve doktorlar tarafından geliştirilmiş bilimsel formülasyon." },
+    { "type": "checkbox", "id": "show_rating",  "label": "Yıldız puanı göster", "default": true },
+    { "type": "text",  "id": "rating_text",     "label": "Puan metni",       "default": "5.0 · 90+ doğrulanmış değerlendirme" },
+    { "type": "text",  "id": "shipping_note",   "label": "Kargo notu",       "default": "Bugün 14:00'a kadar sipariş ver, yarın kapında" },
+    { "type": "text",  "id": "cta_text",        "label": "Buton metni",      "default": "Sepete ekle" },
+    { "type": "url",   "id": "cta_link",        "label": "Buton linki (ürün yoksa)" },
+    { "type": "color", "id": "bg_color",        "label": "Arka plan",        "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "price_option",
+      "name": "Fiyat seçeneği",
+      "settings": [
+        { "type": "text",     "id": "title",             "label": "Başlık",       "default": "Tek seferlik" },
+        { "type": "text",     "id": "description",       "label": "Açıklama",     "default": "30 günlük kutu" },
+        { "type": "text",     "id": "price",             "label": "Fiyat",        "default": "₺350" },
+        { "type": "checkbox", "id": "recommended",       "label": "Önerilen olarak işaretle" },
+        { "type": "text",     "id": "recommended_label", "label": "Önerilen rozeti", "default": "EN POPÜLER" }
+      ]
+    }
+  ],
+  "presets": [{ "name": ".ki Product Hero" }]
+}
+{% endschema %}

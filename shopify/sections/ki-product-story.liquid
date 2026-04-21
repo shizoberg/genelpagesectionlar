@@ -1,0 +1,75 @@
+{% render 'ki-styles' %}
+
+<section class="ki-product-story" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-section-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="ki-text" style="margin-top: 0.75rem; max-width: 640px; margin-left: auto; margin-right: auto;">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="ki-ps-stages">
+      {% for block in section.blocks %}
+        <div class="ki-ps-stage" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title | escape }}" class="ki-ps-img">
+          {% else %}
+            <div class="ki-ps-icon" style="background: {{ block.settings.color }};">{{ forloop.index }}</div>
+          {% endif %}
+          <h3 class="ki-ps-title">{{ block.settings.title }}</h3>
+          <p class="ki-ps-desc">{{ block.settings.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-product-story { padding: 5rem 0; }
+  .ki-section-head { text-align: center; margin-bottom: 3rem; }
+  .ki-ps-stages { display: grid; grid-template-columns: 1fr; gap: 2.5rem; max-width: 1000px; margin: 0 auto; }
+  @media (min-width: 768px) { .ki-ps-stages { grid-template-columns: repeat(3, 1fr); gap: 2rem; } }
+  .ki-ps-stage { text-align: center; }
+  .ki-ps-img { width: 100%; max-width: 280px; aspect-ratio: 1; object-fit: cover; border-radius: 24px; margin: 0 auto 1.25rem; }
+  .ki-ps-icon { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1.25rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: 800; }
+  .ki-ps-title { font-size: 1.125rem; font-weight: 800; color: var(--ki-foreground); margin-bottom: 0.5rem; }
+  .ki-ps-desc { font-size: 0.875rem; color: var(--ki-muted); line-height: 1.6; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Product Story",
+  "tag": "section",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",  "label": "Üst etiket", "default": "DÖNGÜNÜN HİKAYESİ" },
+    { "type": "text",     "id": "title",    "label": "Başlık",     "default": "Sachet'ten dengeye 3 adım" },
+    { "type": "textarea", "id": "subtitle", "label": "Alt başlık", "default": "Her gün 1 sachet ile döngünü dengele." },
+    { "type": "color",    "id": "bg_color", "label": "Arka plan",  "default": "#FAF7FB" }
+  ],
+  "blocks": [
+    {
+      "type": "stage",
+      "name": "Aşama",
+      "settings": [
+        { "type": "image_picker", "id": "image",       "label": "Görsel" },
+        { "type": "text",         "id": "title",       "label": "Başlık" },
+        { "type": "textarea",     "id": "description", "label": "Açıklama" },
+        { "type": "color",        "id": "color",       "label": "Renk", "default": "#6B4E8C" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": ".ki Product Story",
+      "blocks": [
+        { "type": "stage", "settings": { "title": "Aç", "description": "Sachet'i aç, suya dök." } },
+        { "type": "stage", "settings": { "title": "Karıştır", "description": "Bir bardak suyla karıştır." } },
+        { "type": "stage", "settings": { "title": "Dengeyi hisset", "description": "10 sachet · 1 döngü. Düzenli kullanımla farkı yaşa." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

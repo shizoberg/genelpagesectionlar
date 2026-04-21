@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "urgency":      { "type": "ki-urgency-bar" },
+    "hero":         { "type": "ki-product-hero" },
+    "reviews":      { "type": "ki-reviews" },
+    "videos":       { "type": "ki-video-testimonials" },
+    "ingredients":  { "type": "ki-ingredients" },
+    "before_after": { "type": "ki-before-after" },
+    "how_it_works": { "type": "ki-how-it-works" },
+    "faq":          { "type": "ki-faq" },
+    "story":        { "type": "ki-product-story" },
+    "manifesto":    { "type": "ki-manifesto" },
+    "categories":   { "type": "ki-categories" },
+    "feature":      { "type": "ki-feature-image" },
+    "bestsellers":  { "type": "ki-shop-bestsellers" },
+    "trust":        { "type": "ki-trust-bar" },
+    "ritual_cats":  { "type": "ki-ritual-categories" },
+    "story_strip":  { "type": "ki-story-strip" }
+  },
+  "order": [
+    "urgency",
+    "hero",
+    "reviews",
+    "videos",
+    "ingredients",
+    "before_after",
+    "how_it_works",
+    "faq",
+    "story",
+    "manifesto",
+    "categories",
+    "feature",
+    "bestsellers",
+    "trust",
+    "ritual_cats",
+    "story_strip"
+  ]
+}

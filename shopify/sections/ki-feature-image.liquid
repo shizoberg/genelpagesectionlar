@@ -1,0 +1,54 @@
+{% render 'ki-styles' %}
+
+<section class="ki-feature" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-feature-grid {% if section.settings.image_position == 'right' %}ki-feature-reverse{% endif %}">
+      <div class="ki-feature-visual">
+        {% if section.settings.image != blank %}
+          <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.title | escape }}">
+        {% else %}
+          <div class="ki-feature-placeholder" style="background: var(--ki-secondary);"></div>
+        {% endif %}
+      </div>
+      <div class="ki-feature-text">
+        {% if section.settings.eyebrow != blank %}
+          <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+        <h2 class="ki-heading">{{ section.settings.title }}</h2>
+        <p class="ki-text" style="margin-top: 1rem;">{{ section.settings.description }}</p>
+        {% if section.settings.cta_text != blank %}
+          <a href="{{ section.settings.cta_link }}" class="ki-btn ki-btn-primary" style="margin-top: 1.5rem;">{{ section.settings.cta_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-feature { padding: 4rem 0; }
+  .ki-feature-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; }
+  @media (min-width: 768px) {
+    .ki-feature-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .ki-feature-reverse .ki-feature-visual { order: 2; }
+  }
+  .ki-feature-visual img, .ki-feature-placeholder { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 24px; display: block; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Feature Image",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image",          "label": "Görsel" },
+    { "type": "select",       "id": "image_position", "label": "Görsel konumu", "default": "left",
+      "options": [ { "value": "left", "label": "Sol" }, { "value": "right", "label": "Sağ" } ] },
+    { "type": "text",         "id": "eyebrow",        "label": "Üst etiket",    "default": "Gerçek Denge" },
+    { "type": "text",         "id": "title",          "label": "Başlık",        "default": "Eczacı onaylı, klinik dozajlı" },
+    { "type": "textarea",     "id": "description",    "label": "Açıklama",      "default": ".ki Balance — her sachet'te tutarlı standart, şeffaf kaynak takibi." },
+    { "type": "text",         "id": "cta_text",       "label": "CTA metni" },
+    { "type": "url",          "id": "cta_link",       "label": "CTA linki" },
+    { "type": "color",        "id": "bg_color",       "label": "Arka plan",     "default": "#FFFFFF" }
+  ],
+  "presets": [{ "name": ".ki Feature Image" }]
+}
+{% endschema %}

@@ -1,0 +1,79 @@
+{% comment %}
+  .ki Balance — ortak stil tokens
+  Tüm section'lar bu snippet'i bir kere include eder.
+{% endcomment %}
+
+{% unless ki_styles_loaded %}
+  {% assign ki_styles_loaded = true %}
+  <style>
+    :root {
+      --ki-primary: {{ settings.ki_primary_color | default: '#6B4E8C' }};
+      --ki-primary-medium: {{ settings.ki_primary_medium | default: '#8B6BB1' }};
+      --ki-primary-light: {{ settings.ki_primary_light | default: '#E8DFF5' }};
+      --ki-rose: {{ settings.ki_rose | default: '#D88BA0' }};
+      --ki-amber: {{ settings.ki_amber | default: '#E8A87C' }};
+      --ki-sage: {{ settings.ki_sage | default: '#A8C4A2' }};
+      --ki-foreground: {{ settings.ki_foreground | default: '#2A1F3D' }};
+      --ki-muted: {{ settings.ki_muted | default: '#7A6B85' }};
+      --ki-bg: {{ settings.ki_bg | default: '#FFFFFF' }};
+      --ki-card: {{ settings.ki_card | default: '#FAF7FB' }};
+      --ki-border: {{ settings.ki_border | default: '#E8DFF5' }};
+      --ki-secondary: {{ settings.ki_secondary | default: '#F5EFFB' }};
+      --ki-star: #F4B942;
+    }
+
+    .ki-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .ki-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .ki-btn-primary {
+      background: var(--ki-primary);
+      color: white;
+    }
+    .ki-btn-primary:hover { background: var(--ki-primary-medium); }
+    .ki-btn-outline {
+      background: transparent;
+      border: 2px solid var(--ki-primary);
+      color: var(--ki-primary);
+    }
+
+    .ki-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--ki-primary);
+      margin-bottom: 0.5rem;
+    }
+    .ki-heading {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ki-foreground);
+      line-height: 1.15;
+    }
+    .ki-text { color: var(--ki-muted); line-height: 1.6; }
+
+    @keyframes ki-fade-up {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .ki-reveal { animation: ki-fade-up 0.6s ease-out both; }
+  </style>
+{% endunless %}

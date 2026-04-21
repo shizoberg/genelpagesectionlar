@@ -1,0 +1,91 @@
+{% render 'ki-styles' %}
+
+<section class="ki-reviews" style="background: {{ section.settings.bg_color }};" id="{{ section.settings.anchor_id | default: 'reviews' }}">
+  <div class="ki-container">
+    <div class="ki-reviews-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+      <div class="ki-reviews-summary">
+        <span class="ki-stars">★★★★★</span>
+        <span class="ki-reviews-score">{{ section.settings.score }}</span>
+        <span class="ki-reviews-count">· {{ section.settings.count_text }}</span>
+      </div>
+    </div>
+
+    <div class="ki-reviews-grid">
+      {% for block in section.blocks %}
+        <div class="ki-review-card" {{ block.shopify_attributes }}>
+          <div class="ki-review-stars">★★★★★</div>
+          <p class="ki-review-text">"{{ block.settings.text }}"</p>
+          <div class="ki-review-author">
+            {% if block.settings.avatar != blank %}
+              <img src="{{ block.settings.avatar | image_url: width: 80 }}" alt="" class="ki-review-avatar">
+            {% else %}
+              <div class="ki-review-avatar ki-review-avatar-placeholder">{{ block.settings.name | slice: 0 }}</div>
+            {% endif %}
+            <div>
+              <div class="ki-review-name">{{ block.settings.name }}</div>
+              <div class="ki-review-meta">{{ block.settings.meta }}</div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-reviews { padding: 4rem 0; }
+  .ki-reviews-head { text-align: center; margin-bottom: 2.5rem; }
+  .ki-reviews-summary { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; font-weight: 600; color: var(--ki-foreground); }
+  .ki-reviews-score { font-size: 1.25rem; }
+  .ki-reviews-count { color: var(--ki-muted); font-weight: 500; }
+  .ki-reviews-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  @media (min-width: 768px) { .ki-reviews-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; } }
+  .ki-review-card { background: var(--ki-card); border: 1px solid var(--ki-border); border-radius: 20px; padding: 1.5rem; }
+  .ki-review-stars { color: var(--ki-star); font-size: 0.95rem; letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+  .ki-review-text { font-size: 0.9rem; line-height: 1.6; color: var(--ki-foreground); margin-bottom: 1rem; }
+  .ki-review-author { display: flex; align-items: center; gap: 0.75rem; }
+  .ki-review-avatar { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+  .ki-review-avatar-placeholder { background: var(--ki-primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .ki-review-name { font-size: 0.85rem; font-weight: 700; color: var(--ki-foreground); }
+  .ki-review-meta { font-size: 0.75rem; color: var(--ki-muted); }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Reviews",
+  "tag": "section",
+  "settings": [
+    { "type": "text",  "id": "eyebrow",    "label": "Üst etiket",  "default": "MÜŞTERİ DENEYİMLERİ" },
+    { "type": "text",  "id": "title",      "label": "Başlık",      "default": "Gerçek kullanıcılardan yorumlar" },
+    { "type": "text",  "id": "score",      "label": "Puan",        "default": "5.0" },
+    { "type": "text",  "id": "count_text", "label": "Yorum sayısı", "default": "90+ doğrulanmış değerlendirme" },
+    { "type": "text",  "id": "anchor_id",  "label": "Anchor ID",   "default": "reviews" },
+    { "type": "color", "id": "bg_color",   "label": "Arka plan",   "default": "#FAF7FB" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Yorum",
+      "settings": [
+        { "type": "textarea",     "id": "text",   "label": "Yorum metni" },
+        { "type": "text",         "id": "name",   "label": "İsim" },
+        { "type": "text",         "id": "meta",   "label": "Ek bilgi (yaş, şehir vb.)" },
+        { "type": "image_picker", "id": "avatar", "label": "Avatar" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": ".ki Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "text": "İlk aydan itibaren PMS şikayetlerim azaldı. Artık takvimi takip etmeye gerek kalmıyor.", "name": "Ayşe K.", "meta": "28 yaş · İstanbul" } },
+        { "type": "review", "settings": { "text": "Doğal içerikli olması ve şeffaf etiketleme beni ikna etti. 3 aydır kullanıyorum.", "name": "Zeynep T.", "meta": "32 yaş · Ankara" } },
+        { "type": "review", "settings": { "text": "Aboneliğim çok rahat, kapımda. Tat olarak da hiç rahatsız etmiyor.", "name": "Selin M.", "meta": "26 yaş · İzmir" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

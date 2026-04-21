@@ -1,0 +1,67 @@
+{% render 'ki-styles' %}
+
+<section class="ki-video-test" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container">
+    <div class="ki-section-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="ki-vt-grid">
+      {% for block in section.blocks %}
+        <div class="ki-vt-card" {{ block.shopify_attributes }}>
+          {% if block.settings.video_url != blank %}
+            <video src="{{ block.settings.video_url }}" {% if block.settings.poster != blank %}poster="{{ block.settings.poster | image_url: width: 600 }}"{% endif %} controls playsinline></video>
+          {% elsif block.settings.poster != blank %}
+            <img src="{{ block.settings.poster | image_url: width: 600 }}" alt="{{ block.settings.name | escape }}">
+          {% else %}
+            <div class="ki-vt-placeholder">▶</div>
+          {% endif %}
+          <div class="ki-vt-meta">
+            <div class="ki-vt-name">{{ block.settings.name }}</div>
+            <div class="ki-vt-quote">"{{ block.settings.quote }}"</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-video-test { padding: 4rem 0; }
+  .ki-section-head { text-align: center; margin-bottom: 2.5rem; }
+  .ki-vt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  @media (min-width: 768px) { .ki-vt-grid { grid-template-columns: repeat(4, 1fr); gap: 1rem; } }
+  .ki-vt-card { background: var(--ki-card); border-radius: 20px; overflow: hidden; }
+  .ki-vt-card video, .ki-vt-card img { width: 100%; aspect-ratio: 9/16; object-fit: cover; display: block; }
+  .ki-vt-placeholder { width: 100%; aspect-ratio: 9/16; background: var(--ki-primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; }
+  .ki-vt-meta { padding: 0.875rem; }
+  .ki-vt-name { font-size: 0.85rem; font-weight: 700; color: var(--ki-foreground); }
+  .ki-vt-quote { font-size: 0.75rem; color: var(--ki-muted); margin-top: 0.25rem; line-height: 1.4; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Video Testimonials",
+  "tag": "section",
+  "settings": [
+    { "type": "text",  "id": "eyebrow",  "label": "Üst etiket", "default": "GERÇEK HİKAYELER" },
+    { "type": "text",  "id": "title",    "label": "Başlık",     "default": "Müşterilerimiz anlatıyor" },
+    { "type": "color", "id": "bg_color", "label": "Arka plan",  "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        { "type": "url",          "id": "video_url", "label": "Video URL (mp4)" },
+        { "type": "image_picker", "id": "poster",    "label": "Poster görseli" },
+        { "type": "text",         "id": "name",      "label": "İsim" },
+        { "type": "text",         "id": "quote",     "label": "Alıntı" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": ".ki Video Testimonials" }]
+}
+{% endschema %}

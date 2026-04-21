@@ -1,0 +1,36 @@
+{% render 'ki-styles' %}
+
+<div class="ki-urgency" style="background: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="ki-container ki-urgency-inner">
+    {% if section.settings.icon != blank %}
+      <span class="ki-urgency-icon">{{ section.settings.icon }}</span>
+    {% endif %}
+    <span class="ki-urgency-text">{{ section.settings.message }}</span>
+    {% if section.settings.cta_text != blank %}
+      <a href="{{ section.settings.cta_link }}" class="ki-urgency-cta">{{ section.settings.cta_text }} →</a>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .ki-urgency { padding: 0.625rem 0; font-size: 0.8rem; font-weight: 600; text-align: center; }
+  .ki-urgency-inner { display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+  .ki-urgency-cta { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+</style>
+
+{% schema %}
+{
+  "name": ".ki Urgency Bar",
+  "tag": "section",
+  "class": "ki-section",
+  "settings": [
+    { "type": "text",  "id": "icon",       "label": "İkon (emoji)", "default": "🚚" },
+    { "type": "text",  "id": "message",    "label": "Mesaj",        "default": "Bugün 14:00'a kadar sipariş ver, yarın kapında" },
+    { "type": "text",  "id": "cta_text",   "label": "CTA metni",    "default": "Hemen sipariş ver" },
+    { "type": "url",   "id": "cta_link",   "label": "CTA linki" },
+    { "type": "color", "id": "bg_color",   "label": "Arka plan",    "default": "#2A1F3D" },
+    { "type": "color", "id": "text_color", "label": "Metin rengi",  "default": "#FFFFFF" }
+  ],
+  "presets": [{ "name": ".ki Urgency Bar" }]
+}
+{% endschema %}

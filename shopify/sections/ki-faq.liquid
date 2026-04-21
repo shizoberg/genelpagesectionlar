@@ -1,0 +1,76 @@
+{% render 'ki-styles' %}
+
+<section class="ki-faq" style="background: {{ section.settings.bg_color }};">
+  <div class="ki-container" style="max-width: 768px;">
+    <div class="ki-faq-head">
+      <p class="ki-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2 class="ki-heading">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="ki-faq-list">
+      {% for block in section.blocks %}
+        <details class="ki-faq-item" {% if forloop.first %}open{% endif %} {{ block.shopify_attributes }}>
+          <summary class="ki-faq-q">
+            <span>{{ block.settings.question }}</span>
+            <span class="ki-faq-icon">+</span>
+          </summary>
+          <div class="ki-faq-a">{{ block.settings.answer }}</div>
+        </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ki-faq { padding: 4rem 0; }
+  .ki-faq-head { text-align: center; margin-bottom: 2.5rem; }
+  .ki-faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .ki-faq-item { background: var(--ki-card); border: 1px solid var(--ki-border); border-radius: 16px; overflow: hidden; }
+  .ki-faq-q {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.5rem; cursor: pointer; list-style: none;
+    font-weight: 600; font-size: 0.9rem; color: var(--ki-foreground);
+  }
+  .ki-faq-q::-webkit-details-marker { display: none; }
+  .ki-faq-icon { color: var(--ki-primary); font-size: 1.5rem; font-weight: 300; transition: transform 0.2s; }
+  .ki-faq-item[open] .ki-faq-icon { transform: rotate(45deg); }
+  .ki-faq-a {
+    padding: 0.75rem 1.5rem 1.25rem; font-size: 0.875rem;
+    color: var(--ki-muted); line-height: 1.6;
+    border-top: 1px solid var(--ki-border);
+  }
+</style>
+
+{% schema %}
+{
+  "name": ".ki FAQ",
+  "tag": "section",
+  "settings": [
+    { "type": "text",  "id": "eyebrow",  "label": "Üst etiket", "default": "SSS" },
+    { "type": "text",  "id": "title",    "label": "Başlık",     "default": "Sık Sorulan Sorular" },
+    { "type": "color", "id": "bg_color", "label": "Arka plan",  "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Soru",
+      "settings": [
+        { "type": "text",     "id": "question", "label": "Soru" },
+        { "type": "richtext", "id": "answer",   "label": "Cevap" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": ".ki FAQ",
+      "blocks": [
+        { "type": "faq", "settings": { "question": "Ürünü nasıl kullanmalıyım?",   "answer": "<p>Günde 1 sachet, tercihen sabah kahvaltıyla birlikte bir bardak suya karıştırarak tüketin.</p>" } },
+        { "type": "faq", "settings": { "question": "Kaç günde etki görülür?",       "answer": "<p>Çoğu kullanıcı 2–4 hafta içinde rahatlama bildirmektedir.</p>" } },
+        { "type": "faq", "settings": { "question": "Vegan mı?",                     "answer": "<p>Evet, %100 vegan sertifikalı.</p>" } },
+        { "type": "faq", "settings": { "question": "İade politikası nedir?",        "answer": "<p>30 gün koşulsuz iade.</p>" } },
+        { "type": "faq", "settings": { "question": "Aboneliği nasıl iptal ederim?", "answer": "<p>İstediğin zaman, hesabından tek tıkla iptal.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
