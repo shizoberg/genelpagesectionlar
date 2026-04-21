@@ -94,6 +94,7 @@ değiştirilebilir.
 | `TrustBar.tsx`                 | `ki-trust-bar.liquid`           |
 | `RitualCategories.tsx`         | `ki-ritual-categories.liquid`   |
 | `StoryStrip.tsx`               | `ki-story-strip.liquid`         |
+| `GreenCapsuleStory.tsx`        | `ki-green-capsule-story.liquid` |
 
 ## Notlar
 
