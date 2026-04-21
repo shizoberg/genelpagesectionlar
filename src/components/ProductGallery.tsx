@@ -2,10 +2,10 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
-  { id: 1, bg: "from-ki-navy via-ki-purple to-ki-violet", label: "Ürün - Ön" },
-  { id: 2, bg: "from-ki-violet via-purple-400 to-pink-300", label: "Kullanım" },
-  { id: 3, bg: "from-indigo-900 via-ki-navy to-ki-purple", label: "İçerik" },
-  { id: 4, bg: "from-ki-purple via-violet-500 to-ki-violet", label: "Detay" },
+  { id: 1, label: "Ürün - Ön" },
+  { id: 2, label: "Kullanım" },
+  { id: 3, label: "İçerik" },
+  { id: 4, label: "Detay" },
 ];
 
 export default function ProductGallery() {
@@ -16,37 +16,38 @@ export default function ProductGallery() {
 
   return (
     <div className="space-y-3">
-      <div className="relative rounded-3xl overflow-hidden aspect-square bg-ki-light">
-        <div className={`absolute inset-0 bg-gradient-to-br ${slides[active].bg} flex items-center justify-center`}>
+      <div className="relative rounded-3xl overflow-hidden aspect-square bg-secondary">
+        <div className="absolute inset-0 bg-primary flex items-center justify-center">
           <div className="relative">
-            <div className="w-40 h-52 bg-white/15 backdrop-blur-sm rounded-2xl border border-white/20 flex flex-col items-center justify-center p-4 shadow-2xl">
-              <p className="text-white font-extrabold text-3xl tracking-tight">.ki</p>
-              <p className="text-white/80 text-xs text-center mt-1 leading-tight">Balance Your Cycle</p>
+            <div className="w-40 h-52 bg-primary-foreground/15 backdrop-blur-sm rounded-2xl border border-primary-foreground/20 flex flex-col items-center justify-center p-4 shadow-2xl">
+              <p className="text-primary-foreground font-extrabold text-3xl tracking-tight">.ki</p>
+              <p className="text-primary-foreground/80 text-xs text-center mt-1 leading-tight">
+                Balance Your Cycle
+              </p>
               <div className="mt-3 space-y-0.5">
-                <p className="text-white/60 text-[10px] text-center">Dong Quai · Magnesium</p>
-                <p className="text-white/60 text-[10px] text-center">Vitex Agnus Castus</p>
+                <p className="text-primary-foreground/60 text-[10px] text-center">Dong Quai · Magnesium</p>
+                <p className="text-primary-foreground/60 text-[10px] text-center">Vitex Agnus Castus</p>
               </div>
-              <div className="mt-3 bg-white/20 rounded-lg px-3 py-1">
-                <p className="text-white text-[10px] font-semibold">x10 Sachet · 20g</p>
+              <div className="mt-3 bg-primary-foreground/20 rounded-lg px-3 py-1">
+                <p className="text-primary-foreground text-[10px] font-semibold">x10 Sachet · 20g</p>
               </div>
             </div>
-            <div className="absolute inset-0 rounded-2xl shadow-[0_0_60px_rgba(255,255,255,0.1)]" />
           </div>
         </div>
 
         <button
           onClick={prev}
           aria-label="Önceki"
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-card/90 rounded-full flex items-center justify-center shadow-md hover:bg-card transition-colors"
         >
-          <ChevronLeft size={18} className="text-ki-navy" />
+          <ChevronLeft size={18} className="text-primary" />
         </button>
         <button
           onClick={next}
           aria-label="Sonraki"
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/90 rounded-full flex items-center justify-center shadow-md hover:bg-white transition-colors"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-card/90 rounded-full flex items-center justify-center shadow-md hover:bg-card transition-colors"
         >
-          <ChevronRight size={18} className="text-ki-navy" />
+          <ChevronRight size={18} className="text-primary" />
         </button>
 
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
@@ -56,26 +57,25 @@ export default function ProductGallery() {
               onClick={() => setActive(i)}
               aria-label={`Slayt ${i + 1}`}
               className={`rounded-full transition-all duration-200 ${
-                i === active ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/50"
+                i === active ? "w-6 h-2 bg-primary-foreground" : "w-2 h-2 bg-primary-foreground/50"
               }`}
             />
           ))}
         </div>
       </div>
 
+      {/* Sade thumbnail'ler — gradyan kaldırıldı, tek ton */}
       <div className="grid grid-cols-4 gap-2">
         {slides.map((slide, i) => (
           <button
             key={slide.id}
             onClick={() => setActive(i)}
             aria-label={`${slide.label} küçük resmi`}
-            className={`aspect-square rounded-xl overflow-hidden border-2 transition-all ${
-              i === active ? "border-ki-navy" : "border-transparent opacity-60 hover:opacity-80"
+            className={`aspect-square rounded-xl overflow-hidden border-2 transition-all bg-secondary flex items-center justify-center ${
+              i === active ? "border-primary" : "border-transparent opacity-70 hover:opacity-100"
             }`}
           >
-            <div className={`w-full h-full bg-gradient-to-br ${slide.bg} flex items-center justify-center`}>
-              <span className="text-white font-bold text-xs">.ki</span>
-            </div>
+            <span className="text-primary/60 font-bold text-xs">.ki</span>
           </button>
         ))}
       </div>
