@@ -123,6 +123,8 @@ const Index = () => {
         description="Eczacı onaylı, klinik dozajlı .ki Balance — her sachet'te tutarlı standart, şeffaf kaynak takibi."
       />
 
+      <BuildYourBoxSection />
+
       {/* Sayfa sonu — Takviye Edici Gıda onay metni */}
       <div className="border-t border-border bg-secondary/30">
         <div className="container py-6 text-center">
