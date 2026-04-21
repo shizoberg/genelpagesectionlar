@@ -514,48 +514,86 @@ function PMSCalendar({ active, progress }: { active: boolean; progress: number }
 
         <div className="flex items-center justify-center gap-3 mt-3 text-[9px] sm:text-[10px]">
           <span className="flex items-center gap-1 text-primary font-bold">
-            <span className="w-2 h-2 rounded-sm bg-primary" /> PMS · 5 gün
+            <span className="w-2 h-2 rounded-sm bg-primary" /> PMS · 5 sachet
           </span>
           <span className="flex items-center gap-1 text-rose font-bold">
-            <span className="w-2 h-2 rounded-sm bg-rose" /> Regl · 5 gün
+            <span className="w-2 h-2 rounded-sm bg-rose" /> Regl · 5 sachet
           </span>
         </div>
 
-        <div className="mt-3 h-1.5 rounded-full bg-muted overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-primary via-primary-medium to-rose transition-all duration-500"
-            style={{ width: `${(checkedCount / days.length) * 100}%` }}
-          />
-        </div>
-
-        <div className="mt-3 flex items-center justify-center gap-1.5 text-center">
-          {checkedCount >= days.length ? (
+        {(() => {
+          const activeDays = days.filter((d) => d.type !== "normal").length; // 10
+          const usedSachets = Math.min(
+            activeDays,
+            active ? Math.floor(progress * (activeDays + 1)) : 0
+          );
+          return (
             <>
-              <svg className="w-4 h-4" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="11" fill="hsl(var(--sage))" />
-                <path
-                  d="M7 12.5l3 3 7-7"
-                  stroke="white"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
+              {/* Sachet sayacı */}
+              <div className="mt-3 flex items-center justify-between bg-primary-light rounded-lg px-3 py-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center">
+                    <span className="text-[10px] font-extrabold text-primary-foreground">.ki</span>
+                  </div>
+                  <div className="leading-tight">
+                    <p className="text-[10px] font-bold text-primary uppercase tracking-wide">
+                      Kutu içeriği
+                    </p>
+                    <p className="text-[11px] sm:text-xs font-extrabold text-foreground">
+                      10 sachet · 1 döngü
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right leading-tight">
+                  <p className="text-base sm:text-lg font-extrabold text-primary tabular-nums">
+                    {usedSachets}<span className="text-muted-foreground">/{activeDays}</span>
+                  </p>
+                  <p className="text-[9px] text-muted-foreground font-bold uppercase tracking-wide">
+                    içildi
+                  </p>
+                </div>
+              </div>
+
+              {/* İlerleme barı */}
+              <div className="mt-2 h-1.5 rounded-full bg-muted overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-primary via-primary-medium to-rose transition-all duration-500"
+                  style={{ width: `${(usedSachets / activeDays) * 100}%` }}
                 />
-              </svg>
-              <span className="text-[11px] sm:text-xs font-extrabold text-sage">
-                Döngü dengede ✓
-              </span>
+              </div>
+
+              {/* Alt mesaj */}
+              <div className="mt-3 flex items-center justify-center gap-1.5 text-center">
+                {usedSachets >= activeDays ? (
+                  <>
+                    <svg className="w-4 h-4" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="11" fill="hsl(var(--sage))" />
+                      <path
+                        d="M7 12.5l3 3 7-7"
+                        stroke="white"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="none"
+                      />
+                    </svg>
+                    <span className="text-[11px] sm:text-xs font-extrabold text-sage">
+                      Döngü dengede · 10/10 ✓
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-[10px] sm:text-[11px] text-muted-foreground font-medium">
+                    PMS'ten 5 gün önce başla, regl boyunca devam et
+                  </span>
+                )}
+              </div>
             </>
-          ) : (
-            <span className="text-[10px] sm:text-[11px] text-muted-foreground font-medium">
-              PMS'ten 5 gün önce başla, regl boyunca devam et
-            </span>
-          )}
-        </div>
+          );
+        })()}
       </div>
 
       <div className="absolute -top-3 -right-2 sm:-right-3 bg-rose text-white text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider px-2 py-1 rounded-full shadow-lg rotate-6">
-        Günlük 1 sachet
+        10 sachet · 1 kutu
       </div>
     </div>
   );
