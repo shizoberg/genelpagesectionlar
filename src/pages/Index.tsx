@@ -19,6 +19,9 @@ import CategoriesSection from "@/components/CategoriesSection";
 import SocialProofToast from "@/components/SocialProofToast";
 import FeatureImageSection from "@/components/FeatureImageSection";
 import ShopBestsellers from "@/components/ShopBestsellers";
+import TrustBar from "@/components/TrustBar";
+import RitualCategories from "@/components/RitualCategories";
+import StoryStrip from "@/components/StoryStrip";
 
 const Index = () => {
   useReveal();
@@ -122,20 +125,10 @@ const Index = () => {
       />
 
       <ShopBestsellers />
+      <TrustBar />
+      <RitualCategories />
+      <StoryStrip />
 
-      {/* Sayfa sonu — Takviye Edici Gıda onay metni */}
-      <div className="border-t border-border bg-white">
-        <div className="container py-6 text-center">
-          <p className="text-[12px] sm:text-[13px] font-bold text-primary leading-tight">
-            .Ki Magnezyum ve Hayıt İçeren Takviye Edici Gıda
-          </p>
-          <p className="text-[11px] sm:text-[12px] text-muted-foreground font-medium mt-0.5">
-            Takviye Edici Gıda Onay Numarası: 024990-06.11.2025
-          </p>
-        </div>
-      </div>
-
-      <StickyCartBar visible={stickyVisible} price={3500} onAdd={handleAddToCart} />
       <SocialProofToast />
     </div>
   );

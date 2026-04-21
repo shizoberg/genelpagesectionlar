@@ -30,7 +30,7 @@ export default function StoryStrip() {
 
       {/* Yatay kaydırılabilir şerit — full bleed */}
       <div className="relative">
-        <div className="flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-4 md:px-8 pb-2">
+        <div className="flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar px-4 md:px-8 pb-2">
           {stories.map((s) => (
             <div
               key={s.id}
