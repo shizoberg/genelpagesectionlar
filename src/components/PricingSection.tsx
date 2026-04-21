@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, RefreshCw, Package, Sparkles } from "lucide-react";
+import { Check, RefreshCw, Package, Sparkles, ShieldCheck, RotateCcw, Leaf, Truck } from "lucide-react";
 
 interface Pkg {
   id: string;
@@ -208,43 +208,32 @@ export default function PricingSection({ onAddToCart }: PricingProps) {
         Uzman Doktor &amp; Eczacılar Tarafından Geliştirildi.
       </button>
 
-      <div className="flex items-center justify-between pt-1">
-        <TrustItem icon="🔒" label="Güvenli Ödeme" />
-        <TrustItem icon="↩️" label="30 Gün İade" />
-        <TrustItem icon="🌿" label="%100 Doğal" />
+      {/* Trust satırı — sade, tek tonlu (primary) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+        <TrustItem Icon={ShieldCheck} label="Güvenli Ödeme" />
+        <TrustItem Icon={RotateCcw} label="30 Gün İade" />
+        <TrustItem Icon={Leaf} label="%100 Doğal" />
+        <TrustItem Icon={Truck} label="Ücretsiz Kargo" />
       </div>
 
-      <p className="text-center text-xs text-muted-foreground flex items-center justify-center gap-1.5">
-        <span>🚚</span>
-        Ücretsiz Kargo &amp; Hızlı Teslimat
-      </p>
-
-      <div className="flex items-center justify-center gap-6 pt-2">
-        <div className="text-center">
-          <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center mx-auto">
-            <span className="text-xs font-bold text-primary">FDA</span>
-          </div>
-        </div>
-        <div className="text-center">
-          <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center mx-auto">
-            <span className="text-xs font-bold text-primary">V</span>
-          </div>
-          <p className="text-[10px] text-muted-foreground/70 mt-1">Vegan</p>
-        </div>
-        <div className="text-center">
-          <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center mx-auto">
-            <span className="text-xs font-bold text-primary">GMP</span>
-          </div>
-        </div>
+      {/* Sertifika logo placeholder'ları — boş, sample */}
+      <div className="flex items-center justify-center gap-4 pt-3">
+        {["", "", ""].map((_, i) => (
+          <div
+            key={i}
+            className="w-12 h-12 rounded-full bg-secondary border border-border flex items-center justify-center"
+            aria-label="Sertifika logosu (yakında)"
+          />
+        ))}
       </div>
     </div>
   );
 }
 
-function TrustItem({ icon, label }: { icon: string; label: string }) {
+function TrustItem({ Icon, label }: { Icon: typeof ShieldCheck; label: string }) {
   return (
     <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
-      <span className="text-base">{icon}</span>
+      <Icon className="w-4 h-4 text-primary" strokeWidth={2.2} />
       {label}
     </div>
   );
