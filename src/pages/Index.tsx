@@ -45,14 +45,14 @@ const Index = () => {
       {/* Ürün — sayfanın başında */}
       <section className="py-8 md:py-12" id="pricing" ref={productRef}>
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            <div className="lg:col-span-5 lg:sticky lg:top-6">
-              <div className="max-w-[440px] mx-auto lg:mx-0">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-start">
+            <div className="md:col-span-5 md:sticky md:top-6">
+              <div className="max-w-[420px] md:max-w-none md:mr-auto">
                 <ProductGallery />
               </div>
             </div>
 
-            <div className="lg:col-span-7 space-y-5">
+            <div className="md:col-span-7 space-y-5">
               <div className="inline-flex items-center gap-1.5 bg-secondary text-primary text-xs font-bold py-1.5 px-3.5 rounded-full">
                 90+ kişi bu ürünü satın aldı
               </div>
