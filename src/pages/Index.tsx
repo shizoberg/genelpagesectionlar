@@ -15,7 +15,7 @@ import StickyCartBar from "@/components/StickyCartBar";
 import ProductStory from "@/components/ProductStory";
 import ManifestoSection from "@/components/ManifestoSection";
 import CategoriesSection from "@/components/CategoriesSection";
-import NewsletterSection from "@/components/NewsletterSection";
+
 import SocialProofToast from "@/components/SocialProofToast";
 import FeatureImageSection from "@/components/FeatureImageSection";
 import BuildYourBoxSection from "@/components/BuildYourBoxSection";
@@ -115,8 +115,6 @@ const Index = () => {
       <ProductStory />
       <ManifestoSection />
       <CategoriesSection />
-      <NewsletterSection />
-
       {/* Ritual-style görsel + metin section — görseli `image` prop'u ile değiştir */}
       <FeatureImageSection
         eyebrow="Gerçek Denge"
