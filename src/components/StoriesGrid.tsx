@@ -230,37 +230,3 @@ function Tile({ tile }: { tile: Tile }) {
   );
 }
 
-  // quote
-  const isDark = tile.variant === "dark";
-  return (
-    <div
-      className={`relative w-full aspect-square rounded-3xl p-6 lg:p-7 flex flex-col justify-center ${
-        isDark
-          ? "bg-[hsl(155_45%_12%)] text-white"
-          : "bg-[hsl(var(--secondary))] text-[hsl(var(--foreground))]"
-      }`}
-    >
-      <button
-        className={`absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center ${
-          isDark ? "bg-white/15 hover:bg-white/25" : "bg-white/70 hover:bg-white"
-        } transition`}
-        aria-label="Open"
-      >
-        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M7 17L17 7M17 7H9M17 7v8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-      </button>
-      <p className="text-center text-sm lg:text-base leading-relaxed font-medium italic">
-        "{tile.text}"
-      </p>
-      <p
-        className={`text-center mt-4 font-bold tracking-wider text-sm ${
-          isDark ? "text-white" : "text-[hsl(var(--foreground))]"
-        }`}
-        style={{ fontFamily: "Georgia, serif" }}
-      >
-        {tile.source}
-      </p>
-    </div>
-  );
-}
