@@ -317,6 +317,11 @@ function Visual({ active, progress }: { active: number; progress: number }) {
           from { transform: rotate(0deg) translateX(var(--r)) rotate(0deg); }
           to { transform: rotate(360deg) translateX(var(--r)) rotate(-360deg); }
         }
+        @keyframes pop {
+          0% { transform: scale(0); opacity: 0; }
+          60% { transform: scale(1.2); opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
+        }
       `}</style>
     </div>
   );
