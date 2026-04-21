@@ -34,21 +34,9 @@ const Index = () => {
   const handleAddToCart = () => setCartCount((c) => c + 1);
 
   return (
-    <div className="min-h-screen bg-background pb-[72px] font-sans">
+    <div className="min-h-screen bg-white pb-[72px] font-sans">
       <ScrollProgress />
       <UrgencyBar />
-
-      {/* Üst bilgi şeridi — eski en alttaki ürün onay metni başa alındı */}
-      <div className="bg-secondary/40 border-b border-border/60">
-        <div className="container py-3 text-center">
-          <p className="text-[12px] sm:text-[13px] font-bold text-primary leading-tight">
-            .Ki Magnezyum ve Hayıt İçeren Takviye Edici Gıda
-          </p>
-          <p className="text-[11px] sm:text-[12px] text-muted-foreground font-medium mt-0.5">
-            Takviye Edici Gıda Onay Numarası: 024990-06.11.2025
-          </p>
-        </div>
-      </div>
 
       {/* Ürün — sayfanın başında */}
       <section className="py-8 md:py-12" id="pricing" ref={productRef}>
