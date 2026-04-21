@@ -1,12 +1,12 @@
 import { useRef, useState, useCallback } from "react";
 
 const videos = [
-  { name: "Ulyana", age: "21 yaş", bg: "from-[#3a1f7a] to-[#5a3ca0]" },
-  { name: "Simge", age: "25 yaş", bg: "from-[#3a1f7a] to-[#5a3ca0]" },
-  { name: "Ecem", age: "23 yaş", bg: "from-[#1e1250] to-[#3a2080]" },
-  { name: "Aylin", age: "28 yaş", bg: "from-[#2a1560] to-[#4a3290]" },
-  { name: "İpek", age: "32 yaş", bg: "from-[#321a70] to-[#5540a0]" },
-  { name: "Gizem", age: "31 yaş", bg: "from-[#251460] to-[#3d2880]" },
+  { name: "Ulyana", age: "21 yaş", info: "PMS belirtilerinde 70% azalma", bg: "from-[#3a1f7a] to-[#5a3ca0]", icon: "🌙" },
+  { name: "Simge", age: "25 yaş", info: "Regl düzensizliği düzeldi", bg: "from-[#3a1f7a] to-[#5a3ca0]", icon: "📅" },
+  { name: "Ecem", age: "23 yaş", info: "Hormonal denge sağlandı", bg: "from-[#1e1250] to-[#3a2080]", icon: "⚖️" },
+  { name: "Aylin", age: "28 yaş", info: "Uyku kalitesi arttı", bg: "from-[#2a1560] to-[#4a3290]", icon: "😴" },
+  { name: "İpek", age: "32 yaş", info: "Enerji seviyesi yükseldi", bg: "from-[#321a70] to-[#5540a0]", icon: "⚡" },
+  { name: "Gizem", age: "31 yaş", info: "Cilt sağlığı düzeldi", bg: "from-[#251460] to-[#3d2880]", icon: "✨" },
 ];
 
 export default function VideoTestimonials() {
@@ -55,16 +55,27 @@ export default function VideoTestimonials() {
           {videos.map((v) => (
             <div
               key={v.name}
-              className={`flex-none w-[180px] snap-start rounded-2xl overflow-hidden aspect-[3/4] bg-gradient-to-br ${v.bg}`}
+              className={`flex-none w-[200px] snap-start rounded-2xl overflow-hidden bg-gradient-to-br ${v.bg}`}
             >
-              <div className="w-full h-full flex flex-col items-center justify-center text-white text-center p-4">
-                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4 transition-transform hover:scale-110 cursor-pointer">
-                  <svg className="w-5 h-5 fill-white ml-0.5" viewBox="0 0 24 24">
-                    <polygon points="8,5 20,12 8,19" />
-                  </svg>
+              <div className="w-full h-full flex flex-col text-white">
+                {/* Video thumbnail area */}
+                <div className="flex-1 flex flex-col items-center justify-center p-4 text-center aspect-[4/5]">
+                  <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-3 transition-transform hover:scale-110 cursor-pointer">
+                    <svg className="w-5 h-5 fill-white ml-0.5" viewBox="0 0 24 24">
+                      <polygon points="8,5 20,12 8,19" />
+                    </svg>
+                  </div>
+                  <div className="text-base font-bold">{v.name}</div>
+                  <div className="text-xs opacity-70">{v.age}</div>
                 </div>
-                <div className="text-sm font-bold">{v.name}</div>
-                <div className="text-xs opacity-70">{v.age}</div>
+                
+                {/* Info section at bottom */}
+                <div className="bg-white/15 backdrop-blur-sm px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">{v.icon}</span>
+                    <span className="text-xs font-medium leading-tight">{v.info}</span>
+                  </div>
+                </div>
               </div>
             </div>
           ))}
