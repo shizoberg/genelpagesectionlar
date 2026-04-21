@@ -280,39 +280,12 @@ function Visual({ active, progress }: { active: number; progress: number }) {
         </div>
       </div>
 
-      {/* Stage 3: Balance / sparkle */}
+      {/* Stage 3: PMS takvimi — regl öncesi 5 gün + regl 5 gün, kaydırınca onaylandı hissi */}
       <div
         className="absolute inset-0 flex items-center justify-center transition-all duration-700"
         style={{ opacity: active === 3 ? 1 : 0 }}
       >
-        <div className="relative">
-          <div
-            className="w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-br from-primary via-primary-medium to-rose flex items-center justify-center shadow-2xl"
-            style={{
-              transform: `scale(${active === 3 ? 1 : 0.7}) rotate(${local * 360}deg)`,
-              transition: "transform 1s ease-out",
-            }}
-          >
-            <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-card flex items-center justify-center">
-              <Sparkles className="w-12 h-12 sm:w-14 sm:h-14 text-primary" strokeWidth={1.5} />
-            </div>
-          </div>
-          {[...Array(8)].map((_, i) => {
-            const angle = (i / 8) * Math.PI * 2;
-            const r = 110;
-            return (
-              <div
-                key={i}
-                className="absolute top-1/2 left-1/2 w-2 h-2 rounded-full bg-primary"
-                style={{
-                  transform: `translate(calc(-50% + ${Math.cos(angle) * r}px), calc(-50% + ${Math.sin(angle) * r}px)) scale(${active === 3 ? 1 : 0})`,
-                  opacity: active === 3 ? 0.6 : 0,
-                  transition: `all 0.6s ease-out ${i * 50}ms`,
-                }}
-              />
-            );
-          })}
-        </div>
+        <PMSCalendar active={active === 3} progress={local} />
       </div>
 
       <style>{`
@@ -343,6 +316,11 @@ function Visual({ active, progress }: { active: number; progress: number }) {
         @keyframes orbit {
           from { transform: rotate(0deg) translateX(var(--r)) rotate(0deg); }
           to { transform: rotate(360deg) translateX(var(--r)) rotate(-360deg); }
+        }
+        @keyframes pop {
+          0% { transform: scale(0); opacity: 0; }
+          60% { transform: scale(1.2); opacity: 1; }
+          100% { transform: scale(1); opacity: 1; }
         }
       `}</style>
     </div>
@@ -423,6 +401,151 @@ function PowderOrbit({ active }: { active: boolean }) {
           }
         />
       ))}
+    </div>
+  );
+}
+
+function PMSCalendar({ active, progress }: { active: boolean; progress: number }) {
+  const days = [
+    { d: 8, type: "normal" as const },
+    { d: 9, type: "normal" as const },
+    { d: 10, type: "normal" as const },
+    { d: 11, type: "normal" as const },
+    { d: 12, type: "pms" as const },
+    { d: 13, type: "pms" as const },
+    { d: 14, type: "pms" as const },
+    { d: 15, type: "pms" as const },
+    { d: 16, type: "pms" as const },
+    { d: 17, type: "regl" as const },
+    { d: 18, type: "regl" as const },
+    { d: 19, type: "regl" as const },
+    { d: 20, type: "regl" as const },
+    { d: 21, type: "regl" as const },
+  ];
+
+  const checkedCount = active ? Math.min(days.length, Math.floor(progress * (days.length + 1))) : 0;
+
+  return (
+    <div className="relative w-full max-w-[320px] sm:max-w-[360px] mx-auto">
+      <div className="relative bg-card border border-border rounded-2xl shadow-xl p-4 sm:p-5">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[1.5px] text-primary">
+              Senin Döngün
+            </p>
+            <p className="text-sm sm:text-base font-extrabold text-foreground tracking-tight">
+              PMS · Regl · Denge
+            </p>
+          </div>
+          <div className="flex items-center gap-1 text-[10px] font-bold text-rose">
+            <span className="w-1.5 h-1.5 rounded-full bg-rose animate-pulse" />
+            14 gün
+          </div>
+        </div>
+
+        <div className="grid grid-cols-7 gap-1 mb-1.5">
+          {["Pt", "Sa", "Ça", "Pe", "Cu", "Ct", "Pz"].map((d) => (
+            <div key={d} className="text-[9px] sm:text-[10px] font-bold text-muted-foreground text-center">
+              {d}
+            </div>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-7 gap-1">
+          {days.map((day, i) => {
+            const isChecked = i < checkedCount;
+            const baseColor =
+              day.type === "regl"
+                ? "bg-rose/15 text-rose border-rose/30"
+                : day.type === "pms"
+                  ? "bg-primary/10 text-primary border-primary/25"
+                  : "bg-muted/40 text-muted-foreground border-border";
+            const checkedColor =
+              day.type === "regl"
+                ? "bg-rose text-white border-rose shadow-md shadow-rose/30"
+                : day.type === "pms"
+                  ? "bg-primary text-primary-foreground border-primary shadow-md shadow-primary/30"
+                  : "bg-sage/40 text-foreground border-sage/50";
+
+            return (
+              <div
+                key={i}
+                className={`relative aspect-square rounded-md border flex items-center justify-center transition-all duration-500 ${
+                  isChecked ? checkedColor : baseColor
+                }`}
+                style={{
+                  transitionDelay: `${i * 35}ms`,
+                  transform: isChecked ? "scale(1)" : "scale(0.96)",
+                }}
+              >
+                <span className="text-[10px] sm:text-[11px] font-extrabold">{day.d}</span>
+                {isChecked && (
+                  <svg
+                    className="absolute -top-1 -right-1 w-3.5 h-3.5 drop-shadow"
+                    viewBox="0 0 24 24"
+                    style={{ animation: "pop 0.4s ease-out" }}
+                  >
+                    <circle cx="12" cy="12" r="11" fill="hsl(var(--sage))" />
+                    <path
+                      d="M7 12.5l3 3 7-7"
+                      stroke="white"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                    />
+                  </svg>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="flex items-center justify-center gap-3 mt-3 text-[9px] sm:text-[10px]">
+          <span className="flex items-center gap-1 text-primary font-bold">
+            <span className="w-2 h-2 rounded-sm bg-primary" /> PMS · 5 gün
+          </span>
+          <span className="flex items-center gap-1 text-rose font-bold">
+            <span className="w-2 h-2 rounded-sm bg-rose" /> Regl · 5 gün
+          </span>
+        </div>
+
+        <div className="mt-3 h-1.5 rounded-full bg-muted overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-primary via-primary-medium to-rose transition-all duration-500"
+            style={{ width: `${(checkedCount / days.length) * 100}%` }}
+          />
+        </div>
+
+        <div className="mt-3 flex items-center justify-center gap-1.5 text-center">
+          {checkedCount >= days.length ? (
+            <>
+              <svg className="w-4 h-4" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="11" fill="hsl(var(--sage))" />
+                <path
+                  d="M7 12.5l3 3 7-7"
+                  stroke="white"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+              </svg>
+              <span className="text-[11px] sm:text-xs font-extrabold text-sage">
+                Döngü dengede ✓
+              </span>
+            </>
+          ) : (
+            <span className="text-[10px] sm:text-[11px] text-muted-foreground font-medium">
+              PMS'ten 5 gün önce başla, regl boyunca devam et
+            </span>
+          )}
+        </div>
+      </div>
+
+      <div className="absolute -top-3 -right-2 sm:-right-3 bg-rose text-white text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider px-2 py-1 rounded-full shadow-lg rotate-6">
+        Günlük 1 sachet
+      </div>
     </div>
   );
 }
