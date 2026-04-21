@@ -282,3 +282,50 @@ function Visual({ active, progress }: { active: number; progress: number }) {
     </div>
   );
 }
+
+function SachetPack({ small = false, rotate = 0 }: { small?: boolean; rotate?: number }) {
+  const w = small ? "w-24 sm:w-28" : "w-32 sm:w-40";
+  const h = small ? "h-36 sm:h-44" : "h-44 sm:h-56";
+  return (
+    <div
+      className={`relative ${w} ${h}`}
+      style={{ transform: `rotate(${rotate}deg)`, filter: "drop-shadow(0 18px 30px rgba(60,40,120,0.35))" }}
+    >
+      <div className="absolute inset-0 rounded-[14px] bg-gradient-to-br from-[hsl(255_45%_38%)] via-[hsl(258_55%_30%)] to-[hsl(252_50%_22%)] overflow-hidden">
+        <div className="absolute inset-y-0 left-0 w-[14%] bg-gradient-to-r from-white/10 to-transparent" />
+        <div className="absolute inset-y-0 right-0 w-[14%] bg-gradient-to-l from-white/10 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-2 bg-[hsl(255_30%_18%)]/70" />
+        <div className="absolute top-2 left-0 right-0 h-[3px] bg-white/20" />
+        <div className="absolute top-[14%] left-0 right-0 flex items-center justify-center gap-1.5">
+          <div className="h-px w-3 bg-white/40" />
+          <span className="text-[7px] sm:text-[8px] uppercase tracking-[1.5px] text-white/70 italic">
+            bye cramps
+          </span>
+          <div className="h-px w-3 bg-white/40" />
+        </div>
+        <div className="absolute top-[26%] left-0 right-0 text-center">
+          <span className="text-white font-extrabold text-2xl sm:text-3xl tracking-tight">
+            .ki<span className="text-[8px] align-top opacity-70">®</span>
+          </span>
+        </div>
+        <div className="absolute top-[48%] left-0 right-0 px-2 text-center text-white/90">
+          <p className="text-[7px] sm:text-[8px] leading-tight font-semibold">Dong Quai</p>
+          <p className="text-[7px] sm:text-[8px] leading-tight font-semibold">Magnesium</p>
+          <p className="text-[7px] sm:text-[8px] leading-tight font-semibold">Vitex Agnus Castus</p>
+          <div className="mt-1 mx-auto w-2/3 h-px bg-white/30" />
+          <p className="mt-1 text-[6px] sm:text-[7px] uppercase tracking-wider text-white/60">
+            Food Supplement
+          </p>
+        </div>
+        <div className="absolute bottom-[16%] left-0 right-0 text-center text-white/70">
+          <p className="text-[7px] sm:text-[8px] italic">Blackberry Flavour</p>
+          <p className="text-[6px] sm:text-[7px] opacity-80">Böğürtlen Aromalı</p>
+        </div>
+        <div className="absolute bottom-1.5 right-2 text-[6px] sm:text-[7px] text-white/60">
+          Net: 2g
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none" />
+      </div>
+    </div>
+  );
+}
