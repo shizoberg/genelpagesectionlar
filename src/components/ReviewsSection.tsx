@@ -44,7 +44,7 @@ export default function ReviewsSection() {
   const visible = showAll ? reviews : reviews.slice(0, 2);
 
   return (
-    <section className="py-16 bg-[hsl(var(--primary-light))]">
+    <section className="py-16 bg-white">
       <div className="container">
         <div className="k5-reveal mb-2 text-[13px] font-bold uppercase tracking-[1.5px] text-[hsl(var(--primary))]">
           Soru &amp; Cevap

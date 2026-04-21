@@ -18,7 +18,6 @@ import CategoriesSection from "@/components/CategoriesSection";
 
 import SocialProofToast from "@/components/SocialProofToast";
 import FeatureImageSection from "@/components/FeatureImageSection";
-import BuildYourBoxSection from "@/components/BuildYourBoxSection";
 
 const Index = () => {
   useReveal();
@@ -121,10 +120,8 @@ const Index = () => {
         description="Eczacı onaylı, klinik dozajlı .ki Balance — her sachet'te tutarlı standart, şeffaf kaynak takibi."
       />
 
-      <BuildYourBoxSection />
-
       {/* Sayfa sonu — Takviye Edici Gıda onay metni */}
-      <div className="border-t border-border bg-secondary/30">
+      <div className="border-t border-border bg-white">
         <div className="container py-6 text-center">
           <p className="text-[12px] sm:text-[13px] font-bold text-primary leading-tight">
             .Ki Magnezyum ve Hayıt İçeren Takviye Edici Gıda

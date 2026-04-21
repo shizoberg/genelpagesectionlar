@@ -52,7 +52,7 @@ export default function FeatureImageSection({
         </div>
 
         {/* Text */}
-        <div className="bg-secondary/40 flex items-center px-6 py-12 md:px-14 md:py-20">
+        <div className="bg-white flex items-center px-6 py-12 md:px-14 md:py-20">
           <div className="max-w-md">
             {eyebrow && (
               <p className="k5-reveal text-[12px] font-bold uppercase tracking-[1.5px] text-primary mb-3">
