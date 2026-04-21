@@ -8,6 +8,7 @@ import PricingSection from "@/components/PricingSection";
 
 import ReviewsSection from "@/components/ReviewsSection";
 import VideoTestimonials from "@/components/VideoTestimonials";
+import StoriesGrid from "@/components/StoriesGrid";
 import BeforeAfter from "@/components/BeforeAfter";
 import IngredientsSection from "@/components/IngredientsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
@@ -99,6 +100,7 @@ const Index = () => {
       </div>
 
       <VideoTestimonials />
+      <StoriesGrid />
       <IngredientsSection />
       <BeforeAfter />
       <HowItWorksSection />
