@@ -14,7 +14,7 @@ const stories = Array.from({ length: 8 }).map((_, i) => ({
 export default function StoryStrip() {
   return (
     <section className="py-12 md:py-16 bg-white overflow-hidden">
-      <div className="container">
+      <div className="container max-w-5xl mx-auto px-4">
         <div className="flex items-end justify-between mb-6 md:mb-8">
           <h2 className="k5-reveal text-xl md:text-3xl font-extrabold text-primary tracking-tight">
             Topluluğumuz
@@ -28,9 +28,9 @@ export default function StoryStrip() {
         </div>
       </div>
 
-      {/* Yatay kaydırılabilir şerit — full bleed */}
-      <div className="relative">
-        <div className="flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar px-4 md:px-8 pb-2">
+      {/* Yatay kaydırılabilir şerit — container içinde */}
+      <div className="relative max-w-5xl mx-auto px-4">
+        <div className="flex gap-3 md:gap-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-2">
           {stories.map((s) => (
             <div
               key={s.id}

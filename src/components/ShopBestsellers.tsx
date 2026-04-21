@@ -15,7 +15,7 @@ const capsuleStyles: Record<string, string> = {
 const ShopBestsellers = () => {
   return (
     <section className="py-16 md:py-20 bg-white">
-      <div className="container">
+      <div className="container max-w-5xl mx-auto px-4">
         <div className="flex items-end justify-between mb-8 md:mb-10">
           <h2 className="k5-reveal text-2xl md:text-4xl font-extrabold text-primary tracking-tight">
             En Çok Satanlar

@@ -12,7 +12,7 @@ const items = [
 export default function TrustBar() {
   return (
     <section className="py-12 md:py-16 bg-white border-y border-border/60">
-      <div className="container">
+      <div className="container max-w-5xl mx-auto px-4">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-8 gap-x-4">
           {items.map(({ Icon, label }, i) => (
             <div
