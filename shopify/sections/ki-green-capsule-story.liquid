@@ -1,0 +1,362 @@
+{% comment %}
+  .ki Night — Yeşil kapsül scroll-driven animasyon section'ı
+  Tüm metinler, renkler, etken maddeler, takvim gün sayısı ve fayda kartları
+  schema settings + blocks ile düzenlenebilir.
+{% endcomment %}
+
+{% render 'ki-styles' %}
+
+{%- assign uid = section.id | replace: '_', '-' -%}
+{%- assign day_count = section.settings.day_count | default: 30 -%}
+
+{%- assign ingredients = section.blocks | where: 'type', 'ingredient' -%}
+{%- assign benefits = section.blocks | where: 'type', 'benefit' -%}
+
+<section
+  id="ki-green-{{ uid }}"
+  class="ki-green-story"
+  style="
+    --ki-green-light: {{ section.settings.capsule_top_color | default: '#7FAE8A' }};
+    --ki-green-dark: {{ section.settings.capsule_bottom_color | default: '#1F4A35' }};
+    --ki-green-accent: {{ section.settings.accent_color | default: '#5C8B6E' }};
+    background: linear-gradient(to bottom, {{ section.settings.bg_top | default: '#F5F9F6' }}, {{ section.settings.bg_bottom | default: '#FFFFFF' }});
+  "
+>
+  <div class="ki-green-sticky">
+    <div class="ki-container">
+      <div class="ki-green-head">
+        <p class="ki-green-eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="ki-green-title">{{ section.settings.title }}</h2>
+      </div>
+
+      <div class="ki-green-grid">
+        {% comment %} ====== LEFT: visual scenes ====== {% endcomment %}
+        <div class="ki-green-scene">
+          {% comment %} Capsule scene {% endcomment %}
+          <div class="ki-green-stage" data-stage="capsule">
+            <div class="ki-capsule-wrap">
+              {% for ing in ingredients %}
+                <div class="ki-ing-pill" data-index="{{ forloop.index0 }}" style="--ing-color: {{ ing.settings.color }};">
+                  <div class="ki-ing-dot">{{ ing.settings.dose }}</div>
+                  <span class="ki-ing-name">{{ ing.settings.name }}</span>
+                </div>
+              {% endfor %}
+
+              <div class="ki-capsule">
+                <div class="ki-capsule-half ki-capsule-top"></div>
+                <div class="ki-capsule-half ki-capsule-bottom">
+                  <span class="ki-capsule-brand">{{ section.settings.capsule_brand_text | default: '.ki' }}</span>
+                </div>
+              </div>
+
+              <div class="ki-capsule-hint">↓ {{ section.settings.scroll_hint | default: 'Aşağı kaydır, kapsülü aç' }}</div>
+            </div>
+          </div>
+
+          {% comment %} Calendar scene {% endcomment %}
+          <div class="ki-green-stage" data-stage="calendar">
+            <div class="ki-cal-card">
+              <div class="ki-cal-head">
+                <span class="ki-cal-title">{{ section.settings.calendar_title | default: '30 Gün · 1 Kutu' }}</span>
+                <span class="ki-cal-counter"><span class="ki-cal-count">0</span>/{{ day_count }}</span>
+              </div>
+              <div class="ki-cal-grid">
+                {% for i in (1..day_count) %}
+                  <div class="ki-cal-day" data-day="{{ forloop.index0 }}">
+                    <span class="ki-cal-num">{{ i }}</span>
+                    <svg class="ki-cal-tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="ki-cal-bar"><div class="ki-cal-bar-fill"></div></div>
+              <div class="ki-cal-done">✓ {{ section.settings.calendar_done_text | default: '30 gün tamamlandı · Dengeyi hisset' }}</div>
+            </div>
+          </div>
+
+          {% comment %} Benefits scene {% endcomment %}
+          <div class="ki-green-stage" data-stage="benefits">
+            <div class="ki-benefits-stack">
+              {% for b in benefits %}
+                <div class="ki-benefit" data-index="{{ forloop.index0 }}" style="--ben-bg: {{ b.settings.bg_color }}; --ben-fg: {{ b.settings.icon_color }};">
+                  <div class="ki-benefit-icon">{{ b.settings.icon | default: '✦' }}</div>
+                  <div class="ki-benefit-text">
+                    <h4>{{ b.settings.title }}</h4>
+                    <p>{{ b.settings.description }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        {% comment %} ====== RIGHT: stage text ====== {% endcomment %}
+        <div class="ki-green-text">
+          <div class="ki-green-text-stage" data-stage="capsule">
+            <div class="ki-green-eyebrow-pill">{{ section.settings.stage1_eyebrow | default: '01 · Formül' }}</div>
+            <h3>{{ section.settings.stage1_title | default: 'Koyu yeşil kapsülün içinde 4 etken madde' }}</h3>
+            <p>{{ section.settings.stage1_body | default: 'Magnezyum, Hayıt, Çin Meleki Otu ve Bor — her biri klinik dozajda. Kaydırdıkça kapsül açılır, içerik açığa çıkar.' }}</p>
+            <div class="ki-green-meta"><span class="ki-capsule-pct">0</span>% açıldı</div>
+          </div>
+
+          <div class="ki-green-text-stage" data-stage="calendar">
+            <div class="ki-green-eyebrow-pill">{{ section.settings.stage2_eyebrow | default: '02 · Ritüel' }}</div>
+            <h3>{{ section.settings.stage2_title | default: '30 gün, günde 1 kapsül' }}</h3>
+            <p>{{ section.settings.stage2_body | default: 'Tutarlı sonuç için 30 günlük döngü önerilir. Her gece yatmadan önce 1 kapsül.' }}</p>
+            <div class="ki-green-meta"><span class="ki-cal-count-mirror">0</span>/{{ day_count }} gün</div>
+          </div>
+
+          <div class="ki-green-text-stage" data-stage="benefits">
+            <div class="ki-green-eyebrow-pill">{{ section.settings.stage3_eyebrow | default: '03 · Etki' }}</div>
+            <h3>{{ section.settings.stage3_title | default: 'Kadınların 3 gece probleminde fark' }}</h3>
+            <p>{{ section.settings.stage3_body | default: 'Düzenli kullanımda uyku kalitesi artar, sıcak basmaları azalır ve hormonal denge desteklenir.' }}</p>
+            <div class="ki-green-meta">{{ section.settings.stage3_meta | default: '2–4 hafta içinde fark' }}</div>
+          </div>
+
+          <div class="ki-green-dots">
+            <span data-dot="capsule"></span>
+            <span data-dot="calendar"></span>
+            <span data-dot="benefits"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #ki-green-{{ uid }}.ki-green-story { position: relative; height: {{ section.settings.section_height | default: 320 }}vh; }
+  #ki-green-{{ uid }} .ki-green-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+  #ki-green-{{ uid }} .ki-green-head { text-align: center; margin-bottom: 1.5rem; }
+  #ki-green-{{ uid }} .ki-green-eyebrow { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ki-green-accent); margin-bottom: 0.5rem; }
+  #ki-green-{{ uid }} .ki-green-title { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 800; color: var(--ki-foreground); letter-spacing: -0.02em; line-height: 1.15; }
+
+  #ki-green-{{ uid }} .ki-green-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; }
+  @media (min-width: 768px) { #ki-green-{{ uid }} .ki-green-grid { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+
+  #ki-green-{{ uid }} .ki-green-scene { position: relative; height: 320px; }
+  @media (min-width: 640px) { #ki-green-{{ uid }} .ki-green-scene { height: 400px; } }
+
+  #ki-green-{{ uid }} .ki-green-stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+  #ki-green-{{ uid }} .ki-green-stage.is-active { opacity: 1; pointer-events: auto; }
+
+  /* Capsule */
+  #ki-green-{{ uid }} .ki-capsule-wrap { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  #ki-green-{{ uid }} .ki-capsule { position: relative; width: 220px; height: 80px; }
+  #ki-green-{{ uid }} .ki-capsule-half { position: absolute; top: 0; width: 110px; height: 80px; box-shadow: 0 6px 16px rgba(0,0,0,0.15); transition: transform 0.3s ease-out; }
+  #ki-green-{{ uid }} .ki-capsule-top { left: 0; border-radius: 9999px 0 0 9999px; background: linear-gradient(135deg, var(--ki-green-light) 0%, color-mix(in srgb, var(--ki-green-light) 70%, transparent) 100%); transform-origin: right center; }
+  #ki-green-{{ uid }} .ki-capsule-top::after { content: ''; position: absolute; inset: 0; border-radius: 9999px 0 0 9999px; background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent); }
+  #ki-green-{{ uid }} .ki-capsule-bottom { right: 0; border-radius: 0 9999px 9999px 0; background: linear-gradient(135deg, var(--ki-green-dark) 0%, color-mix(in srgb, var(--ki-green-dark) 70%, black) 100%); transform-origin: left center; display: flex; align-items: center; justify-content: center; }
+  #ki-green-{{ uid }} .ki-capsule-brand { color: white; font-weight: 800; font-size: 0.75rem; letter-spacing: 0.05em; opacity: 0.85; position: relative; z-index: 1; }
+
+  /* Ingredients */
+  #ki-green-{{ uid }} .ki-ing-pill { position: absolute; z-index: 10; opacity: 0; transition: all 0.5s ease-out; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; pointer-events: none; }
+  #ki-green-{{ uid }} .ki-ing-dot { width: 52px; height: 52px; border-radius: 50%; background: var(--ing-color); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; text-align: center; padding: 0 4px; line-height: 1.1; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  @media (min-width: 640px) { #ki-green-{{ uid }} .ki-ing-dot { width: 60px; height: 60px; font-size: 0.75rem; } }
+  #ki-green-{{ uid }} .ki-ing-name { font-size: 0.7rem; font-weight: 700; color: var(--ki-foreground); background: rgba(255,255,255,0.95); padding: 0.125rem 0.5rem; border-radius: 9999px; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+
+  #ki-green-{{ uid }} .ki-capsule-hint { position: absolute; bottom: -2rem; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: var(--ki-muted); white-space: nowrap; animation: ki-pulse 2s ease-in-out infinite; }
+  @keyframes ki-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+  /* Calendar */
+  #ki-green-{{ uid }} .ki-cal-card { width: 100%; max-width: 360px; background: var(--ki-card); border: 1px solid var(--ki-border); border-radius: 16px; padding: 1.25rem; box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  #ki-green-{{ uid }} .ki-cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+  #ki-green-{{ uid }} .ki-cal-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--ki-foreground); }
+  #ki-green-{{ uid }} .ki-cal-counter { font-size: 0.75rem; font-weight: 800; color: var(--ki-green-accent); }
+  #ki-green-{{ uid }} .ki-cal-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.375rem; }
+  #ki-green-{{ uid }} .ki-cal-day { aspect-ratio: 1; border-radius: 6px; background: color-mix(in srgb, var(--ki-secondary) 60%, transparent); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: var(--ki-muted); transform: scale(0.95); transition: all 0.2s ease; position: relative; }
+  #ki-green-{{ uid }} .ki-cal-day .ki-cal-tick { width: 60%; height: 60%; display: none; color: white; }
+  #ki-green-{{ uid }} .ki-cal-day.is-checked { background: var(--ki-green-accent); color: white; transform: scale(1); box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+  #ki-green-{{ uid }} .ki-cal-day.is-checked .ki-cal-num { display: none; }
+  #ki-green-{{ uid }} .ki-cal-day.is-checked .ki-cal-tick { display: block; }
+  #ki-green-{{ uid }} .ki-cal-bar { height: 6px; background: var(--ki-secondary); border-radius: 9999px; overflow: hidden; margin-top: 1rem; }
+  #ki-green-{{ uid }} .ki-cal-bar-fill { height: 100%; background: linear-gradient(to right, var(--ki-green-accent), var(--ki-primary)); width: 0%; transition: width 0.3s ease; }
+  #ki-green-{{ uid }} .ki-cal-done { display: none; text-align: center; font-size: 0.75rem; font-weight: 800; color: var(--ki-green-accent); margin-top: 0.75rem; }
+  #ki-green-{{ uid }} .ki-cal-done.is-visible { display: block; }
+
+  /* Benefits */
+  #ki-green-{{ uid }} .ki-benefits-stack { width: 100%; max-width: 360px; display: flex; flex-direction: column; gap: 0.75rem; }
+  #ki-green-{{ uid }} .ki-benefit { display: flex; align-items: center; gap: 0.875rem; padding: 0.875rem 1rem; background: var(--ki-card); border: 1px solid var(--ki-border); border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); opacity: 0; transform: translateY(16px); transition: all 0.5s ease; }
+  #ki-green-{{ uid }} .ki-benefit.is-visible { opacity: 1; transform: translateY(0); }
+  #ki-green-{{ uid }} .ki-benefit-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--ben-bg); color: var(--ben-fg); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+  #ki-green-{{ uid }} .ki-benefit-text h4 { font-size: 0.875rem; font-weight: 800; color: var(--ki-foreground); line-height: 1.2; }
+  #ki-green-{{ uid }} .ki-benefit-text p { font-size: 0.75rem; color: var(--ki-muted); margin-top: 0.125rem; line-height: 1.4; }
+
+  /* Right text */
+  #ki-green-{{ uid }} .ki-green-text { position: relative; min-height: 240px; }
+  #ki-green-{{ uid }} .ki-green-text-stage { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 0.875rem; opacity: 0; transform: translateY(8px); transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none; }
+  #ki-green-{{ uid }} .ki-green-text-stage.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  #ki-green-{{ uid }} .ki-green-eyebrow-pill { display: inline-flex; width: fit-content; align-items: center; gap: 0.5rem; background: color-mix(in srgb, var(--ki-green-accent) 15%, transparent); color: var(--ki-green-accent); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; padding: 0.375rem 0.75rem; border-radius: 9999px; }
+  #ki-green-{{ uid }} .ki-green-text-stage h3 { font-size: clamp(1.25rem, 3vw, 1.875rem); font-weight: 800; color: var(--ki-foreground); letter-spacing: -0.02em; line-height: 1.2; }
+  #ki-green-{{ uid }} .ki-green-text-stage p { font-size: 0.95rem; color: var(--ki-muted); line-height: 1.6; max-width: 28rem; }
+  #ki-green-{{ uid }} .ki-green-meta { font-size: 0.75rem; font-weight: 800; color: var(--ki-green-accent); }
+  #ki-green-{{ uid }} .ki-green-dots { display: flex; gap: 0.375rem; margin-top: 1rem; position: absolute; bottom: 0; }
+  #ki-green-{{ uid }} .ki-green-dots span { height: 4px; width: 24px; border-radius: 9999px; background: var(--ki-border); transition: all 0.3s ease; }
+  #ki-green-{{ uid }} .ki-green-dots span.is-active { width: 40px; background: var(--ki-green-accent); }
+</style>
+
+<script>
+  (function() {
+    var section = document.getElementById('ki-green-{{ uid }}');
+    if (!section) return;
+
+    var dayCount = {{ day_count }};
+    var ingPills = section.querySelectorAll('.ki-ing-pill');
+    var capsuleTop = section.querySelector('.ki-capsule-top');
+    var capsuleBottom = section.querySelector('.ki-capsule-bottom');
+    var calDays = section.querySelectorAll('.ki-cal-day');
+    var calCount = section.querySelector('.ki-cal-count');
+    var calCountMirror = section.querySelector('.ki-cal-count-mirror');
+    var calBarFill = section.querySelector('.ki-cal-bar-fill');
+    var calDone = section.querySelector('.ki-cal-done');
+    var capsulePct = section.querySelector('.ki-capsule-pct');
+    var benefits = section.querySelectorAll('.ki-benefit');
+    var stages = section.querySelectorAll('.ki-green-stage');
+    var textStages = section.querySelectorAll('.ki-green-text-stage');
+    var dots = section.querySelectorAll('.ki-green-dots span');
+
+    function setActive(stageName) {
+      stages.forEach(function(s) { s.classList.toggle('is-active', s.dataset.stage === stageName); });
+      textStages.forEach(function(s) { s.classList.toggle('is-active', s.dataset.stage === stageName); });
+      dots.forEach(function(d) { d.classList.toggle('is-active', d.dataset.dot === stageName); });
+    }
+
+    function update() {
+      var rect = section.getBoundingClientRect();
+      var vh = window.innerHeight;
+      var total = section.offsetHeight - vh;
+      var scrolled = Math.min(Math.max(-rect.top, 0), total);
+      var p = total > 0 ? scrolled / total : 0;
+
+      var capsuleP = Math.min(1, Math.max(0, p / 0.4));
+      var calP = Math.min(1, Math.max(0, (p - 0.4) / 0.35));
+      var benP = Math.min(1, Math.max(0, (p - 0.75) / 0.25));
+
+      // Stage switching
+      var stage = 'capsule';
+      if (benP > 0.05) stage = 'benefits';
+      else if (calP > 0.05) stage = 'calendar';
+      setActive(stage);
+
+      // Capsule animation
+      var gap = capsuleP * 90;
+      var tilt = capsuleP * 12;
+      if (capsuleTop) capsuleTop.style.transform = 'translateX(-' + (gap / 2) + 'px) rotate(-' + tilt + 'deg)';
+      if (capsuleBottom) capsuleBottom.style.transform = 'translateX(' + (gap / 2) + 'px) rotate(' + tilt + 'deg)';
+      if (capsulePct) capsulePct.textContent = Math.round(capsuleP * 100);
+
+      // Ingredients fly out
+      var t = Math.min(1, Math.max(0, (capsuleP - 0.3) / 0.7));
+      var angles = [-60, -20, 20, 60];
+      ingPills.forEach(function(pill, i) {
+        var idx = parseInt(pill.dataset.index, 10);
+        var angle = angles[idx % 4] || (idx * 30 - 60);
+        var dist = 110 * t;
+        var x = Math.sin(angle * Math.PI / 180) * dist;
+        var y = -Math.cos(angle * Math.PI / 180) * dist - 20;
+        pill.style.transform = 'translate(' + x + 'px, ' + y + 'px) scale(' + (0.4 + t * 0.8) + ')';
+        pill.style.opacity = capsuleP > 0.35 ? t : 0;
+      });
+
+      // Calendar
+      var checked = Math.floor(calP * (dayCount + 1));
+      checked = Math.min(dayCount, checked);
+      calDays.forEach(function(d, i) { d.classList.toggle('is-checked', i < checked); });
+      if (calCount) calCount.textContent = checked;
+      if (calCountMirror) calCountMirror.textContent = checked;
+      if (calBarFill) calBarFill.style.width = ((checked / dayCount) * 100) + '%';
+      if (calDone) calDone.classList.toggle('is-visible', checked >= dayCount);
+
+      // Benefits
+      benefits.forEach(function(b, i) {
+        var delay = i * 0.25;
+        var bt = Math.min(1, Math.max(0, (benP - delay) / 0.4));
+        b.classList.toggle('is-visible', bt > 0.1);
+      });
+    }
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": ".ki Green Capsule Story",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Üst başlık" },
+    { "type": "text",     "id": "eyebrow", "label": "Üst etiket", "default": ".ki Night · Yeşil Kapsül" },
+    { "type": "text",     "id": "title",   "label": "Başlık",     "default": "Gece dengesi, 30 günde fark" },
+
+    { "type": "header", "content": "Kapsül görseli" },
+    { "type": "color",    "id": "capsule_top_color",    "label": "Kapsül üst yarı (açık yeşil)", "default": "#7FAE8A" },
+    { "type": "color",    "id": "capsule_bottom_color", "label": "Kapsül alt yarı (koyu yeşil)", "default": "#1F4A35" },
+    { "type": "color",    "id": "accent_color",         "label": "Aksan rengi (CTA, progress)",  "default": "#5C8B6E" },
+    { "type": "text",     "id": "capsule_brand_text",   "label": "Kapsül üzerindeki marka metni", "default": ".ki" },
+    { "type": "text",     "id": "scroll_hint",          "label": "Kaydırma ipucu",                "default": "Aşağı kaydır, kapsülü aç" },
+
+    { "type": "header", "content": "Stage 1 — Formül" },
+    { "type": "text",     "id": "stage1_eyebrow", "label": "Stage 1 etiketi", "default": "01 · Formül" },
+    { "type": "text",     "id": "stage1_title",   "label": "Stage 1 başlığı", "default": "Koyu yeşil kapsülün içinde 4 etken madde" },
+    { "type": "textarea", "id": "stage1_body",    "label": "Stage 1 metni",   "default": "Magnezyum, Hayıt, Çin Meleki Otu ve Bor — her biri klinik dozajda. Kaydırdıkça kapsül açılır, içerik açığa çıkar." },
+
+    { "type": "header", "content": "Stage 2 — Takvim" },
+    { "type": "range",    "id": "day_count",            "label": "Takvim gün sayısı", "min": 7, "max": 60, "step": 1, "default": 30 },
+    { "type": "text",     "id": "calendar_title",       "label": "Takvim başlığı",    "default": "30 Gün · 1 Kutu" },
+    { "type": "text",     "id": "calendar_done_text",   "label": "Takvim tamamlandı metni", "default": "30 gün tamamlandı · Dengeyi hisset" },
+    { "type": "text",     "id": "stage2_eyebrow",       "label": "Stage 2 etiketi", "default": "02 · Ritüel" },
+    { "type": "text",     "id": "stage2_title",         "label": "Stage 2 başlığı", "default": "30 gün, günde 1 kapsül" },
+    { "type": "textarea", "id": "stage2_body",          "label": "Stage 2 metni",   "default": "Tutarlı sonuç için 30 günlük döngü önerilir. Her gece yatmadan önce 1 kapsül." },
+
+    { "type": "header", "content": "Stage 3 — Faydalar" },
+    { "type": "text",     "id": "stage3_eyebrow", "label": "Stage 3 etiketi", "default": "03 · Etki" },
+    { "type": "text",     "id": "stage3_title",   "label": "Stage 3 başlığı", "default": "Kadınların 3 gece probleminde fark" },
+    { "type": "textarea", "id": "stage3_body",    "label": "Stage 3 metni",   "default": "Düzenli kullanımda uyku kalitesi artar, sıcak basmaları azalır ve hormonal denge desteklenir." },
+    { "type": "text",     "id": "stage3_meta",    "label": "Stage 3 alt etiket", "default": "2–4 hafta içinde fark" },
+
+    { "type": "header", "content": "Genel" },
+    { "type": "color",    "id": "bg_top",         "label": "Arka plan üst",    "default": "#F5F9F6" },
+    { "type": "color",    "id": "bg_bottom",      "label": "Arka plan alt",    "default": "#FFFFFF" },
+    { "type": "range",    "id": "section_height", "label": "Section yüksekliği (vh)", "min": 200, "max": 500, "step": 20, "default": 320, "info": "Daha yüksek = animasyon daha yavaş hisseder" }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Etken madde",
+      "limit": 6,
+      "settings": [
+        { "type": "text",  "id": "name",  "label": "İsim",  "default": "Magnezyum" },
+        { "type": "text",  "id": "dose",  "label": "Doz",   "default": "300 mg" },
+        { "type": "color", "id": "color", "label": "Renk",  "default": "#5C8B6E" }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Fayda",
+      "limit": 5,
+      "settings": [
+        { "type": "text",  "id": "icon",        "label": "İkon (emoji)",      "default": "🌙" },
+        { "type": "text",  "id": "title",       "label": "Başlık",            "default": "Uyku problemlerine iyi gelir" },
+        { "type": "textarea", "id": "description", "label": "Açıklama",       "default": "Magnezyum ve hayıt kombinasyonu derin uykuyu destekler, gece uyanmaları azaltır." },
+        { "type": "color", "id": "bg_color",    "label": "İkon arka plan",    "default": "#E8F0EA" },
+        { "type": "color", "id": "icon_color",  "label": "İkon rengi",        "default": "#5C8B6E" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": ".ki Green Capsule Story",
+      "blocks": [
+        { "type": "ingredient", "settings": { "name": "Magnezyum",       "dose": "300 mg", "color": "#5C8B6E" } },
+        { "type": "ingredient", "settings": { "name": "Hayıt",           "dose": "200 mg", "color": "#6B4E8C" } },
+        { "type": "ingredient", "settings": { "name": "Çin Meleki Otu",  "dose": "150 mg", "color": "#D88BA0" } },
+        { "type": "ingredient", "settings": { "name": "Bor",             "dose": "3 mg",   "color": "#E8A87C" } },
+        { "type": "benefit", "settings": { "icon": "🌙", "title": "Uyku problemlerine iyi gelir", "description": "Magnezyum ve hayıt kombinasyonu derin uykuyu destekler, gece uyanmaları azaltır.", "bg_color": "#E8F0EA", "icon_color": "#5C8B6E" } },
+        { "type": "benefit", "settings": { "icon": "🔥", "title": "Sıcak basmalarını dengeler",   "description": "Çin meleki otu vazomotor semptomları (sıcak basma, gece terlemeleri) hafifletir.", "bg_color": "#FBEFF2", "icon_color": "#D88BA0" } },
+        { "type": "benefit", "settings": { "icon": "✨", "title": "Hormonal dengeyi destekler",   "description": "Hayıt ve bor birlikte östrojen-progesteron dengesini doğal yoldan destekler.", "bg_color": "#F5EFFB", "icon_color": "#6B4E8C" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

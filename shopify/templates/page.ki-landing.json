@@ -15,7 +15,8 @@
     "bestsellers":  { "type": "ki-shop-bestsellers" },
     "trust":        { "type": "ki-trust-bar" },
     "ritual_cats":  { "type": "ki-ritual-categories" },
-    "story_strip":  { "type": "ki-story-strip" }
+    "story_strip":  { "type": "ki-story-strip" },
+    "green_story":  { "type": "ki-green-capsule-story" }
   },
   "order": [
     "urgency",
@@ -33,6 +34,7 @@
     "bestsellers",
     "trust",
     "ritual_cats",
-    "story_strip"
+    "story_strip",
+    "green_story"
   ]
 }
