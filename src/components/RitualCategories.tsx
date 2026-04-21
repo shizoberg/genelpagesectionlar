@@ -8,7 +8,7 @@ const categories = [
 export default function RitualCategories() {
   return (
     <section className="py-16 md:py-20 bg-white">
-      <div className="container">
+      <div className="container max-w-5xl mx-auto px-4">
         <h2 className="k5-reveal text-2xl md:text-4xl font-extrabold text-primary tracking-tight mb-8 md:mb-10">
           Rutinini Bul
         </h2>
