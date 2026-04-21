@@ -12,6 +12,7 @@ import BeforeAfter from "@/components/BeforeAfter";
 import IngredientsSection from "@/components/IngredientsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import StickyCartBar from "@/components/StickyCartBar";
+import ProductStory from "@/components/ProductStory";
 import SocialProofToast from "@/components/SocialProofToast";
 
 const Index = () => {
@@ -103,6 +104,8 @@ const Index = () => {
       <BeforeAfter />
       <HowItWorksSection />
       <FAQSection />
+
+      <ProductStory />
 
       {/* Sayfa sonu — Takviye Edici Gıda onay metni */}
       <div className="border-t border-border bg-secondary/30">
