@@ -18,6 +18,7 @@ import CategoriesSection from "@/components/CategoriesSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import SocialProofToast from "@/components/SocialProofToast";
 import FeatureImageSection from "@/components/FeatureImageSection";
+import BuildYourBoxSection from "@/components/BuildYourBoxSection";
 
 const Index = () => {
   useReveal();
