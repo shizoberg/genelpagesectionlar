@@ -38,13 +38,13 @@ const categories = [
 export default function CategoriesSection() {
   return (
     <section className="py-16 md:py-20 bg-white">
-      <div className="container">
+      <div className="container max-w-5xl mx-auto px-4">
         <div className="flex items-end justify-between mb-8 md:mb-10">
           <div>
             <p className="k5-reveal text-[12px] sm:text-[13px] font-bold uppercase tracking-[1.5px] text-primary mb-2">
               Kategoriler
             </p>
-            <h2 className="k5-reveal d1 text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">
+            <h2 className="k5-reveal d1 text-2xl md:text-3xl font-extrabold text-foreground tracking-tight">
               Ritüelini bul
             </h2>
           </div>
@@ -56,7 +56,7 @@ export default function CategoriesSection() {
           </a>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto">
           {categories.map((c, i) => (
             <a
               key={i}
@@ -67,12 +67,12 @@ export default function CategoriesSection() {
               {/* Visual area */}
               <div className={`relative ${c.bg} aspect-square flex items-center justify-center overflow-hidden`}>
                 {c.badge && (
-                  <span className="absolute top-3 left-3 z-10 bg-card text-primary text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full shadow-sm">
+                  <span className="absolute top-2 left-2 z-10 bg-card text-primary text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-sm">
                     {c.badge}
                   </span>
                 )}
                 <c.Icon
-                  className={`w-16 h-16 md:w-20 md:h-20 ${c.iconColor} transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6`}
+                  className={`w-10 h-10 md:w-12 md:h-12 ${c.iconColor} transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6`}
                   strokeWidth={1.4}
                 />
 
@@ -81,11 +81,11 @@ export default function CategoriesSection() {
               </div>
 
               {/* Caption */}
-              <div className="p-4 md:p-5">
-                <h3 className="text-sm md:text-base font-extrabold text-foreground tracking-tight mb-1">
+              <div className="p-3 md:p-4">
+                <h3 className="text-sm md:text-[15px] font-extrabold text-foreground tracking-tight mb-0.5">
                   {c.label}
                 </h3>
-                <p className="text-xs md:text-[13px] text-muted-foreground">{c.desc}</p>
+                <p className="text-xs text-muted-foreground">{c.desc}</p>
               </div>
             </a>
           ))}
