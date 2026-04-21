@@ -146,7 +146,7 @@ function Visual({ active, progress }: { active: number; progress: number }) {
         style={{ opacity: 0.4 + local * 0.2 }}
       />
 
-      {/* Stage 0: Sachet — gerçek paket görünümü */}
+      {/* Stage 0: Sachet — gerçek paket görünümü + etrafında mor toz orbiti */}
       <div
         className="absolute inset-0 flex items-center justify-center transition-all duration-700"
         style={{
@@ -154,7 +154,10 @@ function Visual({ active, progress }: { active: number; progress: number }) {
           transform: `scale(${active === 0 ? 1 : 0.85}) translateY(${active === 0 ? 0 : -20}px)`,
         }}
       >
-        <SachetPack rotate={-8} />
+        <div className="relative">
+          <PowderOrbit active={active === 0} />
+          <SachetPack rotate={-8} />
+        </div>
       </div>
 
       {/* Stage 1: Sachet'ten bitkiler/içerikler süzülüyor */}
