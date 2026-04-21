@@ -1,64 +1,72 @@
+import { Moon, Pill, Package as PackageIcon, Sparkles } from "lucide-react";
+
 const steps = [
   {
     number: "01",
-    icon: "🌙",
+    Icon: Moon,
     title: "Döngünü Tanı",
-    description: "Eczacımızla kısa bir görüşme yaparak döngün ve ihtiyaçların hakkında bilgi ver.",
+    description: "Eczacımızla kısa görüşme yap.",
   },
   {
     number: "02",
-    icon: "💊",
+    Icon: Pill,
     title: "Rutinini Oluştur",
-    description: "Sana özel takviye rutini hazırlanır. Hangi saatte, nasıl alacağın netleşir.",
+    description: "Sana özel takviye planı.",
   },
   {
     number: "03",
-    icon: "📦",
+    Icon: PackageIcon,
     title: "Kapına Gelsin",
-    description: "Ürünlerin ücretsiz kargo ile hızlıca sana ulaşır. Abonelikte her ay otomatik gönderim.",
+    description: "Ücretsiz kargo, hızlı teslimat.",
   },
   {
     number: "04",
-    icon: "✨",
+    Icon: Sparkles,
     title: "Farkı Hisset",
-    description: "Düzenli kullanımla döngünde dengeyi, enerjini ve konforu geri kazan.",
+    description: "Düzenli kullanımla denge.",
   },
 ];
 
 export default function HowItWorksSection() {
   return (
-    <section className="py-16 bg-ki-navy">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <p className="text-ki-violet text-sm font-semibold uppercase tracking-widest mb-2">Nasıl Çalışır?</p>
-          <h2 className="text-3xl md:text-4xl font-black text-white">Döngünde Kendine İyi Bak</h2>
+    <section className="py-10 sm:py-12 bg-primary">
+      <div className="container">
+        <div className="text-center mb-6 sm:mb-8">
+          <p className="k5-reveal text-[12px] sm:text-[13px] font-bold uppercase tracking-[1.5px] text-primary-foreground/60 mb-1.5">
+            Nasıl Çalışır?
+          </p>
+          <h2 className="k5-reveal d1 text-2xl sm:text-3xl font-extrabold text-primary-foreground tracking-tight">
+            Döngünde Kendine İyi Bak
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Tek section'da, mobilde 2x2, sm+ 4 sütun */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 max-w-3xl mx-auto">
           {steps.map((step, i) => (
-            <div key={i} className="relative">
-              {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-ki-violet/20 z-0 -translate-x-1/2" />
-              )}
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-ki-purple/30 flex items-center justify-center text-2xl">
-                    {step.icon}
-                  </div>
-                  <span className="text-ki-violet/50 font-black text-2xl">{step.number}</span>
-                </div>
-                <h3 className="font-bold text-white text-lg mb-2">{step.title}</h3>
-                <p className="text-ki-violet/70 text-sm leading-relaxed">{step.description}</p>
+            <div
+              key={step.number}
+              className={`k5-reveal d${(i % 4) + 1} bg-primary-foreground/10 border border-primary-foreground/15 rounded-2xl p-3 sm:p-4 text-center`}
+            >
+              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-primary-foreground/15 flex items-center justify-center mx-auto mb-2 text-primary-foreground">
+                <step.Icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.2} />
               </div>
+              <div className="text-[10px] sm:text-[11px] font-bold text-primary-foreground/50 mb-0.5">
+                {step.number}
+              </div>
+              <h3 className="font-bold text-primary-foreground text-[12px] sm:text-sm mb-0.5 leading-tight">
+                {step.title}
+              </h3>
+              <p className="text-[10px] sm:text-[11px] text-primary-foreground/70 leading-snug">
+                {step.description}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-6 sm:mt-8">
           <a
             href="#pricing"
-            className="inline-block bg-white text-ki-navy font-bold px-8 py-4 rounded-2xl hover:bg-ki-light transition-colors"
+            className="inline-block bg-primary-foreground text-primary font-bold text-[13px] sm:text-sm px-6 py-2.5 rounded-full hover:-translate-y-0.5 hover:shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-all"
           >
             Hemen Başla
           </a>

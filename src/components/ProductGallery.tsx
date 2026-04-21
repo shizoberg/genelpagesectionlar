@@ -20,7 +20,7 @@ export default function ProductGallery() {
         <div className={`absolute inset-0 bg-gradient-to-br ${slides[active].bg} flex items-center justify-center`}>
           <div className="relative">
             <div className="w-40 h-52 bg-white/15 backdrop-blur-sm rounded-2xl border border-white/20 flex flex-col items-center justify-center p-4 shadow-2xl">
-              <p className="text-white font-black text-3xl tracking-tight">.ki</p>
+              <p className="text-white font-extrabold text-3xl tracking-tight">.ki</p>
               <p className="text-white/80 text-xs text-center mt-1 leading-tight">Balance Your Cycle</p>
               <div className="mt-3 space-y-0.5">
                 <p className="text-white/60 text-[10px] text-center">Dong Quai · Magnesium</p>
