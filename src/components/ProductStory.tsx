@@ -212,32 +212,71 @@ function Visual({ active, progress }: { active: number; progress: number }) {
         </div>
       </div>
 
-      {/* Stage 2: Mix into water */}
+      {/* Stage 2: Shaker matarasında çalkalanarak çözünme */}
       <div
         className="absolute inset-0 flex items-center justify-center transition-all duration-700"
         style={{ opacity: active === 2 ? 1 : 0 }}
       >
-        <div className="relative">
-          <div className="w-32 h-44 sm:w-40 sm:h-52 rounded-b-[40px] rounded-t-2xl border-4 border-primary/30 bg-gradient-to-b from-primary/5 to-primary/30 overflow-hidden relative">
-            <div
-              className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-primary/40 to-primary/70 transition-all duration-1000"
-              style={{ height: `${50 + local * 40}%` }}
-            >
-              <div className="absolute top-0 left-0 right-0 h-2 bg-primary-foreground/30 rounded-full animate-pulse" />
+        <div className="relative flex flex-col items-center">
+          <div
+            className="relative"
+            style={{
+              animation: active === 2 ? "shake 0.55s ease-in-out infinite" : "none",
+              transformOrigin: "50% 60%",
+            }}
+          >
+            {/* Mataranın kapağı */}
+            <div className="mx-auto w-20 sm:w-24 h-4 sm:h-5 rounded-t-md bg-gradient-to-b from-[hsl(255_30%_25%)] to-[hsl(258_45%_18%)] shadow-md relative z-10">
+              <div className="absolute inset-x-2 top-1 h-0.5 bg-white/15 rounded-full" />
             </div>
-            {[...Array(6)].map((_, i) => (
+            {/* Boyun */}
+            <div className="mx-auto w-16 sm:w-20 h-2 bg-gradient-to-b from-[hsl(258_40%_22%)] to-[hsl(258_30%_30%)]" />
+            {/* Mataranın gövdesi */}
+            <div className="relative w-32 sm:w-40 h-44 sm:h-52 rounded-b-[28px] rounded-t-xl border-[3px] border-primary/35 bg-gradient-to-b from-primary/5 via-primary/15 to-primary/30 overflow-hidden shadow-2xl">
+              {/* Sıvı seviyesi */}
               <div
-                key={i}
-                className="absolute w-1.5 h-1.5 rounded-full bg-primary-foreground/50"
-                style={{
-                  left: `${15 + i * 12}%`,
-                  bottom: `${20 + (i % 3) * 15}%`,
-                  animation: `float 2s ease-in-out ${i * 0.2}s infinite`,
-                }}
-              />
-            ))}
+                className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-primary/45 via-primary/65 to-primary/85 transition-all duration-700"
+                style={{ height: `${55 + local * 35}%` }}
+              >
+                {/* Sıvı yüzeyi dalgası */}
+                <div
+                  className="absolute -top-1 left-0 right-0 h-2 bg-primary-foreground/40 rounded-[50%]"
+                  style={{ animation: "wave 0.8s ease-in-out infinite alternate" }}
+                />
+              </div>
+              {/* Çalkalanan kabarcıklar */}
+              {[...Array(10)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute rounded-full bg-primary-foreground/60"
+                  style={{
+                    width: `${4 + (i % 3) * 2}px`,
+                    height: `${4 + (i % 3) * 2}px`,
+                    left: `${10 + (i * 8) % 80}%`,
+                    bottom: `${10 + (i * 13) % 60}%`,
+                    animation: `bubble ${1 + (i % 4) * 0.3}s ease-in ${i * 0.15}s infinite`,
+                  }}
+                />
+              ))}
+              {/* Çözünen toz parçacıkları */}
+              {[...Array(8)].map((_, i) => (
+                <div
+                  key={`p-${i}`}
+                  className="absolute w-1 h-1 rounded-full bg-rose/70"
+                  style={{
+                    left: `${20 + (i * 9) % 60}%`,
+                    top: `${15 + (i * 11) % 50}%`,
+                    animation: `swirl ${2 + (i % 3) * 0.4}s linear ${i * 0.1}s infinite`,
+                    opacity: Math.max(0, 0.9 - local * 0.7),
+                  }}
+                />
+              ))}
+              {/* Cam yansıması */}
+              <div className="absolute inset-y-0 left-1 w-2 bg-gradient-to-r from-white/30 to-transparent rounded-full" />
+            </div>
           </div>
-          <p className="text-center text-xs text-primary font-bold mt-2">30 saniyede çözünür</p>
+          <p className="text-center text-xs text-primary font-bold mt-3">30 saniyede çözünür</p>
+          <p className="text-center text-[10px] text-muted-foreground mt-0.5">Çalkala · Karıştır · İç</p>
         </div>
       </div>
 
@@ -280,6 +319,30 @@ function Visual({ active, progress }: { active: number; progress: number }) {
         @keyframes float {
           0%, 100% { transform: translateY(0); opacity: 0.5; }
           50% { transform: translateY(-8px); opacity: 0.9; }
+        }
+        @keyframes shake {
+          0%, 100% { transform: rotate(-4deg) translateY(0); }
+          25% { transform: rotate(5deg) translateY(-3px); }
+          50% { transform: rotate(-3deg) translateY(2px); }
+          75% { transform: rotate(4deg) translateY(-2px); }
+        }
+        @keyframes wave {
+          0% { transform: translateX(-4px) scaleY(1); }
+          100% { transform: translateX(4px) scaleY(1.4); }
+        }
+        @keyframes bubble {
+          0% { transform: translateY(0) scale(0.6); opacity: 0; }
+          30% { opacity: 0.9; }
+          100% { transform: translateY(-60px) scale(1.1); opacity: 0; }
+        }
+        @keyframes swirl {
+          0% { transform: translate(0, 0) rotate(0deg); opacity: 0.9; }
+          50% { transform: translate(8px, 12px) rotate(180deg); opacity: 0.6; }
+          100% { transform: translate(0, 24px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes orbit {
+          from { transform: rotate(0deg) translateX(var(--r)) rotate(0deg); }
+          to { transform: rotate(360deg) translateX(var(--r)) rotate(-360deg); }
         }
       `}</style>
     </div>
