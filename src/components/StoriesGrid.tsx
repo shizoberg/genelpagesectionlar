@@ -107,11 +107,11 @@ export default function StoriesGrid() {
   const onEnd = useCallback(() => setDragging(false), []);
 
   return (
-    <section className="py-16 md:py-24 bg-[hsl(var(--background))]">
+    <section className="py-10 md:py-24 bg-[hsl(var(--background))]">
       <div className="container">
         {/* Heading */}
-        <div className="k5-reveal mb-10 md:mb-14 max-w-3xl">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-[hsl(var(--foreground))] tracking-tight leading-[1.05]">
+        <div className="k5-reveal mb-6 md:mb-14 max-w-3xl">
+          <h2 className="text-xl md:text-5xl font-extrabold text-[hsl(var(--foreground))] tracking-tight leading-[1.1]">
             Bilim insanları, yenilikçiler ve senin gibi üyelerden hikayeler.
           </h2>
         </div>
@@ -119,7 +119,7 @@ export default function StoriesGrid() {
         {/* Mobile: horizontal scroll */}
         <div
           ref={trackRef}
-          className={`md:hidden flex gap-3 overflow-x-auto hide-scrollbar pb-4 snap-x snap-mandatory grab-cursor ${
+          className={`md:hidden flex gap-2.5 overflow-x-auto hide-scrollbar pb-3 snap-x snap-mandatory grab-cursor ${
             dragging ? "dragging" : ""
           }`}
           onMouseDown={onMouseDown}
@@ -128,7 +128,7 @@ export default function StoriesGrid() {
           onMouseLeave={onEnd}
         >
           {tiles.map((tile, i) => (
-            <div key={i} className="flex-none w-[240px] snap-start">
+            <div key={i} className="flex-none w-[160px] snap-start">
               <Tile tile={tile} />
             </div>
           ))}
@@ -172,24 +172,24 @@ function Tile({ tile }: { tile: Tile }) {
   if (tile.kind === "video") {
     return (
       <div
-        className={`relative w-full aspect-[4/5] overflow-hidden rounded-3xl bg-gradient-to-br ${tile.bg} text-white`}
+        className={`relative w-full aspect-[4/5] overflow-hidden rounded-2xl md:rounded-3xl bg-gradient-to-br ${tile.bg} text-white`}
       >
         {/* Top overlay caption */}
-        <div className="absolute top-0 left-0 right-0 px-4 py-3 flex items-center justify-between">
-          <span className="text-[10px] uppercase tracking-wider opacity-80">
+        <div className="absolute top-0 left-0 right-0 px-2.5 md:px-4 py-2 md:py-3 flex items-center justify-between">
+          <span className="text-[9px] md:text-[10px] uppercase tracking-wider opacity-80">
             {tile.caption.split(" ").slice(0, 2).join(" ")}
           </span>
-          <button className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition">
-            <svg className="w-3 h-3 fill-white ml-0.5" viewBox="0 0 24 24">
+          <button className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition">
+            <svg className="w-2.5 h-2.5 md:w-3 md:h-3 fill-white ml-0.5" viewBox="0 0 24 24">
               <polygon points="8,5 20,12 8,19" />
             </svg>
           </button>
         </div>
 
         {/* Center play */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <div className="text-lg font-bold">{tile.name}</div>
-          <div className="text-xs opacity-70 mt-1">{tile.caption}</div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-3 md:px-4">
+          <div className="text-sm md:text-lg font-bold">{tile.name}</div>
+          <div className="text-[11px] md:text-xs opacity-70 mt-0.5 md:mt-1 leading-tight">{tile.caption}</div>
         </div>
       </div>
     );
@@ -199,27 +199,27 @@ function Tile({ tile }: { tile: Tile }) {
   const isDark = tile.variant === "dark";
   return (
     <div
-      className={`relative w-full aspect-square rounded-3xl p-6 lg:p-7 flex flex-col justify-center ${
+      className={`relative w-full aspect-square rounded-2xl md:rounded-3xl p-4 md:p-6 lg:p-7 flex flex-col justify-center ${
         isDark
           ? "bg-[hsl(155_45%_12%)] text-white"
           : "bg-[hsl(var(--secondary))] text-[hsl(var(--foreground))]"
       }`}
     >
       <button
-        className={`absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center ${
+        className={`absolute top-2.5 right-2.5 md:top-4 md:right-4 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center ${
           isDark ? "bg-white/15 hover:bg-white/25" : "bg-white/70 hover:bg-white"
         } transition`}
         aria-label="Open"
       >
-        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg className="w-3 h-3 md:w-3.5 md:h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M7 17L17 7M17 7H9M17 7v8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
-      <p className="text-center text-sm lg:text-base leading-relaxed font-medium italic">
+      <p className="text-center text-[11px] md:text-sm lg:text-base leading-snug md:leading-relaxed font-medium italic">
         "{tile.text}"
       </p>
       <p
-        className={`text-center mt-4 font-bold tracking-wider text-sm ${
+        className={`text-center mt-2 md:mt-4 font-bold tracking-wider text-[11px] md:text-sm ${
           isDark ? "text-white" : "text-[hsl(var(--foreground))]"
         }`}
         style={{ fontFamily: "Georgia, serif" }}
@@ -229,3 +229,4 @@ function Tile({ tile }: { tile: Tile }) {
     </div>
   );
 }
+
