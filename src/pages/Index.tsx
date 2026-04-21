@@ -17,6 +17,7 @@ import ManifestoSection from "@/components/ManifestoSection";
 import CategoriesSection from "@/components/CategoriesSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import SocialProofToast from "@/components/SocialProofToast";
+import FeatureImageSection from "@/components/FeatureImageSection";
 
 const Index = () => {
   useReveal();
@@ -114,6 +115,12 @@ const Index = () => {
       <ManifestoSection />
       <CategoriesSection />
       <NewsletterSection />
+
+      {/* Ritual-style görsel + metin section — görseli `image` prop'u ile değiştir */}
+      <FeatureImageSection
+        eyebrow="Gerçek Denge"
+        description="Eczacı onaylı, klinik dozajlı .ki Balance — her sachet'te tutarlı standart, şeffaf kaynak takibi."
+      />
 
       {/* Sayfa sonu — Takviye Edici Gıda onay metni */}
       <div className="border-t border-border bg-secondary/30">
