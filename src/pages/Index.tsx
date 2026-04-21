@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
 
 import ScrollProgress from "@/components/ScrollProgress";
@@ -11,7 +11,6 @@ import VideoTestimonials from "@/components/VideoTestimonials";
 import BeforeAfter from "@/components/BeforeAfter";
 import IngredientsSection from "@/components/IngredientsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
-import StickyCartBar from "@/components/StickyCartBar";
 import ProductStory from "@/components/ProductStory";
 import ManifestoSection from "@/components/ManifestoSection";
 import CategoriesSection from "@/components/CategoriesSection";
@@ -27,28 +26,17 @@ const Index = () => {
   useReveal();
 
   const [cartCount, setCartCount] = useState(0);
-  const [stickyVisible, setStickyVisible] = useState(false);
-  const productRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setStickyVisible(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    if (productRef.current) observer.observe(productRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   void cartCount;
   const handleAddToCart = () => setCartCount((c) => c + 1);
 
   return (
-    <div className="min-h-screen bg-white pb-[72px] font-sans">
+    <div className="min-h-screen bg-white font-sans">
       <ScrollProgress />
       <UrgencyBar />
 
       {/* Ürün — sayfanın başında */}
-      <section className="py-8 md:py-12" id="pricing" ref={productRef}>
+      <section className="py-8 md:py-12" id="pricing">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-start">
             <div className="md:col-span-5 md:sticky md:top-6">
