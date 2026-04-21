@@ -59,7 +59,7 @@ export default function ProductStory() {
   return (
     <section
       ref={sectionRef}
-      className="relative bg-secondary/40"
+      className="relative bg-white"
       style={{ height: `${stages.length * 100}vh` }}
       aria-label="Ürün hikayesi"
     >
