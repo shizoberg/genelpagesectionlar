@@ -350,8 +350,9 @@ function Visual({ active, progress }: { active: number; progress: number }) {
 }
 
 function SachetPack({ small = false, rotate = 0 }: { small?: boolean; rotate?: number }) {
-  const w = small ? "w-24 sm:w-28" : "w-32 sm:w-40";
-  const h = small ? "h-36 sm:h-44" : "h-44 sm:h-56";
+  // Daha ince-uzun oranlar (~ 1:1.9)
+  const w = small ? "w-20 sm:w-24" : "w-24 sm:w-28";
+  const h = small ? "h-40 sm:h-48" : "h-48 sm:h-56";
   return (
     <div
       className={`relative ${w} ${h}`}
