@@ -15,11 +15,12 @@ export default function ProductGallery() {
   const next = () => setActive((a) => (a + 1) % slides.length);
 
   return (
-    <div className="space-y-3">
-      <div className="relative rounded-3xl overflow-hidden aspect-square bg-secondary">
+    <div className="md:flex md:flex-col md:gap-3">
+      {/* Mobile: only main image with dots. Desktop: smaller main image + thumbs below */}
+      <div className="relative rounded-3xl overflow-hidden aspect-square md:aspect-[4/5] bg-secondary">
         <div className="absolute inset-0 bg-primary flex items-center justify-center">
           <div className="relative">
-            <div className="w-40 h-52 bg-primary-foreground/15 backdrop-blur-sm rounded-2xl border border-primary-foreground/20 flex flex-col items-center justify-center p-4 shadow-2xl">
+            <div className="w-40 h-52 md:w-44 md:h-56 bg-primary-foreground/15 backdrop-blur-sm rounded-2xl border border-primary-foreground/20 flex flex-col items-center justify-center p-4 shadow-2xl">
               <p className="text-primary-foreground font-extrabold text-3xl tracking-tight">.ki</p>
               <p className="text-primary-foreground/80 text-xs text-center mt-1 leading-tight">
                 Balance Your Cycle
@@ -64,22 +65,22 @@ export default function ProductGallery() {
         </div>
       </div>
 
-      {/* Thumbnail strip — desktop only */}
-      <div className="hidden md:grid grid-cols-4 gap-2">
+      {/* Thumbnail strip — desktop only, larger to fill remaining space */}
+      <div className="hidden md:grid grid-cols-4 gap-3">
         {slides.map((slide, i) => (
           <button
             key={slide.id}
             onClick={() => setActive(i)}
             aria-label={`Slayt ${i + 1}`}
-            className={`relative aspect-square rounded-xl overflow-hidden bg-secondary transition-all duration-200 ${
+            className={`relative aspect-square rounded-2xl overflow-hidden bg-secondary transition-all duration-200 ${
               i === active
                 ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
                 : "opacity-70 hover:opacity-100"
             }`}
           >
             <div className="absolute inset-0 bg-primary flex items-center justify-center">
-              <div className="w-8 h-10 bg-primary-foreground/15 backdrop-blur-sm rounded-md border border-primary-foreground/20 flex items-center justify-center">
-                <span className="text-primary-foreground font-extrabold text-[10px] tracking-tight">.ki</span>
+              <div className="w-10 h-12 bg-primary-foreground/15 backdrop-blur-sm rounded-md border border-primary-foreground/20 flex items-center justify-center">
+                <span className="text-primary-foreground font-extrabold text-xs tracking-tight">.ki</span>
               </div>
             </div>
           </button>
