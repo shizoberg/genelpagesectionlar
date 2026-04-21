@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
 
 import ScrollProgress from "@/components/ScrollProgress";
@@ -11,7 +11,6 @@ import VideoTestimonials from "@/components/VideoTestimonials";
 import BeforeAfter from "@/components/BeforeAfter";
 import IngredientsSection from "@/components/IngredientsSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
-import StickyCartBar from "@/components/StickyCartBar";
 import ProductStory from "@/components/ProductStory";
 import ManifestoSection from "@/components/ManifestoSection";
 import CategoriesSection from "@/components/CategoriesSection";
@@ -19,33 +18,25 @@ import CategoriesSection from "@/components/CategoriesSection";
 import SocialProofToast from "@/components/SocialProofToast";
 import FeatureImageSection from "@/components/FeatureImageSection";
 import ShopBestsellers from "@/components/ShopBestsellers";
+import TrustBar from "@/components/TrustBar";
+import RitualCategories from "@/components/RitualCategories";
+import StoryStrip from "@/components/StoryStrip";
 
 const Index = () => {
   useReveal();
 
   const [cartCount, setCartCount] = useState(0);
-  const [stickyVisible, setStickyVisible] = useState(false);
-  const productRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setStickyVisible(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    if (productRef.current) observer.observe(productRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   void cartCount;
   const handleAddToCart = () => setCartCount((c) => c + 1);
 
   return (
-    <div className="min-h-screen bg-white pb-[72px] font-sans">
+    <div className="min-h-screen bg-white font-sans">
       <ScrollProgress />
       <UrgencyBar />
 
       {/* Ürün — sayfanın başında */}
-      <section className="py-8 md:py-12" id="pricing" ref={productRef}>
+      <section className="py-8 md:py-12" id="pricing">
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-start">
             <div className="md:col-span-5 md:sticky md:top-6">
@@ -122,20 +113,10 @@ const Index = () => {
       />
 
       <ShopBestsellers />
+      <TrustBar />
+      <RitualCategories />
+      <StoryStrip />
 
-      {/* Sayfa sonu — Takviye Edici Gıda onay metni */}
-      <div className="border-t border-border bg-white">
-        <div className="container py-6 text-center">
-          <p className="text-[12px] sm:text-[13px] font-bold text-primary leading-tight">
-            .Ki Magnezyum ve Hayıt İçeren Takviye Edici Gıda
-          </p>
-          <p className="text-[11px] sm:text-[12px] text-muted-foreground font-medium mt-0.5">
-            Takviye Edici Gıda Onay Numarası: 024990-06.11.2025
-          </p>
-        </div>
-      </div>
-
-      <StickyCartBar visible={stickyVisible} price={3500} onAdd={handleAddToCart} />
       <SocialProofToast />
     </div>
   );
