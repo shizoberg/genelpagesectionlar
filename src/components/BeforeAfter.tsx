@@ -21,17 +21,17 @@ export default function BeforeAfter() {
     <section className="py-12 sm:py-14 bg-white">
       <div className="container">
         <div className="text-center mb-6 sm:mb-8">
-          <p className="k5-reveal text-[12px] sm:text-[13px] font-bold uppercase tracking-[1.5px] text-primary/60 mb-1.5">
+          <p className="k5-reveal text-[12px] sm:text-[13px] font-bold uppercase tracking-[1.5px] text-primary mb-1.5">
             Fark Yarat
           </p>
-          <h2 className="k5-reveal d1 text-2xl sm:text-3xl font-extrabold text-primary tracking-tight">
+          <h2 className="k5-reveal d1 text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
             Öncesi &amp; Sonrası
           </h2>
         </div>
 
         <div className="k5-reveal d2 grid grid-cols-[1fr_auto_1fr] items-stretch gap-2 sm:gap-3 max-w-2xl mx-auto">
           <div className="bg-secondary/60 rounded-2xl p-3 sm:p-5 border border-border">
-            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2 sm:mb-3">
+            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-foreground/70 mb-2 sm:mb-3">
               Önce
             </p>
             <ul className="space-y-1.5 sm:space-y-2.5">
