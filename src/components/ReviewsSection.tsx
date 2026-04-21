@@ -100,16 +100,15 @@ export default function ReviewsSection() {
           ))}
         </div>
 
-        {!showAll && (
-          <div className="text-center mt-8">
-            <button
-              onClick={() => setShowAll(true)}
-              className="border-2 border-[hsl(var(--primary))]/30 text-[hsl(var(--primary))] font-semibold px-6 py-3 rounded-xl hover:bg-[hsl(var(--primary-light))] transition-colors text-sm"
-            >
-              Daha fazlasını gör ({reviews.length - 2} soru daha)
-            </button>
-          </div>
-        )}
+        <div className="text-center mt-8">
+          <button
+            onClick={() => setShowAll((s) => !s)}
+            className="inline-flex items-center gap-1.5 border-2 border-[hsl(var(--primary))]/30 text-[hsl(var(--primary))] font-semibold px-6 py-3 rounded-full hover:bg-[hsl(var(--primary-light))] transition-colors text-sm"
+          >
+            {showAll ? "Azını gör" : `Devamını gör (${reviews.length - 2} soru daha)`}
+            <span className={`transition-transform ${showAll ? "rotate-180" : ""}`}>↓</span>
+          </button>
+        </div>
       </div>
     </section>
   );
