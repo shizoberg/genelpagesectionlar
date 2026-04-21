@@ -3,7 +3,6 @@ import { useReveal } from "@/hooks/useReveal";
 
 import ScrollProgress from "@/components/ScrollProgress";
 import UrgencyBar from "@/components/UrgencyBar";
-import HeroSection from "@/components/HeroSection";
 import ProductGallery from "@/components/ProductGallery";
 import PricingSection from "@/components/PricingSection";
 import StatsBar from "@/components/StatsBar";
@@ -20,52 +19,54 @@ const Index = () => {
 
   const [cartCount, setCartCount] = useState(0);
   const [stickyVisible, setStickyVisible] = useState(false);
-  const heroRef = useRef<HTMLDivElement | null>(null);
+  const productRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setStickyVisible(!entry.isIntersecting),
       { threshold: 0 }
     );
-    if (heroRef.current) observer.observe(heroRef.current);
+    if (productRef.current) observer.observe(productRef.current);
     return () => observer.disconnect();
   }, []);
 
-  // cartCount şu an UI'da gösterilmiyor (header kaldırıldı) ama state korunuyor
   void cartCount;
   const handleAddToCart = () => setCartCount((c) => c + 1);
 
   return (
-    <div className="min-h-screen bg-background pb-[72px]">
+    <div className="min-h-screen bg-background pb-[72px] font-sans">
       <ScrollProgress />
       <UrgencyBar />
 
-      <div ref={heroRef}>
-        <HeroSection />
+      {/* Üst bilgi şeridi — eski en alttaki ürün onay metni başa alındı */}
+      <div className="bg-secondary/40 border-b border-border/60">
+        <div className="container py-3 text-center">
+          <p className="text-[12px] sm:text-[13px] font-bold text-primary leading-tight">
+            .Ki Magnezyum ve Hayıt İçeren Takviye Edici Gıda
+          </p>
+          <p className="text-[11px] sm:text-[12px] text-muted-foreground font-medium mt-0.5">
+            Takviye Edici Gıda Onay Numarası: 024990-06.11.2025
+          </p>
+        </div>
       </div>
 
-      <ReviewsSection />
-      <VideoTestimonials />
-      <BeforeAfter />
-      <IngredientsSection />
-      <HowItWorksSection />
-
-      <section className="py-14" id="pricing">
+      {/* Ürün — sayfanın başında */}
+      <section className="py-8 md:py-12" id="pricing" ref={productRef}>
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             <div className="lg:sticky lg:top-6">
               <ProductGallery />
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div className="inline-flex items-center gap-1.5 bg-secondary text-primary text-xs font-bold py-1.5 px-3.5 rounded-full">
                 90+ kişi bu ürünü satın aldı
               </div>
 
               <div>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-foreground leading-tight">
+                <h1 className="text-2xl md:text-3xl font-extrabold text-foreground leading-tight tracking-tight">
                   .ki Balance — Döngü Takviyesi
-                </h2>
+                </h1>
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                   Eczacı ve doktorlar tarafından geliştirilmiş, döngüsel dengen için bilimsel formülasyon.
                 </p>
@@ -73,13 +74,24 @@ const Index = () => {
 
               <div className="flex items-center gap-2">
                 <span className="text-base text-star tracking-wide">★★★★★</span>
-                <a href="#reviews" className="text-[13px] text-muted-foreground font-medium hover:text-primary transition-colors">
+                <a
+                  href="#reviews"
+                  className="text-[13px] text-muted-foreground font-medium hover:text-primary transition-colors"
+                >
                   5.0 · 90+ doğrulanmış değerlendirme
                 </a>
               </div>
 
               <div className="text-[13px] text-amber font-semibold flex items-center gap-1.5">
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  className="w-3.5 h-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <circle cx="12" cy="12" r="10" />
                   <polyline points="12 6 12 12 16 14" />
                 </svg>
@@ -94,8 +106,14 @@ const Index = () => {
 
       <StatsBar />
 
-      <div id="reviews" className="hidden" />
+      <div id="reviews">
+        <ReviewsSection />
+      </div>
 
+      <VideoTestimonials />
+      <IngredientsSection />
+      <BeforeAfter />
+      <HowItWorksSection />
       <FAQSection />
 
       <StickyCartBar visible={stickyVisible} price={3500} onAdd={handleAddToCart} />
@@ -137,7 +155,9 @@ function FAQSection() {
           <p className="k5-reveal text-[13px] font-bold uppercase tracking-[1.5px] text-primary mb-2">
             SSS
           </p>
-          <h2 className="k5-reveal d1 text-3xl font-extrabold text-foreground">Sık Sorulan Sorular</h2>
+          <h2 className="k5-reveal d1 text-3xl font-extrabold text-foreground tracking-tight">
+            Sık Sorulan Sorular
+          </h2>
         </div>
         <div className="space-y-3">
           {faqs.map((faq, i) => (

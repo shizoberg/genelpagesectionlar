@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, RefreshCw, Package } from "lucide-react";
+import { Check, RefreshCw, Package, Sparkles } from "lucide-react";
 
 interface Pkg {
   id: string;
@@ -41,7 +41,6 @@ const packages: Pkg[] = [
       "Magnezyum + B6 + B12.",
       "Matara ve Ayna Hediye.",
       "3 Adet Balance Your Cycle Gönderilir.",
-      "Eczacımız ile Sana Özel Takviye Rutini Oluştur.",
     ],
     subscription: true,
   },
@@ -70,95 +69,117 @@ export default function PricingSection({ onAddToCart }: PricingProps) {
     <div className="space-y-4">
       <div className="space-y-3">
         {packages.map((pkg) => (
-          <button
-            key={pkg.id}
-            onClick={() => setSelected(pkg.id)}
-            className={`package-card w-full text-left ${
-              selected === pkg.id ? "package-card-selected" : "package-card-unselected"
-            }`}
-          >
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${
-                    selected === pkg.id ? "border-ki-navy" : "border-gray-300"
-                  }`}
-                >
-                  {selected === pkg.id && <div className="w-2.5 h-2.5 rounded-full bg-ki-navy" />}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-ki-navy text-base">{pkg.label}</span>
-                    {pkg.badge && <span className="badge-popular text-[10px]">{pkg.badge}</span>}
+          <div key={pkg.id}>
+            <button
+              onClick={() => setSelected(pkg.id)}
+              className={`package-card w-full text-left ${
+                selected === pkg.id ? "package-card-selected" : "package-card-unselected"
+              }`}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div
+                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors ${
+                      selected === pkg.id ? "border-primary" : "border-border"
+                    }`}
+                  >
+                    {selected === pkg.id && <div className="w-2.5 h-2.5 rounded-full bg-primary" />}
                   </div>
-                  {pkg.perUnit && (
-                    <p className="text-xs text-ki-navy/50 mt-0.5">
-                      Adet başına ~{pkg.perUnit.toLocaleString("tr-TR")}₺
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-bold text-foreground text-base">{pkg.label}</span>
+                      {pkg.badge && (
+                        <span className="badge-popular text-[10px]">{pkg.badge}</span>
+                      )}
+                    </div>
+                    {pkg.perUnit && (
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        Adet başına ~{pkg.perUnit.toLocaleString("tr-TR")}₺
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-right flex-shrink-0">
+                  {pkg.originalPrice && (
+                    <p className="text-xs text-muted-foreground/70 line-through">
+                      {pkg.originalPrice.toLocaleString("tr-TR")}₺
                     </p>
                   )}
+                  <p className="text-xl font-extrabold text-primary">
+                    {pkg.price.toLocaleString("tr-TR")}₺
+                  </p>
                 </div>
               </div>
 
-              <div className="text-right flex-shrink-0">
-                {pkg.originalPrice && (
-                  <p className="text-xs text-ki-navy/40 line-through">
-                    {pkg.originalPrice.toLocaleString("tr-TR")}₺
+              {selected === pkg.id && (
+                <div className="mt-4 space-y-2 border-t border-primary/10 pt-4">
+                  {pkg.features.map((f, i) => (
+                    <div key={i} className="flex items-start gap-2.5">
+                      <Check size={15} className="text-sage flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/80">{f}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </button>
+
+            {/* 3'lü paket için ayrı vurgulanmış rutin fırsatı */}
+            {pkg.id === "triple" && selected === "triple" && (
+              <div className="mt-2 flex items-start gap-3 rounded-2xl border border-primary/20 bg-gradient-to-br from-secondary to-plum-pale p-3.5">
+                <div className="w-9 h-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0">
+                  <Sparkles size={16} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[13px] font-bold text-primary leading-tight">
+                    Eczacımız ile sana özel takviye rutini oluştur
                   </p>
-                )}
-                <p className="text-xl font-bold text-ki-navy">{pkg.price.toLocaleString("tr-TR")}₺</p>
-              </div>
-            </div>
-
-            {selected === pkg.id && (
-              <div className="mt-4 space-y-2 border-t border-ki-navy/10 pt-4">
-                {pkg.features.map((f, i) => (
-                  <div key={i} className="flex items-start gap-2.5">
-                    <Check size={15} className="text-ki-green flex-shrink-0 mt-0.5" />
-                    <span className="text-sm text-ki-navy/80">{f}</span>
-                  </div>
-                ))}
+                  <p className="text-[12px] text-muted-foreground mt-0.5 leading-snug">
+                    15 dakikalık birebir görüşme — 3'lü pakete özel hediye.
+                  </p>
+                </div>
               </div>
             )}
-
-            {selected === pkg.id && pkg.subscription && (
-              <p className="text-xs text-ki-purple font-medium mt-3">
-                Eczacımız ile Sana Özel Takviye Rutini Oluştur.
-              </p>
-            )}
-          </button>
+          </div>
         ))}
       </div>
 
       {/* Subscription toggle */}
-      <div className="bg-ki-light rounded-2xl p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <RefreshCw size={18} className="text-ki-purple" />
-            <div>
-              <p className="text-sm font-semibold text-ki-navy">Abonelik ile %10 İndirim</p>
-              <p className="text-xs text-ki-navy/60 mt-0.5">Her ay otomatik gönderim, istediğin zaman iptal</p>
+      <div className="bg-secondary/60 rounded-2xl p-4">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <RefreshCw size={18} className="text-primary flex-shrink-0" />
+            <div className="min-w-0">
+              <p className="text-sm font-semibold text-foreground">Abonelik ile %10 İndirim</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Her ay otomatik gönderim, istediğin zaman iptal
+              </p>
             </div>
           </div>
           <button
             onClick={() => setSubscriptionMode(!subscriptionMode)}
             aria-label="Aboneliği değiştir"
             className={`relative w-12 h-6 rounded-full transition-colors duration-200 flex-shrink-0 ${
-              subscriptionMode ? "bg-ki-navy" : "bg-gray-300"
+              subscriptionMode ? "bg-primary" : "bg-border"
             }`}
           >
             <div
-              className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${
+              className={`absolute top-1 w-4 h-4 rounded-full bg-card shadow transition-transform duration-200 ${
                 subscriptionMode ? "translate-x-7" : "translate-x-1"
               }`}
             />
           </button>
         </div>
         {subscriptionMode && (
-          <div className="mt-3 flex items-center justify-between bg-white rounded-xl px-4 py-2.5">
-            <span className="text-sm text-ki-navy/70">Abonelik fiyatı</span>
+          <div className="mt-3 flex items-center justify-between bg-card rounded-xl px-4 py-2.5">
+            <span className="text-sm text-muted-foreground">Abonelik fiyatı</span>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-ki-navy/40 line-through">{selectedPkg.price.toLocaleString("tr-TR")}₺</span>
-              <span className="text-base font-bold text-ki-navy">{finalPrice.toLocaleString("tr-TR")}₺</span>
+              <span className="text-xs text-muted-foreground/70 line-through">
+                {selectedPkg.price.toLocaleString("tr-TR")}₺
+              </span>
+              <span className="text-base font-extrabold text-primary">
+                {finalPrice.toLocaleString("tr-TR")}₺
+              </span>
             </div>
           </div>
         )}
@@ -166,8 +187,8 @@ export default function PricingSection({ onAddToCart }: PricingProps) {
 
       <button
         onClick={handleAdd}
-        className={`btn-primary text-lg flex items-center justify-center gap-2 ${
-          added ? "bg-ki-green hover:bg-ki-green" : ""
+        className={`btn-primary text-base flex items-center justify-center gap-2 ${
+          added ? "!bg-sage hover:!bg-sage" : ""
         }`}
       >
         {added ? (
@@ -183,7 +204,7 @@ export default function PricingSection({ onAddToCart }: PricingProps) {
         )}
       </button>
 
-      <button className="w-full border border-ki-navy/20 rounded-2xl py-3 text-sm font-medium text-ki-navy/70 hover:bg-ki-light transition-colors">
+      <button className="w-full border border-border rounded-full py-3 text-sm font-medium text-muted-foreground hover:bg-secondary/50 transition-colors">
         Uzman Doktor &amp; Eczacılar Tarafından Geliştirildi.
       </button>
 
@@ -193,42 +214,36 @@ export default function PricingSection({ onAddToCart }: PricingProps) {
         <TrustItem icon="🌿" label="%100 Doğal" />
       </div>
 
-      <p className="text-center text-xs text-ki-navy/50 flex items-center justify-center gap-1.5">
+      <p className="text-center text-xs text-muted-foreground flex items-center justify-center gap-1.5">
         <span>🚚</span>
         Ücretsiz Kargo &amp; Hızlı Teslimat
       </p>
 
       <div className="flex items-center justify-center gap-6 pt-2">
         <div className="text-center">
-          <div className="w-10 h-10 rounded-full bg-ki-light flex items-center justify-center mx-auto">
-            <span className="text-xs font-bold text-ki-navy">FDA</span>
+          <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center mx-auto">
+            <span className="text-xs font-bold text-primary">FDA</span>
           </div>
         </div>
         <div className="text-center">
-          <div className="w-10 h-10 rounded-full bg-ki-light flex items-center justify-center mx-auto">
-            <span className="text-xs font-bold text-ki-navy">V</span>
+          <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center mx-auto">
+            <span className="text-xs font-bold text-primary">V</span>
           </div>
-          <p className="text-[10px] text-ki-navy/50 mt-1">Vegan</p>
+          <p className="text-[10px] text-muted-foreground/70 mt-1">Vegan</p>
         </div>
         <div className="text-center">
-          <div className="w-10 h-10 rounded-full bg-ki-light flex items-center justify-center mx-auto">
-            <span className="text-xs font-bold text-ki-navy">GMP</span>
+          <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center mx-auto">
+            <span className="text-xs font-bold text-primary">GMP</span>
           </div>
         </div>
       </div>
-
-      <p className="text-center text-[11px] text-ki-navy/40 leading-relaxed">
-        .Ki Magnezyum ve Hayıt İçeren Takviye Edici Gıda
-        <br />
-        Takviye Edici Gıda Onay Numarası: 024990-06.11.2025
-      </p>
     </div>
   );
 }
 
 function TrustItem({ icon, label }: { icon: string; label: string }) {
   return (
-    <div className="flex items-center gap-1.5 text-xs font-medium text-ki-navy/70">
+    <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
       <span className="text-base">{icon}</span>
       {label}
     </div>
