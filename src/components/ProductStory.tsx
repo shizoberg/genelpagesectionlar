@@ -359,30 +359,30 @@ function SachetPack({ small = false, rotate = 0 }: { small?: boolean; rotate?: n
       style={{ transform: `rotate(${rotate}deg)`, filter: "drop-shadow(0 18px 30px rgba(60,40,120,0.35))" }}
     >
       <div className="absolute inset-0 rounded-[14px] bg-gradient-to-br from-[hsl(255_45%_38%)] via-[hsl(258_55%_30%)] to-[hsl(252_50%_22%)] overflow-hidden">
-        {/* Sol & sağ dikey kenar bantları (referanstaki gibi belirgin) */}
-        <div className="absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-[hsl(258_55%_22%)] via-[hsl(258_45%_28%)] to-transparent" />
-        <div className="absolute inset-y-0 left-[18%] w-px bg-white/15" />
-        <div className="absolute inset-y-0 right-0 w-[18%] bg-gradient-to-l from-[hsl(258_55%_22%)] via-[hsl(258_45%_28%)] to-transparent" />
-        <div className="absolute inset-y-0 right-[18%] w-px bg-white/15" />
+        {/* Sol & sağ tam dikey koyu mor şeritler — köşeden köşeye düz */}
+        <div className="absolute inset-y-0 left-0 w-[16%] bg-[hsl(258_55%_22%)]" />
+        <div className="absolute inset-y-0 left-[16%] w-px bg-white/20" />
+        <div className="absolute inset-y-0 right-0 w-[16%] bg-[hsl(258_55%_22%)]" />
+        <div className="absolute inset-y-0 right-[16%] w-px bg-white/20" />
 
-        {/* Üst kapama (zigzag/kesik) */}
+        {/* Üst kapama (kesik bant) */}
         <div className="absolute top-0 left-0 right-0 h-2 bg-[hsl(255_30%_18%)]/70" />
         <div className="absolute top-2 left-0 right-0 h-[3px] bg-white/15" />
 
-        {/* "bye cramps" küçük etiket */}
-        <div className="absolute top-[10%] left-0 right-0 flex items-center justify-center gap-1">
-          <div className="h-px w-2 bg-white/35" />
-          <span className="text-[6px] sm:text-[7px] uppercase tracking-[1.2px] text-white/60 italic">
+        {/* "bye cramps" — üstte tek yazı */}
+        <div className="absolute top-[12%] left-0 right-0 flex items-center justify-center gap-1">
+          <div className="h-px w-3 bg-white/40" />
+          <span className="text-[7px] sm:text-[8px] uppercase tracking-[1.4px] text-white/75 italic">
             bye cramps
           </span>
-          <div className="h-px w-2 bg-white/35" />
+          <div className="h-px w-3 bg-white/40" />
         </div>
 
-        {/* Ortadaki simge — referanstaki yuvarlak spiral/halka */}
+        {/* Ortadaki simge */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
           <svg
             viewBox="0 0 48 48"
-            className="w-10 h-10 sm:w-12 sm:h-12 text-white/70"
+            className="w-12 h-12 sm:w-14 sm:h-14 text-white/75"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
@@ -391,20 +391,6 @@ function SachetPack({ small = false, rotate = 0 }: { small?: boolean; rotate?: n
             <circle cx="24" cy="24" r="20" />
             <path d="M24 8 a16 16 0 0 1 0 32 a10 10 0 0 1 0 -20 a6 6 0 0 0 0 -12 z" fill="currentColor" opacity="0.55" />
           </svg>
-        </div>
-
-        {/* Aktif içerik mini liste (küçük) */}
-        <div className="absolute top-[24%] left-0 right-0 px-2 text-center text-white/80">
-          <p className="text-[5px] sm:text-[6px] leading-tight font-medium tracking-wide">DONG QUAI · MAGNESIUM</p>
-          <p className="text-[5px] sm:text-[6px] leading-tight font-medium tracking-wide">VITEX AGNUS CASTUS</p>
-        </div>
-
-        {/* Aroma satırı (küçük) */}
-        <div className="absolute bottom-[14%] left-0 right-0 text-center text-white/55">
-          <p className="text-[5px] sm:text-[6px] italic">Blackberry Flavour</p>
-        </div>
-        <div className="absolute bottom-1 right-1.5 text-[5px] sm:text-[6px] text-white/50">
-          2g
         </div>
 
         {/* Parlak yansıma */}
