@@ -64,21 +64,6 @@ export default function ProductGallery() {
         </div>
       </div>
 
-      {/* Sade thumbnail'ler — gradyan kaldırıldı, tek ton */}
-      <div className="grid grid-cols-4 gap-2">
-        {slides.map((slide, i) => (
-          <button
-            key={slide.id}
-            onClick={() => setActive(i)}
-            aria-label={`${slide.label} küçük resmi`}
-            className={`aspect-square rounded-xl overflow-hidden border-2 transition-all bg-secondary flex items-center justify-center ${
-              i === active ? "border-primary" : "border-transparent opacity-70 hover:opacity-100"
-            }`}
-          >
-            <span className="text-primary/60 font-bold text-xs">.ki</span>
-          </button>
-        ))}
-      </div>
     </div>
   );
 }
