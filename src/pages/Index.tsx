@@ -18,6 +18,7 @@ import CategoriesSection from "@/components/CategoriesSection";
 
 import SocialProofToast from "@/components/SocialProofToast";
 import FeatureImageSection from "@/components/FeatureImageSection";
+import ShopBestsellers from "@/components/ShopBestsellers";
 
 const Index = () => {
   useReveal();
@@ -119,6 +120,8 @@ const Index = () => {
         eyebrow="Gerçek Denge"
         description="Eczacı onaylı, klinik dozajlı .ki Balance — her sachet'te tutarlı standart, şeffaf kaynak takibi."
       />
+
+      <ShopBestsellers />
 
       {/* Sayfa sonu — Takviye Edici Gıda onay metni */}
       <div className="border-t border-border bg-white">
