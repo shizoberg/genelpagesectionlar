@@ -12,10 +12,10 @@ export default function HowItWorksSection() {
     <section className="py-10 sm:py-12 bg-white">
       <div className="container">
         <div className="text-center mb-6 sm:mb-8">
-          <p className="k5-reveal text-[12px] sm:text-[13px] font-bold uppercase tracking-[1.5px] text-primary/60 mb-1.5">
+          <p className="k5-reveal text-[12px] sm:text-[13px] font-bold uppercase tracking-[1.5px] text-primary mb-1.5">
             Nasıl Çalışır?
           </p>
-          <h2 className="k5-reveal d1 text-2xl sm:text-3xl font-extrabold text-primary tracking-tight">
+          <h2 className="k5-reveal d1 text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
             Döngünde Kendine İyi Bak
           </h2>
         </div>
